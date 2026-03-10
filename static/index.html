@@ -774,7 +774,7 @@ function stream(alertId) {
   const es = new EventSource(`/api/run/${alertId}`);
   D.es = es;
 
-  es.addEventListener('pipeline_start', () => { document.getElementById('procLabel').textContent = 'Pipeline activated...'; });
+  es.addEventListener('pipeline_start', () => { document.getElementById('procLabel').textContent = 'Pipeline activated — awaiting first agent...'; });
 
   es.addEventListener('stage_start', e => {
     const d = JSON.parse(e.data);
@@ -795,6 +795,8 @@ function stream(alertId) {
 
   es.addEventListener('text', e => {
     const d = JSON.parse(e.data);
+    const stageLabel = D.stageLabel[d.stage] || d.stage;
+    document.getElementById('procLabel').textContent = `${stageLabel} generating response...`;
     D.rawOut[d.stage] = (D.rawOut[d.stage]||'') + d.text;
     D.out[d.stage] = renderMarkdown(D.rawOut[d.stage]);
     if (D.tab === d.stage) { const b = document.getElementById('termBody'); b.innerHTML = D.out[d.stage]; b.scrollTop = b.scrollHeight; }
@@ -802,6 +804,8 @@ function stream(alertId) {
 
   es.addEventListener('tool_call', e => {
     const d = JSON.parse(e.data);
+    const friendlyTool = d.tool.replace(/_/g, ' ');
+    document.getElementById('procLabel').textContent = `Calling ${friendlyTool}...`;
     const args = Object.entries(d.args).map(([k,v])=>`${k}="${v}"`).join(', ');
     D.rawOut[d.stage] = (D.rawOut[d.stage]||'') + `\n► ${d.tool}(${args})\n`;
     D.out[d.stage] = renderMarkdown(D.rawOut[d.stage]);
@@ -810,6 +814,8 @@ function stream(alertId) {
 
   es.addEventListener('tool_result', e => {
     const d = JSON.parse(e.data);
+    const stageLabel = D.stageLabel[d.stage] || d.stage;
+    document.getElementById('procLabel').textContent = `${stageLabel} analyzing results...`;
     D.rawOut[d.stage] = (D.rawOut[d.stage]||'') + `✓ ${d.tool} returned\n\n`;
     D.out[d.stage] = renderMarkdown(D.rawOut[d.stage]);
     if (D.tab === d.stage) { const b = document.getElementById('termBody'); b.innerHTML = D.out[d.stage]; b.scrollTop = b.scrollHeight; }
@@ -844,8 +850,8 @@ function stream(alertId) {
     }, 600);
   });
 
-  es.addEventListener('error', e => { try { const d = JSON.parse(e.data); document.getElementById('procLabel').textContent = `Error: ${d.error}`; } catch(err) {} });
-  es.onerror = () => { if (es.readyState === EventSource.CLOSED) { document.getElementById('procBar').classList.remove('on'); if (D.ti) clearInterval(D.ti); } };
+  es.addEventListener('error', e => { try { const d = JSON.parse(e.data); document.getElementById('procLabel').textContent = `Error: ${d.error}`; } catch(err) { document.getElementById('procLabel').textContent = 'Connection interrupted — retrying...'; } });
+  es.onerror = () => { if (es.readyState === EventSource.CLOSED) { document.getElementById('procLabel').textContent = 'Connection lost'; document.getElementById('procBar').classList.remove('on'); if (D.ti) clearInterval(D.ti); } };
 }
 
 function showComparison() {
