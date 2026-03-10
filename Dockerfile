@@ -2,21 +2,20 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install uv for fast dependency resolution
+# Install git (needed for git-based dependencies) and uv
+RUN apt-get update && apt-get install -y --no-install-recommends git && rm -rf /var/lib/apt/lists/*
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
 
 # Copy dependency files first for layer caching
-COPY pyproject.toml uv.lock ./
-COPY adk-fluent/ ./adk-fluent/
+COPY pyproject.toml ./
 
 # Install dependencies
-RUN uv sync --frozen --no-dev
+RUN uv sync --no-dev
 
 # Copy application code
 COPY server.py ./
 COPY network_outage_agent/ ./network_outage_agent/
 COPY static/ ./static/
-COPY .env ./
 
 EXPOSE 8080
 
