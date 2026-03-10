@@ -62,7 +62,13 @@
       </div>
     </div>
 
-    <div class="proc-bar" id="procBar"><div class="proc-spin"></div><span id="procLabel">Initializing...</span><span class="proc-elapsed" id="procElapsed">00:00</span></div>
+    <div class="proc-bar" id="procBar">
+      <div class="proc-spin"></div>
+      <span id="procLabel">Initializing...</span>
+      <span class="proc-stage-count" id="procStageCount"></span>
+      <span class="proc-elapsed" id="procElapsed">00:00</span>
+      <button class="proc-cancel" onclick="cancelPipeline()">CANCEL</button>
+    </div>
 
     <div class="comparison-bar" id="comparisonBar">
       <div class="comparison-grid">

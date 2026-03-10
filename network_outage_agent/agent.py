@@ -31,7 +31,7 @@ load_dotenv()
 # ---------------------------------------------------------------------------
 # Model tiers
 # ---------------------------------------------------------------------------
-PRO = "gemini-3.1-pro-preview"
+PRO = "gemini-3.1-flash-lite-preview"
 FLASH = "gemini-3-flash-preview"
 LITE = "gemini-3.1-flash-lite-preview"
 

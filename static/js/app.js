@@ -110,6 +110,9 @@ setInterval(tick, 1000); tick();
 
 // ═══ INITIALIZATION ═══
 async function init() {
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission();
+  }
   const r = await fetch('/api/alerts');
   D.alerts = await r.json();
   document.getElementById('alertBadge').textContent = D.alerts.length;
@@ -261,11 +264,67 @@ function updateImpact(a) {
 }
 
 // ═══ SSE STREAMING ═══
+const TOTAL_STAGES = 7; // network, resilience, impact, enterprise, vip, mass, approval
+let stagesSeen = 0;
+let thinkingTimer = null;
+const ORIGINAL_TITLE = document.title;
+
+function clearThinkingTimer() { if (thinkingTimer) { clearTimeout(thinkingTimer); thinkingTimer = null; } }
+
+function startThinkingTimer(stageLabel) {
+  clearThinkingTimer();
+  let dots = 0;
+  const baseText = `${stageLabel} reasoning`;
+  thinkingTimer = setInterval(() => {
+    dots = (dots + 1) % 4;
+    document.getElementById('procLabel').textContent = baseText + '.'.repeat(dots + 1);
+  }, 800);
+}
+
+function updateStageCount() {
+  document.getElementById('procStageCount').textContent = `${stagesSeen}/${TOTAL_STAGES}`;
+}
+
+function cancelPipeline() {
+  if (D.es) { D.es.close(); D.es = null; }
+  if (D.ti) clearInterval(D.ti);
+  clearThinkingTimer();
+  D.running = false;
+  document.getElementById('procLabel').textContent = 'Pipeline cancelled';
+  setTimeout(() => document.getElementById('procBar').classList.remove('on'), 1500);
+}
+
+function notifyComplete() {
+  // Tab title badge
+  document.title = '[✓ READY] ' + ORIGINAL_TITLE;
+  window.addEventListener('focus', () => { document.title = ORIGINAL_TITLE; }, { once: true });
+
+  // Browser notification
+  if ('Notification' in window && Notification.permission === 'granted') {
+    new Notification('NOC Command', { body: 'Outage communications ready for approval', tag: 'pipeline-done' });
+  }
+
+  // Subtle audio tone
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.frequency.value = 660; osc.type = 'sine';
+    gain.gain.setValueAtTime(0.08, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+    osc.start(); osc.stop(ctx.currentTime + 0.4);
+  } catch(e) {}
+}
+
 function stream(alertId) {
   D.running = true;
   D.t0 = Date.now();
+  stagesSeen = 0;
+  document.getElementById('procBar').classList.remove('error');
   document.getElementById('procBar').classList.add('on');
   document.getElementById('procLabel').textContent = 'Initializing pipeline...';
+  updateStageCount();
 
   D.ti = setInterval(() => {
     const s = Math.floor((Date.now() - D.t0) / 1000);
@@ -275,11 +334,17 @@ function stream(alertId) {
   const es = new EventSource(`/api/run/${alertId}`);
   D.es = es;
 
-  es.addEventListener('pipeline_start', () => { document.getElementById('procLabel').textContent = 'Pipeline activated — awaiting first agent...'; });
+  es.addEventListener('pipeline_start', () => {
+    document.getElementById('procLabel').textContent = 'Pipeline activated — awaiting first agent...';
+  });
 
   es.addEventListener('stage_start', e => {
     const d = JSON.parse(e.data);
-    document.getElementById('procLabel').textContent = `${d.label} processing...`;
+    clearThinkingTimer();
+    stagesSeen++;
+    updateStageCount();
+    const remaining = TOTAL_STAGES - stagesSeen;
+    document.getElementById('procLabel').textContent = `${d.label} processing...` + (remaining > 0 ? ` (${remaining} stages remaining)` : '');
 
     const nodeId = D.stageNode[d.stage];
     if (nodeId) { const el = document.getElementById(nodeId); if (!el.classList.contains('done')) el.classList.add('running'); }
@@ -296,6 +361,7 @@ function stream(alertId) {
 
   es.addEventListener('text', e => {
     const d = JSON.parse(e.data);
+    clearThinkingTimer();
     const stageLabel = D.stageLabel[d.stage] || d.stage;
     document.getElementById('procLabel').textContent = `${stageLabel} generating response...`;
     D.rawOut[d.stage] = (D.rawOut[d.stage]||'') + d.text;
@@ -305,6 +371,7 @@ function stream(alertId) {
 
   es.addEventListener('tool_call', e => {
     const d = JSON.parse(e.data);
+    clearThinkingTimer();
     const friendlyTool = d.tool.replace(/_/g, ' ');
     document.getElementById('procLabel').textContent = `Calling ${friendlyTool}...`;
     const args = Object.entries(d.args).map(([k,v])=>`${k}="${v}"`).join(', ');
@@ -317,6 +384,8 @@ function stream(alertId) {
     const d = JSON.parse(e.data);
     const stageLabel = D.stageLabel[d.stage] || d.stage;
     document.getElementById('procLabel').textContent = `${stageLabel} analyzing results...`;
+    // Start thinking timer — if no event arrives for 3+ seconds, show "reasoning..." animation
+    startThinkingTimer(stageLabel);
     D.rawOut[d.stage] = (D.rawOut[d.stage]||'') + `✓ ${d.tool} returned\n\n`;
     D.out[d.stage] = renderMarkdown(D.rawOut[d.stage]);
     if (D.tab === d.stage) { const b = document.getElementById('termBody'); b.innerHTML = D.out[d.stage]; b.scrollTop = b.scrollHeight; }
@@ -341,9 +410,11 @@ function stream(alertId) {
 
   es.addEventListener('done', () => {
     D.running = false;
+    clearThinkingTimer();
     document.getElementById('procBar').classList.remove('on');
     if (D.ti) clearInterval(D.ti);
     ['pw-1','pw-2','pw-3'].forEach(id => { const el = document.getElementById(id); el.classList.remove('lit'); el.classList.add('done'); });
+    notifyComplete();
 
     // Cache the completed session for this alert
     D.sessions[alertId] = { out: { ...D.out }, rawOut: { ...D.rawOut }, done: [...D.done] };
@@ -356,8 +427,8 @@ function stream(alertId) {
     }, 600);
   });
 
-  es.addEventListener('error', e => { try { const d = JSON.parse(e.data); document.getElementById('procLabel').textContent = `Error: ${d.error}`; } catch(err) { document.getElementById('procLabel').textContent = 'Connection interrupted — retrying...'; } });
-  es.onerror = () => { if (es.readyState === EventSource.CLOSED) { D.running = false; document.getElementById('procLabel').textContent = 'Connection lost'; document.getElementById('procBar').classList.remove('on'); if (D.ti) clearInterval(D.ti); } };
+  es.addEventListener('error', e => { clearThinkingTimer(); try { const d = JSON.parse(e.data); document.getElementById('procLabel').textContent = `Error: ${d.error}`; document.getElementById('procBar').classList.add('error'); } catch(err) { document.getElementById('procLabel').textContent = 'Connection interrupted — retrying...'; } });
+  es.onerror = () => { if (es.readyState === EventSource.CLOSED) { clearThinkingTimer(); D.running = false; document.getElementById('procLabel').textContent = 'Connection lost'; document.getElementById('procBar').classList.remove('on'); if (D.ti) clearInterval(D.ti); } };
 }
 
 // ═══ COMPARISON ═══
