@@ -23,6 +23,7 @@
     <div class="sla-ticker" id="slaTicker"><div class="sla-ticker-label">SLA Exposure</div><div class="sla-ticker-val" id="slaTickerVal">$0</div></div>
     <div class="h-divider"></div>
     <div class="status-chip" id="statusChip"><div class="dot"></div><span id="statusText">NOMINAL</span></div>
+    <button class="exec-brief-btn" id="execBriefBtn" onclick="openExecBrief()" style="display:none">EXEC BRIEF</button>
     <div class="clock" id="clock"></div>
   </div>
 </header>
@@ -42,7 +43,7 @@
         <div class="pipe-node" id="pn-network"><div class="pipe-icon">1</div><div class="pipe-name">NETWORK ANALYST</div></div>
         <div class="pipe-wire" id="pw-1"></div>
         <div class="pipe-parallel-bracket" id="pp-stage2">
-          <div class="pipe-parallel-label">PARALLEL ×2</div>
+          <div class="pipe-parallel-label">PARALLEL x2</div>
           <div class="pipe-parallel-row">
             <div class="pipe-mini" id="pm-resilience"><div class="pipe-mini-dot">R</div><div class="pipe-mini-name">Resilience</div></div>
             <div class="pipe-mini" id="pm-impact"><div class="pipe-mini-dot">I</div><div class="pipe-mini-name">Impact</div></div>
@@ -50,7 +51,7 @@
         </div>
         <div class="pipe-wire" id="pw-2"></div>
         <div class="pipe-parallel-bracket" id="pp-drafters">
-          <div class="pipe-parallel-label">PARALLEL ×3</div>
+          <div class="pipe-parallel-label">PARALLEL x3</div>
           <div class="pipe-parallel-row">
             <div class="pipe-mini" id="pm-ent"><div class="pipe-mini-dot">E</div><div class="pipe-mini-name">Enterprise</div></div>
             <div class="pipe-mini" id="pm-vip"><div class="pipe-mini-dot">V</div><div class="pipe-mini-name">VIP</div></div>
@@ -68,6 +69,21 @@
       <span class="proc-stage-count" id="procStageCount"></span>
       <span class="proc-elapsed" id="procElapsed">00:00</span>
       <button class="proc-cancel" onclick="cancelPipeline()">CANCEL</button>
+    </div>
+
+    <!-- Completion CTA — shown when pipeline finishes -->
+    <div class="cta-bar" id="ctaBar">
+      <div class="cta-left">
+        <div class="cta-icon">✓</div>
+        <div class="cta-text">
+          <div class="cta-title">Analysis Complete</div>
+          <div class="cta-sub" id="ctaSub">7 agents completed in —</div>
+        </div>
+      </div>
+      <div class="cta-actions">
+        <button class="btn btn-outline" onclick="openExecBrief()">EXEC BRIEF</button>
+        <button class="btn btn-go" onclick="openApproval()">REVIEW & APPROVE</button>
+      </div>
     </div>
 
     <div class="comparison-bar" id="comparisonBar">
@@ -123,18 +139,68 @@
   </div>
 </div>
 
-<!-- Approval Modal -->
+<!-- Approval Modal (Rich) -->
 <div class="modal-bg" id="modalBg">
-  <div class="modal">
+  <div class="modal modal-approval">
     <div class="modal-head">
       <div class="modal-icon">✓</div>
-      <div><h3>COMMUNICATIONS READY</h3><p>All outage notifications drafted and pending approval</p></div>
+      <div class="modal-head-text">
+        <h3>COMMUNICATIONS READY</h3>
+        <p>All outage notifications drafted and pending approval</p>
+      </div>
+      <div class="modal-head-stats">
+        <div class="mh-stat"><span class="mh-stat-val" id="modalApproved">0</span><span class="mh-stat-label">Approved</span></div>
+        <div class="mh-stat"><span class="mh-stat-val" id="modalTotal">0</span><span class="mh-stat-label">Total</span></div>
+      </div>
     </div>
-    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-tabs">
+      <button class="modal-tab active" onclick="switchModalTab('comms', this)">Communications Queue</button>
+      <button class="modal-tab" onclick="switchModalTab('brief', this)">Executive Brief</button>
+      <button class="modal-tab" onclick="switchModalTab('raw', this)">Raw Output</button>
+    </div>
+    <div class="modal-body" id="modalBody">
+      <div class="modal-pane active" id="modalPaneComms"></div>
+      <div class="modal-pane" id="modalPaneBrief"></div>
+      <div class="modal-pane" id="modalPaneRaw"></div>
+    </div>
     <div class="modal-foot">
       <button class="btn btn-ghost" onclick="closeModal()">DISMISS</button>
-      <button class="btn btn-ghost" onclick="closeModal()">MODIFY</button>
-      <button class="btn btn-go" onclick="approve()">APPROVE & SEND ALL</button>
+      <div class="modal-foot-right">
+        <span class="approval-counter" id="approvalCounter">0 / 0 approved</span>
+        <button class="btn btn-go" id="approveAllBtn" onclick="approve()">APPROVE & SEND ALL</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Executive Brief Modal -->
+<div class="modal-bg" id="execBg">
+  <div class="modal modal-exec">
+    <div class="modal-head exec-head">
+      <div class="modal-icon exec-icon">E</div>
+      <div class="modal-head-text">
+        <h3>EXECUTIVE BRIEF</h3>
+        <p>Incident impact summary for leadership review</p>
+      </div>
+      <button class="modal-close" onclick="closeExecBrief()">&times;</button>
+    </div>
+    <div class="modal-body exec-body" id="execBody"></div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" onclick="closeExecBrief()">CLOSE</button>
+      <button class="btn btn-outline" onclick="copyExecBrief()">COPY TO CLIPBOARD</button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Dialog (replaces browser confirm) -->
+<div class="confirm-bg" id="confirmBg">
+  <div class="confirm-dialog">
+    <div class="confirm-icon" id="confirmIcon">!</div>
+    <div class="confirm-title" id="confirmTitle">Switch Alert?</div>
+    <div class="confirm-msg" id="confirmMsg"></div>
+    <div class="confirm-actions">
+      <button class="btn btn-ghost" id="confirmCancel">CANCEL</button>
+      <button class="btn btn-danger" id="confirmOk">CONFIRM</button>
     </div>
   </div>
 </div>

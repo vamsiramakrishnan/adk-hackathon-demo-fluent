@@ -95,8 +95,9 @@ function showDissemination() {
 // ═══ STATE ═══
 const D = {
   alerts: [], sel: null, es: null, out: {}, rawOut: {}, tab: null, t0: null, ti: null, done: new Set(),
-  sessions: {},  // Cache: alertId -> { out, rawOut, done, completed }
-  running: false,  // Is a pipeline currently running?
+  sessions: {},
+  running: false,
+  commStates: {},  // Per-communication approval state: { id: 'approved'|'rejected'|null }
   stageNode: { network_analysis: 'pn-network', approval: 'pn-approval' },
   stageMini: { resilience_check: 'pm-resilience', customer_impact: 'pm-impact', enterprise_comms: 'pm-ent', vip_comms: 'pm-vip', mass_comms: 'pm-mass' },
   stageParallel: { resilience_check: 'pp-stage2', customer_impact: 'pp-stage2', enterprise_comms: 'pp-drafters', vip_comms: 'pp-drafters', mass_comms: 'pp-drafters' },
@@ -136,9 +137,33 @@ function renderFeed() {
     return `<div class="acard sev-${sc} ${act}" onclick="pick('${a.alert_id}')">
       <div class="acard-row1"><span class="sev-tag ${sc}">${a.severity}</span><span class="acard-type">${a.alert_type.replace(/_/g,' ')}</span>${cached}<span class="acard-time">${t}</span></div>
       <div class="acard-title">${a.title}</div>
-      <div class="acard-footer"><span>~${a.estimated_customers_affected.toLocaleString()} affected</span><span>${a.escalation_level}</span></div>
+      <div class="acard-footer"><span class="acard-customers">~${a.estimated_customers_affected.toLocaleString()} affected</span><span>${a.escalation_level}</span></div>
     </div>`;
   }).join('');
+}
+
+// ═══ CUSTOM CONFIRM DIALOG ═══
+function showConfirm(title, message, onConfirm) {
+  document.getElementById('confirmTitle').textContent = title;
+  document.getElementById('confirmMsg').innerHTML = message;
+  document.getElementById('confirmBg').classList.add('on');
+
+  const cancelBtn = document.getElementById('confirmCancel');
+  const okBtn = document.getElementById('confirmOk');
+
+  // Clone to remove old listeners
+  const newCancel = cancelBtn.cloneNode(true);
+  const newOk = okBtn.cloneNode(true);
+  cancelBtn.parentNode.replaceChild(newCancel, cancelBtn);
+  okBtn.parentNode.replaceChild(newOk, okBtn);
+
+  newCancel.addEventListener('click', () => {
+    document.getElementById('confirmBg').classList.remove('on');
+  });
+  newOk.addEventListener('click', () => {
+    document.getElementById('confirmBg').classList.remove('on');
+    onConfirm();
+  });
 }
 
 // ═══ ALERT SELECTION ═══
@@ -146,19 +171,23 @@ async function pick(id) {
   const a = D.alerts.find(x => x.alert_id === id);
   if (!a) return;
 
-  // If clicking the already-selected alert, do nothing
   if (D.sel?.alert_id === id) return;
 
-  // Check for cached session (previously completed pipeline)
+  // Check for cached session
   if (D.sessions[id]) {
     switchToAlert(a);
     restoreSession(id);
     return;
   }
 
-  // Confirm before running pipeline (expensive operation)
+  // Confirm before aborting running pipeline
   if (D.running) {
-    if (!confirm(`Pipeline is running for "${D.sel.title}".\n\nAbort and analyze "${a.title}" instead?`)) return;
+    showConfirm(
+      'Abort Pipeline?',
+      `A pipeline is currently running for <strong>${D.sel.title}</strong>.<br><br>Abort and analyze <strong>${a.title}</strong> instead?`,
+      () => { switchToAlert(a); startSlaTicker(a); stream(id); }
+    );
+    return;
   }
 
   switchToAlert(a);
@@ -167,7 +196,6 @@ async function pick(id) {
 }
 
 function switchToAlert(a) {
-  // Stop any running pipeline
   if (D.es) { D.es.close(); D.es = null; }
   if (D.ti) clearInterval(D.ti);
   stopSlaTicker();
@@ -191,9 +219,11 @@ function switchToAlert(a) {
   document.getElementById('approvedBar').classList.remove('on');
   document.getElementById('pipeStatusList').innerHTML = '';
   document.getElementById('comparisonBar').classList.remove('on');
+  document.getElementById('ctaBar').classList.remove('on');
   document.getElementById('disseminationContainer').classList.remove('on');
   document.getElementById('disseminationContainer').innerHTML = '';
   document.getElementById('disseminationProgress').classList.remove('on');
+  document.getElementById('execBriefBtn').style.display = 'none';
 
   const stv = document.getElementById('slaTickerVal');
   stv.style.animation = ''; stv.style.color = '';
@@ -209,28 +239,25 @@ function restoreSession(alertId) {
   D.rawOut = { ...s.rawOut };
   D.done = new Set(s.done);
 
-  // Rebuild tabs and show all completed output
   Object.keys(D.out).forEach(stage => {
     const label = D.stageLabel[stage] || stage;
     addTab(stage, label);
     setPipeStatus(stage, 'done');
-
     const nodeId = D.stageNode[stage];
     if (nodeId) { document.getElementById(nodeId).classList.add('done'); }
     const miniId = D.stageMini[stage];
     if (miniId) { document.getElementById(miniId).classList.add('done'); }
   });
 
-  // Mark parallel brackets as done
   if (D.done.has('resilience_check') && D.done.has('customer_impact')) { document.getElementById('pp-stage2').classList.add('done'); }
   if (D.done.has('enterprise_comms') && D.done.has('vip_comms') && D.done.has('mass_comms')) { document.getElementById('pp-drafters').classList.add('done'); }
   ['pw-1','pw-2','pw-3'].forEach(id => document.getElementById(id).classList.add('done'));
 
-  // Show first tab
   const firstStage = Object.keys(D.out)[0];
   if (firstStage) showTab(firstStage);
 
   showComparison();
+  showCtaBar();
 }
 
 // ═══ IMPACT PANEL UPDATE ═══
@@ -264,7 +291,7 @@ function updateImpact(a) {
 }
 
 // ═══ SSE STREAMING ═══
-const TOTAL_STAGES = 7; // network, resilience, impact, enterprise, vip, mass, approval
+const TOTAL_STAGES = 7;
 let stagesSeen = 0;
 let thinkingTimer = null;
 const ORIGINAL_TITLE = document.title;
@@ -295,16 +322,11 @@ function cancelPipeline() {
 }
 
 function notifyComplete() {
-  // Tab title badge
   document.title = '[✓ READY] ' + ORIGINAL_TITLE;
   window.addEventListener('focus', () => { document.title = ORIGINAL_TITLE; }, { once: true });
-
-  // Browser notification
   if ('Notification' in window && Notification.permission === 'granted') {
     new Notification('NOC Command', { body: 'Outage communications ready for approval', tag: 'pipeline-done' });
   }
-
-  // Subtle audio tone
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
     const osc = ctx.createOscillator();
@@ -317,6 +339,14 @@ function notifyComplete() {
   } catch(e) {}
 }
 
+function showCtaBar() {
+  const elapsed = D.t0 ? Math.floor((Date.now() - D.t0) / 1000) : 0;
+  const elapsedStr = elapsed < 60 ? `${elapsed}s` : `${Math.floor(elapsed/60)}m ${elapsed%60}s`;
+  document.getElementById('ctaSub').textContent = `7 agents completed in ${elapsedStr}`;
+  document.getElementById('ctaBar').classList.add('on');
+  document.getElementById('execBriefBtn').style.display = '';
+}
+
 function stream(alertId) {
   D.running = true;
   D.t0 = Date.now();
@@ -324,6 +354,7 @@ function stream(alertId) {
   document.getElementById('procBar').classList.remove('error');
   document.getElementById('procBar').classList.add('on');
   document.getElementById('procLabel').textContent = 'Initializing pipeline...';
+  document.getElementById('ctaBar').classList.remove('on');
   updateStageCount();
 
   D.ti = setInterval(() => {
@@ -384,7 +415,6 @@ function stream(alertId) {
     const d = JSON.parse(e.data);
     const stageLabel = D.stageLabel[d.stage] || d.stage;
     document.getElementById('procLabel').textContent = `${stageLabel} analyzing results...`;
-    // Start thinking timer — if no event arrives for 3+ seconds, show "reasoning..." animation
     startThinkingTimer(stageLabel);
     D.rawOut[d.stage] = (D.rawOut[d.stage]||'') + `✓ ${d.tool} returned\n\n`;
     D.out[d.stage] = renderMarkdown(D.rawOut[d.stage]);
@@ -416,15 +446,14 @@ function stream(alertId) {
     ['pw-1','pw-2','pw-3'].forEach(id => { const el = document.getElementById(id); el.classList.remove('lit'); el.classList.add('done'); });
     notifyComplete();
 
-    // Cache the completed session for this alert
     D.sessions[alertId] = { out: { ...D.out }, rawOut: { ...D.rawOut }, done: [...D.done] };
+    renderFeed();
 
     showComparison();
-    setTimeout(() => {
-      const approvalContent = D.rawOut['approval'] || 'Pipeline complete. Review drafted communications.';
-      document.getElementById('modalBody').innerHTML = `<div class="modal-body-text">${renderMarkdown(approvalContent)}</div>`;
-      document.getElementById('modalBg').classList.add('on');
-    }, 600);
+    showCtaBar();
+
+    // Auto-open approval modal after a brief pause
+    setTimeout(() => openApproval(), 800);
   });
 
   es.addEventListener('error', e => { clearThinkingTimer(); try { const d = JSON.parse(e.data); document.getElementById('procLabel').textContent = `Error: ${d.error}`; document.getElementById('procBar').classList.add('error'); } catch(err) { document.getElementById('procLabel').textContent = 'Connection interrupted — retrying...'; } });
@@ -479,7 +508,211 @@ function setPipeStatus(stage, status) {
   row.innerHTML = `<div class="ps-dot ${status}"></div><span class="ps-label">${D.stageLabel[stage]||stage}</span><span class="ps-status ${status}">${status.toUpperCase()}</span>`;
 }
 
-// ═══ MODAL & APPROVAL ═══
+// ═══ COMMUNICATION CARD PARSING ═══
+// Extracts individual communications from agent output for per-message approval
+function parseCommCards() {
+  const cards = [];
+  let id = 0;
+
+  // Enterprise communications
+  const entRaw = D.rawOut['enterprise_comms'] || '';
+  if (entRaw) {
+    // Split by subject lines or numbered items
+    const entBlocks = splitCommBlocks(entRaw, 'enterprise');
+    entBlocks.forEach(block => {
+      cards.push({
+        id: id++, type: 'enterprise', severity: 'critical',
+        recipient: block.recipient || 'Enterprise Account',
+        channel: block.channel || 'EMAIL',
+        meta: block.meta || 'Priority: Critical',
+        preview: block.text,
+        state: null
+      });
+    });
+  }
+
+  // VIP communications
+  const vipRaw = D.rawOut['vip_comms'] || '';
+  if (vipRaw) {
+    const vipBlocks = splitCommBlocks(vipRaw, 'vip');
+    vipBlocks.forEach(block => {
+      cards.push({
+        id: id++, type: 'vip', severity: 'high',
+        recipient: block.recipient || 'VIP Customer',
+        channel: block.channel || 'SMS + EMAIL',
+        meta: block.meta || 'Priority: High',
+        preview: block.text,
+        state: null
+      });
+    });
+  }
+
+  // Mass communications
+  const massRaw = D.rawOut['mass_comms'] || '';
+  if (massRaw) {
+    const massBlocks = splitCommBlocks(massRaw, 'mass');
+    massBlocks.forEach(block => {
+      cards.push({
+        id: id++, type: 'mass', severity: 'mass',
+        recipient: block.recipient || 'Mass Notification',
+        channel: block.channel || 'MULTI-CHANNEL',
+        meta: block.meta || 'Priority: Standard',
+        preview: block.text,
+        state: null
+      });
+    });
+  }
+
+  // If no blocks could be parsed, create one card per stage
+  if (cards.length === 0) {
+    if (entRaw) cards.push({ id: id++, type: 'enterprise', severity: 'critical', recipient: 'Enterprise Communications', channel: 'EMAIL', meta: 'All enterprise accounts', preview: entRaw, state: null });
+    if (vipRaw) cards.push({ id: id++, type: 'vip', severity: 'high', recipient: 'VIP Communications', channel: 'SMS + EMAIL', meta: 'All VIP customers', preview: vipRaw, state: null });
+    if (massRaw) cards.push({ id: id++, type: 'mass', severity: 'mass', recipient: 'Mass Notifications', channel: 'MULTI-CHANNEL', meta: 'All affected subscribers', preview: massRaw, state: null });
+  }
+
+  return cards;
+}
+
+function splitCommBlocks(raw, type) {
+  const blocks = [];
+  // Try to split by numbered communications or subject lines
+  const sections = raw.split(/(?=(?:\d+\.\s*\*\*|#{1,3}\s+|SUBJECT|Subject|To:|TO:))/);
+
+  if (sections.length <= 1) {
+    // Can't split — return as single block
+    const recipient = extractRecipient(raw, type);
+    const channel = extractChannel(raw);
+    blocks.push({ recipient, channel, meta: `Type: ${type}`, text: raw });
+    return blocks;
+  }
+
+  sections.forEach(section => {
+    const trimmed = section.trim();
+    if (trimmed.length < 20) return;
+    const recipient = extractRecipient(trimmed, type);
+    const channel = extractChannel(trimmed);
+    blocks.push({ recipient, channel, meta: `Type: ${type}`, text: trimmed });
+  });
+
+  return blocks.length > 0 ? blocks : [{ recipient: extractRecipient(raw, type), channel: extractChannel(raw), meta: `Type: ${type}`, text: raw }];
+}
+
+function extractRecipient(text, type) {
+  // Try to find a name or account reference
+  const nameMatch = text.match(/(?:Dear|To:|Account:|for)\s+([A-Z][A-Za-z\s&.'-]{2,30})/);
+  if (nameMatch) return nameMatch[1].trim();
+
+  const subjectMatch = text.match(/(?:SUBJECT|Subject)[:\s]+(.{5,50})/);
+  if (subjectMatch) return subjectMatch[1].trim();
+
+  const labels = { enterprise: 'Enterprise Account', vip: 'VIP Customer', mass: 'Mass Notification' };
+  return labels[type] || 'Communication';
+}
+
+function extractChannel(text) {
+  const lower = text.toLowerCase();
+  if (lower.includes('sms') && lower.includes('email')) return 'SMS + EMAIL';
+  if (lower.includes('sms')) return 'SMS';
+  if (lower.includes('push')) return 'PUSH';
+  if (lower.includes('status page')) return 'STATUS PAGE';
+  return 'EMAIL';
+}
+
+// ═══ RICH APPROVAL MODAL ═══
+function openApproval() {
+  const cards = parseCommCards();
+  D.commStates = {};
+  cards.forEach(c => { D.commStates[c.id] = null; });
+
+  // Comms pane
+  const commsHtml = cards.map(c => {
+    const sevClass = `sev-${c.severity}`;
+    const dotClass = c.severity === 'critical' ? 'critical' : c.severity === 'high' ? 'high' : c.severity === 'medium' ? 'medium' : 'mass';
+    return `<div class="comm-card ${sevClass}" id="cc-${c.id}" data-id="${c.id}">
+      <div class="comm-card-head" onclick="toggleCommCard(${c.id})">
+        <div class="comm-sev-dot ${dotClass}"></div>
+        <div class="comm-card-info">
+          <div class="comm-card-recipient">${escHtml(c.recipient)}</div>
+          <div class="comm-card-meta"><span>${escHtml(c.meta)}</span></div>
+        </div>
+        <div class="comm-card-channel">${escHtml(c.channel)}</div>
+        <div class="comm-card-actions">
+          <div class="comm-action approve-one" onclick="event.stopPropagation(); approveComm(${c.id})" title="Approve">✓</div>
+          <div class="comm-action reject-one" onclick="event.stopPropagation(); rejectComm(${c.id})" title="Reject">✕</div>
+        </div>
+        <div class="comm-chevron">▼</div>
+      </div>
+      <div class="comm-card-body">
+        <div class="comm-preview">${escHtml(c.preview)}</div>
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('modalPaneComms').innerHTML = commsHtml;
+  document.getElementById('modalTotal').textContent = cards.length;
+  document.getElementById('modalApproved').textContent = '0';
+  updateApprovalCounter();
+
+  // Brief pane
+  document.getElementById('modalPaneBrief').innerHTML = buildExecBriefHtml();
+
+  // Raw pane
+  const approvalContent = D.rawOut['approval'] || 'Pipeline complete. Review drafted communications.';
+  document.getElementById('modalPaneRaw').innerHTML = `<div class="modal-body-text">${renderMarkdown(approvalContent)}</div>`;
+
+  // Reset tabs to first
+  switchModalTab('comms', document.querySelector('.modal-tab'));
+
+  document.getElementById('modalBg').classList.add('on');
+}
+
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function toggleCommCard(id) {
+  const el = document.getElementById(`cc-${id}`);
+  el.classList.toggle('expanded');
+}
+
+function approveComm(id) {
+  D.commStates[id] = 'approved';
+  const el = document.getElementById(`cc-${id}`);
+  el.classList.add('approved');
+  el.classList.remove('rejected');
+  const actions = el.querySelectorAll('.comm-action');
+  actions[0].classList.add('approved');
+  actions[1].classList.remove('rejected');
+  updateApprovalCounter();
+}
+
+function rejectComm(id) {
+  D.commStates[id] = 'rejected';
+  const el = document.getElementById(`cc-${id}`);
+  el.classList.add('rejected');
+  el.classList.remove('approved');
+  const actions = el.querySelectorAll('.comm-action');
+  actions[0].classList.remove('approved');
+  actions[1].classList.add('rejected');
+  updateApprovalCounter();
+}
+
+function updateApprovalCounter() {
+  const total = Object.keys(D.commStates).length;
+  const approved = Object.values(D.commStates).filter(s => s === 'approved').length;
+  document.getElementById('modalApproved').textContent = approved;
+  document.getElementById('modalTotal').textContent = total;
+  document.getElementById('approvalCounter').textContent = `${approved} / ${total} approved`;
+}
+
+function switchModalTab(pane, btn) {
+  document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.modal-pane').forEach(p => p.classList.remove('active'));
+  const paneId = pane === 'comms' ? 'modalPaneComms' : pane === 'brief' ? 'modalPaneBrief' : 'modalPaneRaw';
+  document.getElementById(paneId).classList.add('active');
+}
+
 function closeModal() { document.getElementById('modalBg').classList.remove('on'); }
 
 function approve() {
@@ -490,8 +723,140 @@ function approve() {
   document.getElementById('iSla').style.color = 'var(--green)';
   document.getElementById('iSla').style.textShadow = '';
   document.getElementById('approvedBar').classList.add('on');
+  document.getElementById('ctaBar').classList.remove('on');
   ['pn-network','pn-approval'].forEach(id => { const el = document.getElementById(id); el.classList.remove('running'); el.classList.add('done'); });
   setTimeout(() => showDissemination(), 600);
+}
+
+// ═══ EXECUTIVE BRIEF ═══
+function buildExecBriefHtml() {
+  const a = D.sel;
+  if (!a) return '<p style="color:var(--text-ghost)">No alert selected</p>';
+
+  const customers = a.estimated_customers_affected;
+  const isCrit = a.severity === 'CRITICAL';
+  const callRate = isCrit ? 0.15 : 0.08;
+  const reduction = isCrit ? 0.40 : 0.50;
+  const callsBefore = Math.floor(customers * callRate);
+  const callsAfter = Math.floor(callsBefore * (1 - reduction));
+  const costBefore = Math.floor(callsBefore * (isCrit ? 6 : 4) / 60 * 45);
+  const costAfter = Math.floor(callsAfter * (isCrit ? 6 : 4) / 60 * 45);
+  const costSaved = costBefore - costAfter;
+  const elapsed = D.t0 ? Math.floor((Date.now() - D.t0) / 1000) : 0;
+  const elapsedStr = elapsed < 60 ? `${elapsed}s` : `${Math.floor(elapsed/60)}m ${elapsed%60}s`;
+  const slaStr = '$' + Math.floor(slaExposure).toLocaleString();
+  const churnRisk = isCrit ? '2.4%' : '1.1%';
+  const churnReduced = isCrit ? '0.3%' : '0.2%';
+
+  return `
+    <div class="exec-metrics">
+      <div class="exec-metric highlight">
+        <div class="exec-metric-val">${customers.toLocaleString()}</div>
+        <div class="exec-metric-label">Customers Affected</div>
+      </div>
+      <div class="exec-metric highlight">
+        <div class="exec-metric-val">${slaStr}</div>
+        <div class="exec-metric-label">SLA Exposure</div>
+      </div>
+      <div class="exec-metric">
+        <div class="exec-metric-val">$${costSaved.toLocaleString()}</div>
+        <div class="exec-metric-label">Call Center Savings</div>
+      </div>
+      <div class="exec-metric">
+        <div class="exec-metric-val">${elapsedStr}</div>
+        <div class="exec-metric-label">Response Time</div>
+      </div>
+    </div>
+
+    <div class="exec-section">
+      <div class="exec-section-title">Incident Summary</div>
+      <div class="exec-section-body">
+        <strong>${a.title}</strong> — A <strong>${a.severity.toLowerCase()}</strong> ${a.alert_type.replace(/_/g, ' ').toLowerCase()} incident
+        affecting approximately <strong>${customers.toLocaleString()} customers</strong> across
+        ${(a.affected_zones||[]).length} network zones. Escalation level: <strong>${a.escalation_level}</strong>.
+        Preliminary estimated time to resolution: <strong>${a.preliminary_etr}</strong>.
+      </div>
+    </div>
+
+    <div class="exec-section">
+      <div class="exec-section-title">Business Risk Assessment</div>
+      <div class="exec-risk-grid">
+        <div class="exec-risk-item ${isCrit ? 'high' : 'medium'}">
+          <div class="exec-risk-label">SLA Breach Risk</div>
+          <div class="exec-risk-val">${isCrit ? 'HIGH' : 'MODERATE'}</div>
+        </div>
+        <div class="exec-risk-item ${isCrit ? 'high' : 'medium'}">
+          <div class="exec-risk-label">Churn Risk (Without Action)</div>
+          <div class="exec-risk-val">+${churnRisk}</div>
+        </div>
+        <div class="exec-risk-item low">
+          <div class="exec-risk-label">Churn Risk (With NOC Command)</div>
+          <div class="exec-risk-val">-${churnReduced}</div>
+        </div>
+        <div class="exec-risk-item low">
+          <div class="exec-risk-label">Call Volume Reduction</div>
+          <div class="exec-risk-val">${Math.round(reduction * 100)}%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exec-section">
+      <div class="exec-section-title">Cost Impact</div>
+      <div class="exec-section-body">
+        Without proactive communication, projected inbound call volume is <strong>${callsBefore.toLocaleString()} calls</strong>
+        at an estimated cost of <strong>$${costBefore.toLocaleString()}</strong>.
+        With NOC Command proactive outreach, call volume reduces to <strong>${callsAfter.toLocaleString()} calls</strong>,
+        saving <strong>$${costSaved.toLocaleString()}</strong> in call center costs alone.
+        Response time was <strong>${elapsedStr}</strong> vs. industry average of <strong>45-90 minutes</strong>.
+      </div>
+    </div>
+
+    <div class="exec-section">
+      <div class="exec-section-title">Response Timeline</div>
+      <div class="exec-timeline">
+        <div class="exec-tl-item done"><div class="exec-tl-time">${elapsedStr}</div><div class="exec-tl-label">AI Analysis</div></div>
+        <div class="exec-tl-item active"><div class="exec-tl-time">NOW</div><div class="exec-tl-label">Pending Approval</div></div>
+        <div class="exec-tl-item"><div class="exec-tl-time">+2 min</div><div class="exec-tl-label">Notifications Sent</div></div>
+        <div class="exec-tl-item"><div class="exec-tl-time">${a.preliminary_etr || 'TBD'}</div><div class="exec-tl-label">Resolution</div></div>
+      </div>
+    </div>
+  `;
+}
+
+function openExecBrief() {
+  document.getElementById('execBody').innerHTML = buildExecBriefHtml();
+  document.getElementById('execBg').classList.add('on');
+}
+
+function closeExecBrief() {
+  document.getElementById('execBg').classList.remove('on');
+}
+
+function copyExecBrief() {
+  const a = D.sel;
+  if (!a) return;
+  const customers = a.estimated_customers_affected;
+  const isCrit = a.severity === 'CRITICAL';
+  const elapsed = D.t0 ? Math.floor((Date.now() - D.t0) / 1000) : 0;
+  const elapsedStr = elapsed < 60 ? `${elapsed}s` : `${Math.floor(elapsed/60)}m ${elapsed%60}s`;
+
+  const text = [
+    `EXECUTIVE BRIEF — ${a.title}`,
+    `Severity: ${a.severity} | Escalation: ${a.escalation_level}`,
+    `Customers Affected: ${customers.toLocaleString()}`,
+    `SLA Exposure: $${Math.floor(slaExposure).toLocaleString()}`,
+    `Response Time: ${elapsedStr} (vs 45-90 min industry avg)`,
+    `ETR: ${a.preliminary_etr}`,
+    ``,
+    `Proactive communication drafted and pending approval.`,
+  ].join('\n');
+
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.modal-exec .btn-outline');
+    const orig = btn.textContent;
+    btn.textContent = 'COPIED!';
+    setTimeout(() => { btn.textContent = orig; }, 1500);
+  });
 }
 
 // ═══ START ═══
