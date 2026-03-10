@@ -50,11 +50,11 @@ Alert ─→ Network Analyst ─→ Customer Impact Analyst ─→ ├─ VIP Re
 | Agent | Model | What it does |
 |-------|-------|--------------|
 | **Network Analyst** | `gemini-3.1-pro-preview` | Parses raw alerts, identifies root cause, blast radius, affected zones, and ETR |
-| **Customer Impact Analyst** | `gemini-3.1-flash-preview` | Cross-references affected zones with customer DB; stratifies by tier (life-safety, enterprise, VIP, residential) |
+| **Customer Impact Analyst** | `gemini-3-flash-preview` | Cross-references affected zones with customer DB; stratifies by tier (life-safety, enterprise, VIP, residential) |
 | **Enterprise Comm Drafter** | `gemini-3.1-pro-preview` | Formal, SLA-aware notifications for enterprise and government accounts |
-| **VIP Residential Drafter** | `gemini-3.1-flash-preview` | Warm, empathetic SMS + email for VIP residential customers |
+| **VIP Residential Drafter** | `gemini-3-flash-preview` | Warm, empathetic SMS + email for VIP residential customers |
 | **Mass Notification Drafter** | `gemini-3.1-flash-lite` | SMS blasts, push notifications, status page updates for general subscribers |
-| **Approval Summarizer** | `gemini-3.1-flash-preview` | Consolidates everything into an executive approval dashboard for one-click send |
+| **Approval Summarizer** | `gemini-3-flash-preview` | Consolidates everything into an executive approval dashboard for one-click send |
 
 ### Built with adk-fluent
 
@@ -215,7 +215,7 @@ Models are set in `network_outage_agent/agent.py`:
 
 ```python
 PRO   = "gemini-3.1-pro-preview"      # Network Analyst, Enterprise Drafter
-FLASH = "gemini-3.1-flash-preview"     # Customer Impact, VIP Drafter, Approval
+FLASH = "gemini-3-flash-preview"     # Customer Impact, VIP Drafter, Approval
 LITE  = "gemini-3.1-flash-lite"        # Mass Notification Drafter
 ```
 
@@ -448,7 +448,7 @@ For Vertex AI: run `gcloud auth application-default login` and ensure your proje
 
 ### `400 Model not found` or model errors
 
-The agents use `gemini-3.1-pro-preview`, `gemini-3.1-flash-preview`, and `gemini-3.1-flash-lite`. Ensure these models are available in your region. You can change model names in `network_outage_agent/agent.py`.
+The agents use `gemini-3.1-pro-preview`, `gemini-3-flash-preview`, and `gemini-3.1-flash-lite`. Ensure these models are available in your region. You can change model names in `network_outage_agent/agent.py`.
 
 ### Port already in use
 
