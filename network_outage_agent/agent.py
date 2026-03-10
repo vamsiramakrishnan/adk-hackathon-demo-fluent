@@ -32,8 +32,8 @@ load_dotenv()
 # Model tiers
 # ---------------------------------------------------------------------------
 PRO = "gemini-3.1-pro-preview"
-FLASH = "gemini-2.0-flash"
-LITE = "gemini-2.0-flash"
+FLASH = "gemini-3-flash-preview"
+LITE = "gemini-3.1-flash-lite-preview"
 
 # ---------------------------------------------------------------------------
 # Agent 1: Network Analyst
