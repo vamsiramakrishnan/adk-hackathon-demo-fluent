@@ -1,0 +1,15 @@
+[project]
+name = "adk-hackathon-demo-fluent"
+version = "0.1.0"
+description = "Proactive Network Outage Communication Agent — a multi-agent system built with Google ADK and adk-fluent"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "adk-fluent",
+    "python-dotenv>=1.0.0",
+    "sse-starlette>=3.3.2",
+    "uvicorn>=0.41.0",
+]
+
+[tool.uv.sources]
+adk-fluent = { git = "https://github.com/vamsiramakrishnan/adk-fluent.git" }

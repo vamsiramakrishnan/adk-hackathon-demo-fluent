@@ -1,0 +1,815 @@
+[
+  {
+    "alert_id": "ALT-2026-03-10-4150",
+    "timestamp": "2026-03-10T19:32:00+00:00",
+    "severity": "MAJOR",
+    "source_system": "NOC-PRIME-MONITOR-v4.2",
+    "alert_type": "FIBER_CUT",
+    "title": "Fiber Break Detected \u2014 Trunk Line South Metro Segment 42",
+    "description": "Vehicle collision with aerial fiber cable at pole #7924. Complete strand separation confirmed by OTDR. South Metro ring protection activated on 3 of 6 nodes.",
+    "affected_infrastructure": {
+      "nodes_down": [
+        "SM-OLT-4475",
+        "SM-OLT-4454"
+      ],
+      "cell_towers_affected": [
+        "TWR-SM-107",
+        "TWR-SM-123"
+      ],
+      "distribution_hubs": [
+        "DHUB-SM-01"
+      ],
+      "exchanges_impacted": [
+        "EX-SM-MAIN"
+      ]
+    },
+    "affected_zones": [
+      "ZONE-SM-B",
+      "ZONE-SM-A"
+    ],
+    "services_impacted": [
+      "MOBILE_VOICE",
+      "CLOUD_CONNECT",
+      "COLOCATION"
+    ],
+    "redundancy_status": "FAILOVER_DEGRADED \u2014 Backup path active but severely congested. QoS policies shedding best-effort traffic.",
+    "estimated_customers_affected": 39837,
+    "preliminary_etr": "3-4 hours",
+    "field_dispatch": {
+      "crew_id": "FC-SM-DELTA",
+      "eta_to_site": "96 minutes",
+      "status": "DIAGNOSING"
+    },
+    "escalation_level": "P1-SEV1",
+    "related_alerts": [
+      {
+        "alert_id": "ALT-2026-03-10-0001",
+        "type": "ALARM_FLOOD",
+        "description": "NOC receiving 20+ alarms/min from South Metro \u2014 auto-correlation active"
+      }
+    ]
+  },
+  {
+    "alert_id": "ALT-2026-03-10-6310",
+    "timestamp": "2026-03-10T12:10:00+00:00",
+    "severity": "MAJOR",
+    "source_system": "NOC-PRIME-MONITOR-v4.2",
+    "alert_type": "POWER_OUTAGE",
+    "title": "Generator Failure \u2014 Data Center Critical Site",
+    "description": "Complete power loss at Data Center exchange building (DC-EX-MAIN). UPS holding load \u2014 3h runtime. Diesel generator failed to auto-start \u2014 manual start procedure initiated.",
+    "affected_infrastructure": {
+      "nodes_down": [
+        "DC-OLT-4434",
+        "DC-OLT-4481",
+        "DC-OLT-4488",
+        "DC-OLT-4471",
+        "DC-OLT-4428"
+      ],
+      "cell_towers_affected": [
+        "TWR-DC-183",
+        "TWR-DC-296",
+        "TWR-DC-298",
+        "TWR-DC-114",
+        "TWR-DC-158",
+        "TWR-DC-108",
+        "TWR-DC-180"
+      ],
+      "distribution_hubs": [
+        "DHUB-DC-01",
+        "DHUB-DC-02",
+        "DHUB-DC-03",
+        "DHUB-DC-04"
+      ],
+      "exchanges_impacted": [
+        "EX-DC-MAIN"
+      ]
+    },
+    "affected_zones": [
+      "ZONE-DC-B",
+      "ZONE-DC-A",
+      "ZONE-DC-C"
+    ],
+    "services_impacted": [
+      "MOBILE_DATA",
+      "IPTV",
+      "MOBILE_VOICE",
+      "MOBILE_5G",
+      "COLOCATION"
+    ],
+    "redundancy_status": "FAILOVER_COMPLETE \u2014 All traffic rerouted via backup paths. No customer impact expected unless backup fails.",
+    "estimated_customers_affected": 2037,
+    "preliminary_etr": "11-12 hours",
+    "field_dispatch": {
+      "crew_id": "DC-DC-ECHO",
+      "eta_to_site": "25 minutes",
+      "status": "REPAIRING"
+    },
+    "escalation_level": "P1-SEV1",
+    "related_alerts": [
+      {
+        "alert_id": "ALT-2026-03-10-0011",
+        "type": "OSPF_RECONVERGENCE",
+        "description": "OSPF reconvergence in progress \u2014 11 adjacencies rebuilding"
+      },
+      {
+        "alert_id": "ALT-2026-03-10-0012",
+        "type": "BGP_SESSION_DOWN",
+        "description": "BGP peering lost between DC-OLT-4428 and upstream PE router PE-CORE-05"
+      },
+      {
+        "alert_id": "ALT-2026-03-10-0013",
+        "type": "ALARM_FLOOD",
+        "description": "NOC receiving 27+ alarms/min from Data Center \u2014 auto-correlation active"
+      },
+      {
+        "alert_id": "ALT-2026-03-10-0014",
+        "type": "BATTERY_MONITOR",
+        "description": "DC-OLT-4428 battery degraded \u2014 estimated runtime reduced to 3.4h"
+      }
+    ]
+  },
+  {
+    "alert_id": "ALT-2026-03-10-7209",
+    "timestamp": "2026-03-10T19:46:00+00:00",
+    "severity": "MINOR",
+    "source_system": "NOC-PRIME-MONITOR-v4.2",
+    "alert_type": "ROUTING_FAILURE",
+    "title": "BGP Session Storm \u2014 North District Edge",
+    "description": "Spanning tree reconvergence event in North District aggregation layer. 9 switches affected. Caused by dual supervisor failover in AGG-ND-4425.",
+    "affected_infrastructure": {
+      "nodes_down": [
+        "ND-OLT-4451",
+        "ND-OLT-4485",
+        "ND-OLT-4483",
+        "ND-OLT-4447"
+      ],
+      "cell_towers_affected": [
+        "TWR-ND-232",
+        "TWR-ND-215",
+        "TWR-ND-130",
+        "TWR-ND-163",
+        "TWR-ND-157"
+      ],
+      "distribution_hubs": [
+        "DHUB-ND-01"
+      ],
+      "exchanges_impacted": [
+        "EX-ND-MAIN",
+        "EX-ND-BACKUP"
+      ]
+    },
+    "affected_zones": [
+      "ZONE-ND-B",
+      "ZONE-ND-C",
+      "ZONE-ND-D",
+      "ZONE-ND-E",
+      "ZONE-ND-A"
+    ],
+    "services_impacted": [
+      "MOBILE_5G",
+      "BROADBAND"
+    ],
+    "redundancy_status": "FAILOVER_COMPLETE \u2014 All traffic rerouted via backup paths. No customer impact expected unless backup fails.",
+    "estimated_customers_affected": 12789,
+    "preliminary_etr": "2-4 hours",
+    "field_dispatch": {
+      "crew_id": "EMERG-ND-ECHO",
+      "eta_to_site": "77 minutes",
+      "status": "ON_SITE"
+    },
+    "escalation_level": "P2",
+    "related_alerts": [
+      {
+        "alert_id": "ALT-2026-03-10-0021",
+        "type": "OSPF_RECONVERGENCE",
+        "description": "OSPF reconvergence in progress \u2014 23 adjacencies rebuilding"
+      },
+      {
+        "alert_id": "ALT-2026-03-10-0022",
+        "type": "QOS_VIOLATION",
+        "description": "SLA threshold breached on 17 enterprise circuits \u2014 jitter >37ms"
+      },
+      {
+        "alert_id": "ALT-2026-03-10-0023",
+        "type": "QOS_VIOLATION",
+        "description": "SLA threshold breached on 6 enterprise circuits \u2014 jitter >26ms"
+      },
+      {
+        "alert_id": "ALT-2026-03-10-0024",
+        "type": "BGP_SESSION_DOWN",
+        "description": "BGP peering lost between ND-OLT-4485 and upstream PE router PE-CORE-03"
+      }
+    ]
+  },
+  {
+    "alert_id": "ALT-2026-03-10-5114",
+    "timestamp": "2026-03-10T09:02:00+00:00",
+    "severity": "MAJOR",
+    "source_system": "NOC-PRIME-MONITOR-v4.2",
+    "alert_type": "ROUTING_FAILURE",
+    "title": "BGP Session Storm \u2014 West Metro Edge",
+    "description": "Primary core router CR-WM-4495 experienced catastrophic line card failure in slots 4 and 6. OSPF adjacencies dropped across 11 downstream aggregation switches. Traffic rerouting through CR-WM-4440 causing 267% utilization on backup links.",
+    "affected_infrastructure": {
+      "nodes_down": [
+        "WM-OLT-4406",
+        "WM-OLT-4474"
+      ],
+      "cell_towers_affected": [
+        "TWR-WM-228",
+        "TWR-WM-235",
+        "TWR-WM-140",
+        "TWR-WM-114",
+        "TWR-WM-230"
+      ],
+      "distribution_hubs": [
+        "DHUB-WM-01"
+      ],
+      "exchanges_impacted": [
+        "EX-WM-MAIN"
+      ]
+    },
+    "affected_zones": [
+      "ZONE-WM-C"
+    ],
+    "services_impacted": [
+      "VOIP",
+      "IPTV"
+    ],
+    "redundancy_status": "NO_FAILOVER \u2014 No redundant path available. Full service loss for affected nodes.",
+    "estimated_customers_affected": 34016,
+    "preliminary_etr": "1-2 hours",
+    "field_dispatch": {
+      "crew_id": "GEN-WM-BRAVO",
+      "eta_to_site": "48 minutes",
+      "status": "ON_SITE"
+    },
+    "escalation_level": "P1-SEV3",
+    "related_alerts": [
+      {
+        "alert_id": "ALT-2026-03-10-0031",
+        "type": "BGP_SESSION_DOWN",
+        "description": "BGP peering lost between WM-OLT-4406 and upstream PE router PE-CORE-09"
+      },
+      {
+        "alert_id": "ALT-2026-03-10-0032",
+        "type": "QOS_VIOLATION",
+        "description": "SLA threshold breached on 17 enterprise circuits \u2014 jitter >89ms"
+      },
+      {
+        "alert_id": "ALT-2026-03-10-0033",
+        "type": "POWER_ALARM",
+        "description": "Battery backup engaged at WM-OLT-4474 \u2014 commercial power interrupted"
+      },
+      {
+        "alert_id": "ALT-2026-03-10-0034",
+        "type": "BATTERY_MONITOR",
+        "description": "WM-OLT-4474 battery degraded \u2014 estimated runtime reduced to 2.0h"
+      }
+    ]
+  },
+  {
+    "alert_id": "ALT-2026-03-10-9785",
+    "timestamp": "2026-03-10T19:47:00+00:00",
+    "severity": "CRITICAL",
+    "source_system": "NOC-PRIME-MONITOR-v4.2",
+    "alert_type": "HARDWARE_FAILURE",
+    "title": "Storage Controller Crash \u2014 Downtown Core Subscriber DB",
+    "description": "Multiple DWDM optic transceivers degrading on Downtown Core wavelength ring. BER exceeding threshold on lambdas 16-28. Pre-emptive failover recommended.",
+    "affected_infrastructure": {
+      "nodes_down": [
+        "DT-OLT-4447",
+        "DT-OLT-4474"
+      ],
+      "cell_towers_affected": [
+        "TWR-DT-137",
+        "TWR-DT-210",
+        "TWR-DT-132",
+        "TWR-DT-110",
+        "TWR-DT-178",
+        "TWR-DT-193"
+      ],
+      "distribution_hubs": [
+        "DHUB-DT-01",
+        "DHUB-DT-02",
+        "DHUB-DT-03"
+      ],
+      "exchanges_impacted": [
+        "EX-DT-MAIN",
+        "EX-DT-BACKUP"
+      ]
+    },
+    "affected_zones": [
+      "ZONE-DT-A"
+    ],
+    "services_impacted": [
+      "MOBILE_5G",
+      "MOBILE_VOICE"
+    ],
+    "redundancy_status": "FAILOVER_PARTIAL \u2014 Ring protection switched for 2 nodes. 2 nodes have NO redundant path.",
+    "estimated_customers_affected": 57290,
+    "preliminary_etr": "3-6 hours",
+    "field_dispatch": {
+      "crew_id": "GEN-DT-ALPHA",
+      "eta_to_site": "Already on-site",
+      "status": "REPAIRING"
+    },
+    "escalation_level": "P1-SEV2",
+    "related_alerts": [
+      {
+        "alert_id": "ALT-2026-03-10-0041",
+        "type": "ALARM_FLOOD",
+        "description": "NOC receiving 30+ alarms/min from Downtown Core \u2014 auto-correlation active"
+      },
+      {
+        "alert_id": "ALT-2026-03-10-0042",
+        "type": "WEATHER_ADVISORY",
+        "description": "NWS High Wind Warning in effect for Downtown Core through 2026-03-10 21:00Z"
+      }
+    ]
+  },
+  {
+    "alert_id": "ALT-2026-03-10-3881",
+    "timestamp": "2026-03-10T15:26:00+00:00",
+    "severity": "CRITICAL",
+    "source_system": "NOC-PRIME-MONITOR-v4.2",
+    "alert_type": "POWER_OUTAGE",
+    "title": "Utility Grid Fault \u2014 Downtown Core Distribution Zone",
+    "description": "Utility provider reports transformer failure affecting Downtown Core service area. Estimated 4 sites on battery backup. Utility ETA for restoration: 7 hours.",
+    "affected_infrastructure": {
+      "nodes_down": [
+        "DT-OLT-4487",
+        "DT-OLT-4492",
+        "DT-OLT-4494",
+        "DT-OLT-4494",
+        "DT-OLT-4485",
+        "DT-OLT-4425"
+      ],
+      "cell_towers_affected": [
+        "TWR-DT-210",
+        "TWR-DT-117",
+        "TWR-DT-270",
+        "TWR-DT-184"
+      ],
+      "distribution_hubs": [
+        "DHUB-DT-01",
+        "DHUB-DT-02",
+        "DHUB-DT-03",
+        "DHUB-DT-04"
+      ],
+      "exchanges_impacted": [
+        "EX-DT-MAIN"
+      ]
+    },
+    "affected_zones": [
+      "ZONE-DT-E",
+      "ZONE-DT-A",
+      "ZONE-DT-D",
+      "ZONE-DT-C",
+      "ZONE-DT-F"
+    ],
+    "services_impacted": [
+      "MOBILE_5G",
+      "SIP_TRUNKING",
+      "IPTV",
+      "MOBILE_DATA",
+      "CLOUD_CONNECT",
+      "IOT_CONNECTIVITY"
+    ],
+    "redundancy_status": "FAILOVER_DEGRADED \u2014 Backup path active but severely congested. QoS policies shedding best-effort traffic.",
+    "estimated_customers_affected": 16341,
+    "preliminary_etr": "10-11 hours",
+    "field_dispatch": {
+      "crew_id": "SPLICE-DT-ECHO",
+      "eta_to_site": "91 minutes",
+      "status": "DIAGNOSING"
+    },
+    "escalation_level": "P1-SEV2",
+    "related_alerts": [
+      {
+        "alert_id": "ALT-2026-03-10-0051",
+        "type": "QOS_VIOLATION",
+        "description": "SLA threshold breached on 28 enterprise circuits \u2014 jitter >41ms"
+      },
+      {
+        "alert_id": "ALT-2026-03-10-0052",
+        "type": "WEATHER_ADVISORY",
+        "description": "NWS Severe Thunderstorm Warning in effect for Downtown Core through 2026-03-10 00:00Z"
+      },
+      {
+        "alert_id": "ALT-2026-03-10-0053",
+        "type": "POWER_ALARM",
+        "description": "Battery backup engaged at DT-OLT-4492 \u2014 commercial power interrupted"
+      },
+      {
+        "alert_id": "ALT-2026-03-10-0054",
+        "type": "OSPF_RECONVERGENCE",
+        "description": "OSPF reconvergence in progress \u2014 7 adjacencies rebuilding"
+      }
+    ]
+  },
+  {
+    "alert_id": "ALT-2026-03-10-1444",
+    "timestamp": "2026-03-10T18:52:00+00:00",
+    "severity": "MINOR",
+    "source_system": "NOC-PRIME-MONITOR-v4.2",
+    "alert_type": "HARDWARE_FAILURE",
+    "title": "Storage Controller Crash \u2014 Business Corridor Subscriber DB",
+    "description": "Multiple DWDM optic transceivers degrading on Business Corridor wavelength ring. BER exceeding threshold on lambdas 18-40. Pre-emptive failover recommended.",
+    "affected_infrastructure": {
+      "nodes_down": [
+        "BIZ-OLT-4462",
+        "BIZ-OLT-4480",
+        "BIZ-OLT-4430",
+        "BIZ-OLT-4435",
+        "BIZ-OLT-4456",
+        "BIZ-OLT-4409"
+      ],
+      "cell_towers_affected": [
+        "TWR-BIZ-173",
+        "TWR-BIZ-160",
+        "TWR-BIZ-169",
+        "TWR-BIZ-185",
+        "TWR-BIZ-181",
+        "TWR-BIZ-238",
+        "TWR-BIZ-120"
+      ],
+      "distribution_hubs": [
+        "DHUB-BIZ-01"
+      ],
+      "exchanges_impacted": [
+        "EX-BIZ-MAIN",
+        "EX-BIZ-BACKUP"
+      ]
+    },
+    "affected_zones": [
+      "ZONE-BIZ-B",
+      "ZONE-BIZ-C",
+      "ZONE-BIZ-A"
+    ],
+    "services_impacted": [
+      "VOIP",
+      "MOBILE_VOICE",
+      "MOBILE_BACKHAUL"
+    ],
+    "redundancy_status": "FAILOVER_DEGRADED \u2014 Backup path active but severely congested. QoS policies shedding best-effort traffic.",
+    "estimated_customers_affected": 45450,
+    "preliminary_etr": "3-4 hours",
+    "field_dispatch": {
+      "crew_id": "GEN-BIZ-DELTA",
+      "eta_to_site": "73 minutes",
+      "status": "DIAGNOSING"
+    },
+    "escalation_level": "P2",
+    "related_alerts": [
+      {
+        "alert_id": "ALT-2026-03-10-0061",
+        "type": "ALARM_FLOOD",
+        "description": "NOC receiving 18+ alarms/min from Business Corridor \u2014 auto-correlation active"
+      },
+      {
+        "alert_id": "ALT-2026-03-10-0062",
+        "type": "MOBILE_BACKHAUL_DEGRADED",
+        "description": "5G backhaul capacity reduced 69% across 20 cell sites in Business Corridor"
+      }
+    ]
+  },
+  {
+    "alert_id": "ALT-2026-03-10-8136",
+    "timestamp": "2026-03-10T17:12:00+00:00",
+    "severity": "CRITICAL",
+    "source_system": "NOC-PRIME-MONITOR-v4.2",
+    "alert_type": "POWER_OUTAGE",
+    "title": "Commercial Power Loss \u2014 Downtown Core Exchange Building",
+    "description": "Complete power loss at Downtown Core exchange building (DT-EX-MAIN). UPS holding load \u2014 6h runtime. Diesel generator failed to auto-start \u2014 manual start procedure initiated.",
+    "affected_infrastructure": {
+      "nodes_down": [
+        "DT-OLT-4483",
+        "DT-OLT-4408",
+        "DT-OLT-4499"
+      ],
+      "cell_towers_affected": [
+        "TWR-DT-110",
+        "TWR-DT-293",
+        "TWR-DT-107",
+        "TWR-DT-163",
+        "TWR-DT-151",
+        "TWR-DT-105",
+        "TWR-DT-259"
+      ],
+      "distribution_hubs": [
+        "DHUB-DT-01",
+        "DHUB-DT-02",
+        "DHUB-DT-03"
+      ],
+      "exchanges_impacted": [
+        "EX-DT-MAIN",
+        "EX-DT-BACKUP"
+      ]
+    },
+    "affected_zones": [
+      "ZONE-DT-D",
+      "ZONE-DT-C",
+      "ZONE-DT-A"
+    ],
+    "services_impacted": [
+      "MOBILE_VOICE",
+      "VOIP",
+      "ENTERPRISE_MPLS"
+    ],
+    "redundancy_status": "FAILOVER_DEGRADED \u2014 Backup path active but severely congested. QoS policies shedding best-effort traffic.",
+    "estimated_customers_affected": 32465,
+    "preliminary_etr": "5-7 hours",
+    "field_dispatch": {
+      "crew_id": "DC-DT-DELTA",
+      "eta_to_site": "100 minutes",
+      "status": "REPAIRING"
+    },
+    "escalation_level": "P1-SEV2",
+    "related_alerts": [
+      {
+        "alert_id": "ALT-2026-03-10-0071",
+        "type": "BGP_SESSION_DOWN",
+        "description": "BGP peering lost between DT-OLT-4499 and upstream PE router PE-CORE-01"
+      },
+      {
+        "alert_id": "ALT-2026-03-10-0072",
+        "type": "WEATHER_ADVISORY",
+        "description": "NWS High Wind Warning in effect for Downtown Core through 2026-03-10 22:00Z"
+      },
+      {
+        "alert_id": "ALT-2026-03-10-0073",
+        "type": "MOBILE_BACKHAUL_DEGRADED",
+        "description": "5G backhaul capacity reduced 76% across 19 cell sites in Downtown Core"
+      }
+    ]
+  },
+  {
+    "alert_id": "ALT-2026-03-10-3073",
+    "timestamp": "2026-03-10T12:24:00+00:00",
+    "severity": "CRITICAL",
+    "source_system": "NOC-PRIME-MONITOR-v4.2",
+    "alert_type": "FIBER_CUT",
+    "title": "Major Fiber Optic Cable Severed \u2014 Ring 2 Business Corridor",
+    "description": "Construction crew struck underground fiber conduit on Johnson Ferry Road. Multiple fiber strands severed in 288-count cable. Affecting Business Corridor backbone capacity. Emergency splice team dispatched.",
+    "affected_infrastructure": {
+      "nodes_down": [
+        "BIZ-OLT-4489",
+        "BIZ-OLT-4435",
+        "BIZ-OLT-4471",
+        "BIZ-OLT-4401",
+        "BIZ-OLT-4466",
+        "BIZ-OLT-4424"
+      ],
+      "cell_towers_affected": [
+        "TWR-BIZ-161",
+        "TWR-BIZ-284"
+      ],
+      "distribution_hubs": [
+        "DHUB-BIZ-01",
+        "DHUB-BIZ-02",
+        "DHUB-BIZ-03"
+      ],
+      "exchanges_impacted": [
+        "EX-BIZ-MAIN"
+      ]
+    },
+    "affected_zones": [
+      "ZONE-BIZ-A",
+      "ZONE-BIZ-B"
+    ],
+    "services_impacted": [
+      "ENTERPRISE_MPLS",
+      "CLOUD_CONNECT",
+      "MOBILE_VOICE",
+      "IOT_CONNECTIVITY",
+      "SIP_TRUNKING"
+    ],
+    "redundancy_status": "FAILOVER_PARTIAL \u2014 Ring protection switched for 3 nodes. 3 nodes have NO redundant path.",
+    "estimated_customers_affected": 37005,
+    "preliminary_etr": "6-9 hours",
+    "field_dispatch": {
+      "crew_id": "DC-BIZ-DELTA",
+      "eta_to_site": "Already on-site",
+      "status": "EN_ROUTE"
+    },
+    "escalation_level": "P1-SEV3",
+    "related_alerts": [
+      {
+        "alert_id": "ALT-2026-03-10-0081",
+        "type": "QOS_VIOLATION",
+        "description": "SLA threshold breached on 26 enterprise circuits \u2014 jitter >95ms"
+      },
+      {
+        "alert_id": "ALT-2026-03-10-0082",
+        "type": "BATTERY_MONITOR",
+        "description": "BIZ-OLT-4489 battery degraded \u2014 estimated runtime reduced to 1.9h"
+      }
+    ]
+  },
+  {
+    "alert_id": "ALT-2026-03-10-4241",
+    "timestamp": "2026-03-10T08:52:00+00:00",
+    "severity": "CRITICAL",
+    "source_system": "NOC-PRIME-MONITOR-v4.2",
+    "alert_type": "POWER_OUTAGE",
+    "title": "Commercial Power Loss \u2014 Business Corridor Exchange Building",
+    "description": "Complete power loss at Business Corridor exchange building (BIZ-EX-MAIN). UPS holding load \u2014 3h runtime. Diesel generator failed to auto-start \u2014 manual start procedure initiated.",
+    "affected_infrastructure": {
+      "nodes_down": [
+        "BIZ-OLT-4408",
+        "BIZ-OLT-4451"
+      ],
+      "cell_towers_affected": [
+        "TWR-BIZ-118",
+        "TWR-BIZ-247",
+        "TWR-BIZ-261",
+        "TWR-BIZ-275",
+        "TWR-BIZ-113"
+      ],
+      "distribution_hubs": [
+        "DHUB-BIZ-01",
+        "DHUB-BIZ-02",
+        "DHUB-BIZ-03",
+        "DHUB-BIZ-04"
+      ],
+      "exchanges_impacted": [
+        "EX-BIZ-MAIN"
+      ]
+    },
+    "affected_zones": [
+      "ZONE-BIZ-B",
+      "ZONE-BIZ-C"
+    ],
+    "services_impacted": [
+      "VOIP",
+      "COLOCATION",
+      "MOBILE_DATA"
+    ],
+    "redundancy_status": "FAILOVER_DEGRADED \u2014 Backup path active but severely congested. QoS policies shedding best-effort traffic.",
+    "estimated_customers_affected": 54684,
+    "preliminary_etr": "5-7 hours",
+    "field_dispatch": {
+      "crew_id": "DC-BIZ-ALPHA",
+      "eta_to_site": "Already on-site",
+      "status": "DIAGNOSING"
+    },
+    "escalation_level": "P1-SEV3",
+    "related_alerts": [
+      {
+        "alert_id": "ALT-2026-03-10-0091",
+        "type": "BGP_SESSION_DOWN",
+        "description": "BGP peering lost between BIZ-OLT-4408 and upstream PE router PE-CORE-01"
+      },
+      {
+        "alert_id": "ALT-2026-03-10-0092",
+        "type": "BATTERY_MONITOR",
+        "description": "BIZ-OLT-4451 battery degraded \u2014 estimated runtime reduced to 3.8h"
+      }
+    ]
+  },
+  {
+    "alert_id": "ALT-2026-03-10-6091",
+    "timestamp": "2026-03-10T19:56:00+00:00",
+    "severity": "MAJOR",
+    "source_system": "NOC-PRIME-MONITOR-v4.2",
+    "alert_type": "POWER_OUTAGE",
+    "title": "Utility Grid Fault \u2014 Business Corridor Distribution Zone",
+    "description": "Widespread commercial power failure affecting 5 cell tower sites in Business Corridor following utility grid fault. Battery backup active at all sites \u2014 estimated 3h runtime remaining. Generator dispatch initiated.",
+    "affected_infrastructure": {
+      "nodes_down": [
+        "BIZ-OLT-4469",
+        "BIZ-OLT-4463",
+        "BIZ-OLT-4456",
+        "BIZ-OLT-4410",
+        "BIZ-OLT-4476",
+        "BIZ-OLT-4405"
+      ],
+      "cell_towers_affected": [
+        "TWR-BIZ-288",
+        "TWR-BIZ-182",
+        "TWR-BIZ-254",
+        "TWR-BIZ-164",
+        "TWR-BIZ-106"
+      ],
+      "distribution_hubs": [
+        "DHUB-BIZ-01"
+      ],
+      "exchanges_impacted": [
+        "EX-BIZ-MAIN",
+        "EX-BIZ-BACKUP"
+      ]
+    },
+    "affected_zones": [
+      "ZONE-BIZ-B"
+    ],
+    "services_impacted": [
+      "MOBILE_VOICE",
+      "SIP_TRUNKING"
+    ],
+    "redundancy_status": "FAILOVER_PARTIAL \u2014 Ring protection switched for 1 nodes. 1 nodes have NO redundant path.",
+    "estimated_customers_affected": 12379,
+    "preliminary_etr": "4-6 hours",
+    "field_dispatch": {
+      "crew_id": "FC-BIZ-BRAVO",
+      "eta_to_site": "106 minutes",
+      "status": "DIAGNOSING"
+    },
+    "escalation_level": "P1-SEV3",
+    "related_alerts": [
+      {
+        "alert_id": "ALT-2026-03-10-0101",
+        "type": "POWER_ALARM",
+        "description": "Battery backup engaged at BIZ-OLT-4410 \u2014 commercial power interrupted"
+      },
+      {
+        "alert_id": "ALT-2026-03-10-0102",
+        "type": "POWER_ALARM",
+        "description": "Battery backup engaged at BIZ-OLT-4405 \u2014 commercial power interrupted"
+      },
+      {
+        "alert_id": "ALT-2026-03-10-0103",
+        "type": "ALARM_FLOOD",
+        "description": "NOC receiving 4+ alarms/min from Business Corridor \u2014 auto-correlation active"
+      },
+      {
+        "alert_id": "ALT-2026-03-10-0104",
+        "type": "ALARM_FLOOD",
+        "description": "NOC receiving 3+ alarms/min from Business Corridor \u2014 auto-correlation active"
+      }
+    ]
+  },
+  {
+    "alert_id": "ALT-2026-03-10-2121",
+    "timestamp": "2026-03-10T11:15:00+00:00",
+    "severity": "CRITICAL",
+    "source_system": "NOC-PRIME-MONITOR-v4.2",
+    "alert_type": "POWER_OUTAGE",
+    "title": "Utility Grid Fault \u2014 Downtown Core Distribution Zone",
+    "description": "Utility provider reports transformer failure affecting Downtown Core service area. Estimated 8 sites on battery backup. Utility ETA for restoration: 5 hours.",
+    "affected_infrastructure": {
+      "nodes_down": [
+        "DT-OLT-4408",
+        "DT-OLT-4435",
+        "DT-OLT-4498"
+      ],
+      "cell_towers_affected": [
+        "TWR-DT-206",
+        "TWR-DT-187",
+        "TWR-DT-229",
+        "TWR-DT-168",
+        "TWR-DT-100",
+        "TWR-DT-172",
+        "TWR-DT-285",
+        "TWR-DT-176"
+      ],
+      "distribution_hubs": [
+        "DHUB-DT-01",
+        "DHUB-DT-02"
+      ],
+      "exchanges_impacted": [
+        "EX-DT-MAIN",
+        "EX-DT-BACKUP"
+      ]
+    },
+    "affected_zones": [
+      "ZONE-DT-D",
+      "ZONE-DT-B",
+      "ZONE-DT-F",
+      "ZONE-DT-C"
+    ],
+    "services_impacted": [
+      "COLOCATION",
+      "SIP_TRUNKING",
+      "ENTERPRISE_MPLS",
+      "VOIP",
+      "IOT_CONNECTIVITY",
+      "MOBILE_DATA"
+    ],
+    "redundancy_status": "FAILOVER_COMPLETE \u2014 All traffic rerouted via backup paths. No customer impact expected unless backup fails.",
+    "estimated_customers_affected": 4352,
+    "preliminary_etr": "11-13 hours",
+    "field_dispatch": {
+      "crew_id": "FC-DT-ALPHA",
+      "eta_to_site": "103 minutes",
+      "status": "DIAGNOSING"
+    },
+    "escalation_level": "P1-SEV1",
+    "related_alerts": [
+      {
+        "alert_id": "ALT-2026-03-10-0111",
+        "type": "BGP_SESSION_DOWN",
+        "description": "BGP peering lost between DT-OLT-4435 and upstream PE router PE-CORE-02"
+      },
+      {
+        "alert_id": "ALT-2026-03-10-0112",
+        "type": "MOBILE_BACKHAUL_DEGRADED",
+        "description": "5G backhaul capacity reduced 80% across 11 cell sites in Downtown Core"
+      },
+      {
+        "alert_id": "ALT-2026-03-10-0113",
+        "type": "BGP_SESSION_DOWN",
+        "description": "BGP peering lost between DT-OLT-4435 and upstream PE router PE-CORE-09"
+      }
+    ]
+  }
+]

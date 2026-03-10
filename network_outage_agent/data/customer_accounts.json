@@ -1,0 +1,3442 @@
+[
+  {
+    "account_id": "ENT-001",
+    "company_name": "Douglasville Health Systems",
+    "account_type": "ENTERPRISE",
+    "tier": "PLATINUM",
+    "industry": "Healthcare",
+    "contract_value_annual": 2613936,
+    "sla_tier": "99.999%",
+    "sla_credit_rate": "10x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Olivia Nakamura",
+      "role": "CTO",
+      "email": "o.nakamura@douglasvillehealthsy.com",
+      "phone": "+1-779-555-3950",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Elena Wright",
+      "role": "VP Infrastructure",
+      "email": "e.wright@douglasvillehealthsy.com",
+      "phone": "+1-374-555-3868",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "MOBILE_BACKHAUL",
+      "COLOCATION"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Eastpoint DL",
+        "zone": "ZONE-WM-A",
+        "circuit_ids": [
+          "MPLS-8529",
+          "MPLS-5183"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Meridian XM",
+        "zone": "ZONE-DT-A",
+        "circuit_ids": [
+          "MPLS-9955",
+          "MPLS-3588"
+        ],
+        "criticality": "LIFE_SAFETY"
+      }
+    ],
+    "notes": "CRITICAL: Operates emergency telemedicine services. Any outage may impact patient care."
+  },
+  {
+    "account_id": "ENT-002",
+    "company_name": "Buckhead Health Systems",
+    "account_type": "ENTERPRISE",
+    "tier": "PLATINUM",
+    "industry": "Healthcare",
+    "contract_value_annual": 2024493,
+    "sla_tier": "99.999%",
+    "sla_credit_rate": "10x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Nadia Rosario",
+      "role": "CTO",
+      "email": "n.rosario@buckheadhealthsystem.com",
+      "phone": "+1-509-555-4263",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Isabella Andersson",
+      "role": "VP Infrastructure",
+      "email": "i.andersson@buckheadhealthsystem.com",
+      "phone": "+1-593-555-8916",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "CLOUD_CONNECT",
+      "COLOCATION"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Sapphire ZH",
+        "zone": "ZONE-DC-A",
+        "circuit_ids": [
+          "MPLS-7484",
+          "MPLS-5497",
+          "MPLS-1132"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Southridge UZ",
+        "zone": "ZONE-DC-A",
+        "circuit_ids": [
+          "MPLS-9138",
+          "MPLS-5689",
+          "MPLS-4770"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Goldleaf FE",
+        "zone": "ZONE-DC-B",
+        "circuit_ids": [
+          "MPLS-3240",
+          "MPLS-2591"
+        ],
+        "criticality": "LIFE_SAFETY"
+      }
+    ],
+    "notes": "CRITICAL: Operates emergency telemedicine services. Any outage may impact patient care."
+  },
+  {
+    "account_id": "ENT-003",
+    "company_name": "Douglasville Health Systems",
+    "account_type": "ENTERPRISE",
+    "tier": "PLATINUM",
+    "industry": "Healthcare",
+    "contract_value_annual": 1775590,
+    "sla_tier": "99.999%",
+    "sla_credit_rate": "10x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Michael Dubois",
+      "role": "CTO",
+      "email": "m.dubois@douglasvillehealthsy.com",
+      "phone": "+1-502-555-6352",
+      "preferred_channel": "email"
+    },
+    "escalation_contact": {
+      "name": "Olivia Fernandez",
+      "role": "VP Infrastructure",
+      "email": "o.fernandez@douglasvillehealthsy.com",
+      "phone": "+1-965-555-7807",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "CLOUD_CONNECT",
+      "MOBILE_BACKHAUL"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Broadstone XV",
+        "zone": "ZONE-WM-B",
+        "circuit_ids": [
+          "MPLS-8894",
+          "MPLS-5835"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Redstone UM",
+        "zone": "ZONE-DT-C",
+        "circuit_ids": [
+          "MPLS-3306"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Cascade WS",
+        "zone": "ZONE-DT-D",
+        "circuit_ids": [
+          "MPLS-6992",
+          "MPLS-2479"
+        ],
+        "criticality": "LIFE_SAFETY"
+      }
+    ],
+    "notes": "CRITICAL: Operates emergency telemedicine services. Any outage may impact patient care."
+  },
+  {
+    "account_id": "ENT-004",
+    "company_name": "Ironwood Federal Credit Union",
+    "account_type": "ENTERPRISE",
+    "tier": "PLATINUM",
+    "industry": "Financial Services",
+    "contract_value_annual": 3411023,
+    "sla_tier": "99.999%",
+    "sla_credit_rate": "12x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Jamal Kim",
+      "role": "CTO",
+      "email": "j.kim@ironwoodfederalcredi.com",
+      "phone": "+1-798-555-7242",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Valentina Daniels",
+      "role": "VP Infrastructure",
+      "email": "v.daniels@ironwoodfederalcredi.com",
+      "phone": "+1-853-555-7086",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "CLOUD_CONNECT",
+      "COLOCATION"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Clearwater IP",
+        "zone": "ZONE-DC-B",
+        "circuit_ids": [
+          "MPLS-2035",
+          "MPLS-8606",
+          "MPLS-5951"
+        ],
+        "criticality": "HIGH"
+      }
+    ],
+    "notes": "Real-time transaction processing. PCI-DSS compliance requirements."
+  },
+  {
+    "account_id": "ENT-005",
+    "company_name": "Crestview Federal Credit Union",
+    "account_type": "ENTERPRISE",
+    "tier": "PLATINUM",
+    "industry": "Financial Services",
+    "contract_value_annual": 2243522,
+    "sla_tier": "99.999%",
+    "sla_credit_rate": "12x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Michael Williams",
+      "role": "CTO",
+      "email": "m.williams@crestviewfederalcred.com",
+      "phone": "+1-440-555-9807",
+      "preferred_channel": "email"
+    },
+    "escalation_contact": {
+      "name": "Yuki Okonkwo",
+      "role": "VP Infrastructure",
+      "email": "y.okonkwo@crestviewfederalcred.com",
+      "phone": "+1-338-555-7367",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "SIP_TRUNKING",
+      "COLOCATION",
+      "MOBILE_BACKHAUL"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Peachtree RV",
+        "zone": "ZONE-BIZ-B",
+        "circuit_ids": [
+          "MPLS-7686",
+          "MPLS-5583",
+          "MPLS-1536"
+        ],
+        "criticality": "HIGH"
+      },
+      {
+        "site_name": "Site Goldleaf FL",
+        "zone": "ZONE-DT-B",
+        "circuit_ids": [
+          "MPLS-6942"
+        ],
+        "criticality": "HIGH"
+      }
+    ],
+    "notes": "Real-time transaction processing. PCI-DSS compliance requirements."
+  },
+  {
+    "account_id": "ENT-006",
+    "company_name": "Suwanee Health Systems",
+    "account_type": "ENTERPRISE",
+    "tier": "PLATINUM",
+    "industry": "Healthcare",
+    "contract_value_annual": 1898057,
+    "sla_tier": "99.999%",
+    "sla_credit_rate": "10x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Brian Williams",
+      "role": "CTO",
+      "email": "b.williams@suwaneehealthsystems.com",
+      "phone": "+1-665-555-2501",
+      "preferred_channel": "email"
+    },
+    "escalation_contact": {
+      "name": "Sophia Foster",
+      "role": "VP Infrastructure",
+      "email": "s.foster@suwaneehealthsystems.com",
+      "phone": "+1-878-555-4475",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "MOBILE_BACKHAUL",
+      "ENTERPRISE_MPLS",
+      "COLOCATION",
+      "CLOUD_CONNECT"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Eastpoint FV",
+        "zone": "ZONE-NM-A",
+        "circuit_ids": [
+          "MPLS-4394",
+          "MPLS-4538",
+          "MPLS-4817"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Crestview UP",
+        "zone": "ZONE-ND-E",
+        "circuit_ids": [
+          "MPLS-3370",
+          "MPLS-3129"
+        ],
+        "criticality": "LIFE_SAFETY"
+      }
+    ],
+    "notes": "CRITICAL: Operates emergency telemedicine services. Any outage may impact patient care."
+  },
+  {
+    "account_id": "ENT-007",
+    "company_name": "Marietta Regional Medical Center",
+    "account_type": "ENTERPRISE",
+    "tier": "PLATINUM",
+    "industry": "Healthcare",
+    "contract_value_annual": 3456717,
+    "sla_tier": "99.999%",
+    "sla_credit_rate": "10x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Sarah Brooks",
+      "role": "CTO",
+      "email": "s.brooks@mariettaregionalmedi.com",
+      "phone": "+1-802-555-6304",
+      "preferred_channel": "email"
+    },
+    "escalation_contact": {
+      "name": "James Daniels",
+      "role": "VP Infrastructure",
+      "email": "j.daniels@mariettaregionalmedi.com",
+      "phone": "+1-216-555-3854",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "ENTERPRISE_MPLS",
+      "CLOUD_CONNECT",
+      "SIP_TRUNKING"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Horizon TM",
+        "zone": "ZONE-WM-B",
+        "circuit_ids": [
+          "MPLS-9408",
+          "MPLS-2786"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Broadstone FP",
+        "zone": "ZONE-EM-D",
+        "circuit_ids": [
+          "MPLS-9543",
+          "MPLS-5941",
+          "MPLS-8504"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Meridian BM",
+        "zone": "ZONE-DC-C",
+        "circuit_ids": [
+          "MPLS-7984",
+          "MPLS-2768"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Highland XB",
+        "zone": "ZONE-WM-A",
+        "circuit_ids": [
+          "MPLS-6277"
+        ],
+        "criticality": "LIFE_SAFETY"
+      }
+    ],
+    "notes": "Level 1 trauma center. Network supports critical monitoring systems."
+  },
+  {
+    "account_id": "ENT-008",
+    "company_name": "City of Atlanta North \u2014 Public Safety",
+    "account_type": "ENTERPRISE",
+    "tier": "PLATINUM",
+    "industry": "Government \u2014 Emergency Services",
+    "contract_value_annual": 1881963,
+    "sla_tier": "99.999%",
+    "sla_credit_rate": "15x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Priya Martinez",
+      "role": "CTO",
+      "email": "p.martinez@cityofatlantanorthpu.com",
+      "phone": "+1-811-555-9692",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Nadia Johansson",
+      "role": "VP Infrastructure",
+      "email": "n.johansson@cityofatlantanorthpu.com",
+      "phone": "+1-501-555-8433",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "MOBILE_BACKHAUL",
+      "COLOCATION",
+      "ENTERPRISE_MPLS",
+      "SIP_TRUNKING"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Magnolia XK",
+        "zone": "ZONE-EM-C",
+        "circuit_ids": [
+          "MPLS-7532",
+          "MPLS-7815"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Horizon II",
+        "zone": "ZONE-DT-C",
+        "circuit_ids": [
+          "MPLS-7132",
+          "MPLS-3500"
+        ],
+        "criticality": "LIFE_SAFETY"
+      }
+    ],
+    "notes": "GOVERNMENT PRIORITY: 911 services depend on this connectivity."
+  },
+  {
+    "account_id": "ENT-009",
+    "company_name": "Summit Insurance Partners",
+    "account_type": "ENTERPRISE",
+    "tier": "GOLD",
+    "industry": "Insurance",
+    "contract_value_annual": 740379,
+    "sla_tier": "99.99%",
+    "sla_credit_rate": "3x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Angela Torres",
+      "role": "CTO",
+      "email": "a.torres@summitinsurancepartn.com",
+      "phone": "+1-333-555-1982",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Isabella Kim",
+      "role": "VP Infrastructure",
+      "email": "i.kim@summitinsurancepartn.com",
+      "phone": "+1-800-555-6400",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "ENTERPRISE_MPLS",
+      "COLOCATION",
+      "CLOUD_CONNECT",
+      "SIP_TRUNKING"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Westfield IC",
+        "zone": "ZONE-ND-D",
+        "circuit_ids": [
+          "MPLS-4485",
+          "MPLS-3535",
+          "MPLS-8900"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Claims processing and customer portal."
+  },
+  {
+    "account_id": "ENT-010",
+    "company_name": "Goldleaf Logistics International",
+    "account_type": "ENTERPRISE",
+    "tier": "GOLD",
+    "industry": "Logistics & Supply Chain",
+    "contract_value_annual": 546049,
+    "sla_tier": "99.99%",
+    "sla_credit_rate": "3x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Evelyn Daniels",
+      "role": "CTO",
+      "email": "e.daniels@goldleaflogisticsint.com",
+      "phone": "+1-639-555-1430",
+      "preferred_channel": "email"
+    },
+    "escalation_contact": {
+      "name": "Linda Okafor",
+      "role": "VP Infrastructure",
+      "email": "l.okafor@goldleaflogisticsint.com",
+      "phone": "+1-823-555-5381",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "CLOUD_CONNECT",
+      "SIP_TRUNKING"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Redstone JE",
+        "zone": "ZONE-BIZ-C",
+        "circuit_ids": [
+          "MPLS-7566"
+        ],
+        "criticality": "HIGH"
+      },
+      {
+        "site_name": "Site Crestview TZ",
+        "zone": "ZONE-SM-C",
+        "circuit_ids": [
+          "MPLS-9691"
+        ],
+        "criticality": "HIGH"
+      },
+      {
+        "site_name": "Site Silveroak KI",
+        "zone": "ZONE-ND-A",
+        "circuit_ids": [
+          "MPLS-6105",
+          "MPLS-6314"
+        ],
+        "criticality": "HIGH"
+      }
+    ],
+    "notes": "IoT fleet tracking and warehouse automation."
+  },
+  {
+    "account_id": "ENT-011",
+    "company_name": "Atlanta North Data Solutions",
+    "account_type": "ENTERPRISE",
+    "tier": "GOLD",
+    "industry": "Technology",
+    "contract_value_annual": 492772,
+    "sla_tier": "99.99%",
+    "sla_credit_rate": "5x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Elena Patel",
+      "role": "CTO",
+      "email": "e.patel@atlantanorthdatasolu.com",
+      "phone": "+1-653-555-7947",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Patricia Gupta",
+      "role": "VP Infrastructure",
+      "email": "p.gupta@atlantanorthdatasolu.com",
+      "phone": "+1-697-555-8242",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "SIP_TRUNKING",
+      "CLOUD_CONNECT",
+      "MOBILE_BACKHAUL"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Peachtree CR",
+        "zone": "ZONE-EM-A",
+        "circuit_ids": [
+          "MPLS-8972",
+          "MPLS-9633",
+          "MPLS-6053"
+        ],
+        "criticality": "HIGH"
+      }
+    ],
+    "notes": "SaaS provider hosting 200+ client applications."
+  },
+  {
+    "account_id": "ENT-012",
+    "company_name": "Silveroak Financial Group",
+    "account_type": "ENTERPRISE",
+    "tier": "GOLD",
+    "industry": "Financial Services",
+    "contract_value_annual": 821494,
+    "sla_tier": "99.99%",
+    "sla_credit_rate": "5x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Patricia Chen",
+      "role": "CTO",
+      "email": "p.chen@silveroakfinancialgr.com",
+      "phone": "+1-982-555-5186",
+      "preferred_channel": "email"
+    },
+    "escalation_contact": {
+      "name": "Chen Rosario",
+      "role": "VP Infrastructure",
+      "email": "c.rosario@silveroakfinancialgr.com",
+      "phone": "+1-496-555-6375",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "ENTERPRISE_MPLS",
+      "COLOCATION"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Crestview JS",
+        "zone": "ZONE-NM-B",
+        "circuit_ids": [
+          "MPLS-6802",
+          "MPLS-2180",
+          "MPLS-7505"
+        ],
+        "criticality": "HIGH"
+      },
+      {
+        "site_name": "Site Lakewood BA",
+        "zone": "ZONE-BIZ-A",
+        "circuit_ids": [
+          "MPLS-6129"
+        ],
+        "criticality": "HIGH"
+      },
+      {
+        "site_name": "Site Peachtree OS",
+        "zone": "ZONE-DC-A",
+        "circuit_ids": [
+          "MPLS-5743",
+          "MPLS-2887"
+        ],
+        "criticality": "HIGH"
+      },
+      {
+        "site_name": "Site Meridian ZE",
+        "zone": "ZONE-EM-B",
+        "circuit_ids": [
+          "MPLS-8538",
+          "MPLS-6928",
+          "MPLS-2443"
+        ],
+        "criticality": "HIGH"
+      }
+    ],
+    "notes": "Financial trading operations. Latency-sensitive."
+  },
+  {
+    "account_id": "ENT-013",
+    "company_name": "Cascade Insurance Partners",
+    "account_type": "ENTERPRISE",
+    "tier": "GOLD",
+    "industry": "Insurance",
+    "contract_value_annual": 391233,
+    "sla_tier": "99.99%",
+    "sla_credit_rate": "3x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Isabella Dubois",
+      "role": "CTO",
+      "email": "i.dubois@cascadeinsurancepart.com",
+      "phone": "+1-517-555-6562",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Sophia Rivera",
+      "role": "VP Infrastructure",
+      "email": "s.rivera@cascadeinsurancepart.com",
+      "phone": "+1-426-555-6456",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "ENTERPRISE_MPLS",
+      "MOBILE_BACKHAUL"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Goldleaf JY",
+        "zone": "ZONE-BIZ-B",
+        "circuit_ids": [
+          "MPLS-3419",
+          "MPLS-4871",
+          "MPLS-2684"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Ironwood FP",
+        "zone": "ZONE-NM-A",
+        "circuit_ids": [
+          "MPLS-2234",
+          "MPLS-3902",
+          "MPLS-9095"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Claims processing and customer portal."
+  },
+  {
+    "account_id": "ENT-014",
+    "company_name": "Southridge Insurance Partners",
+    "account_type": "ENTERPRISE",
+    "tier": "GOLD",
+    "industry": "Insurance",
+    "contract_value_annual": 678842,
+    "sla_tier": "99.99%",
+    "sla_credit_rate": "3x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Daniel Kowalski",
+      "role": "CTO",
+      "email": "d.kowalski@southridgeinsurancep.com",
+      "phone": "+1-354-555-8205",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Ahmed Larsson",
+      "role": "VP Infrastructure",
+      "email": "a.larsson@southridgeinsurancep.com",
+      "phone": "+1-269-555-8682",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "SIP_TRUNKING",
+      "MOBILE_BACKHAUL",
+      "COLOCATION"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Broadstone BM",
+        "zone": "ZONE-EM-A",
+        "circuit_ids": [
+          "MPLS-1932"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Claims processing and customer portal."
+  },
+  {
+    "account_id": "ENT-015",
+    "company_name": "Douglasville Manufacturing Corp",
+    "account_type": "ENTERPRISE",
+    "tier": "GOLD",
+    "industry": "Manufacturing",
+    "contract_value_annual": 742594,
+    "sla_tier": "99.99%",
+    "sla_credit_rate": "4x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Angela Martinez",
+      "role": "CTO",
+      "email": "a.martinez@douglasvillemanufact.com",
+      "phone": "+1-660-555-4084",
+      "preferred_channel": "email"
+    },
+    "escalation_contact": {
+      "name": "William Morrison",
+      "role": "VP Infrastructure",
+      "email": "w.morrison@douglasvillemanufact.com",
+      "phone": "+1-529-555-8792",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "CLOUD_CONNECT",
+      "ENTERPRISE_MPLS",
+      "MOBILE_BACKHAUL",
+      "COLOCATION"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Summit NE",
+        "zone": "ZONE-DT-B",
+        "circuit_ids": [
+          "MPLS-8172"
+        ],
+        "criticality": "HIGH"
+      },
+      {
+        "site_name": "Site Broadstone NE",
+        "zone": "ZONE-EM-D",
+        "circuit_ids": [
+          "MPLS-5634",
+          "MPLS-7347"
+        ],
+        "criticality": "HIGH"
+      },
+      {
+        "site_name": "Site Redstone RB",
+        "zone": "ZONE-EM-C",
+        "circuit_ids": [
+          "MPLS-6482",
+          "MPLS-2079",
+          "MPLS-6401"
+        ],
+        "criticality": "HIGH"
+      }
+    ],
+    "notes": "SCADA and industrial control systems on this circuit."
+  },
+  {
+    "account_id": "ENT-016",
+    "company_name": "Sapphire Financial Group",
+    "account_type": "ENTERPRISE",
+    "tier": "GOLD",
+    "industry": "Financial Services",
+    "contract_value_annual": 685461,
+    "sla_tier": "99.99%",
+    "sla_credit_rate": "5x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Thomas Fernandez",
+      "role": "CTO",
+      "email": "t.fernandez@sapphirefinancialgro.com",
+      "phone": "+1-558-555-6082",
+      "preferred_channel": "email"
+    },
+    "escalation_contact": {
+      "name": "Elena Whitfield",
+      "role": "VP Infrastructure",
+      "email": "e.whitfield@sapphirefinancialgro.com",
+      "phone": "+1-871-555-7421",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "MOBILE_BACKHAUL",
+      "ENTERPRISE_MPLS"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Silveroak QI",
+        "zone": "ZONE-WM-C",
+        "circuit_ids": [
+          "MPLS-9624"
+        ],
+        "criticality": "HIGH"
+      },
+      {
+        "site_name": "Site Northgate RN",
+        "zone": "ZONE-SM-C",
+        "circuit_ids": [
+          "MPLS-6940"
+        ],
+        "criticality": "HIGH"
+      },
+      {
+        "site_name": "Site Sterling YI",
+        "zone": "ZONE-ND-D",
+        "circuit_ids": [
+          "MPLS-4145",
+          "MPLS-4711"
+        ],
+        "criticality": "HIGH"
+      }
+    ],
+    "notes": "Financial trading operations. Latency-sensitive."
+  },
+  {
+    "account_id": "ENT-017",
+    "company_name": "Summit Logistics International",
+    "account_type": "ENTERPRISE",
+    "tier": "GOLD",
+    "industry": "Logistics & Supply Chain",
+    "contract_value_annual": 804160,
+    "sla_tier": "99.99%",
+    "sla_credit_rate": "3x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Carlos Larsson",
+      "role": "CTO",
+      "email": "c.larsson@summitlogisticsinter.com",
+      "phone": "+1-877-555-6517",
+      "preferred_channel": "email"
+    },
+    "escalation_contact": {
+      "name": "David Rivera",
+      "role": "VP Infrastructure",
+      "email": "d.rivera@summitlogisticsinter.com",
+      "phone": "+1-984-555-3147",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "COLOCATION",
+      "CLOUD_CONNECT",
+      "ENTERPRISE_MPLS",
+      "SIP_TRUNKING"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Magnolia BJ",
+        "zone": "ZONE-DT-C",
+        "circuit_ids": [
+          "MPLS-4891",
+          "MPLS-8277",
+          "MPLS-5668"
+        ],
+        "criticality": "HIGH"
+      },
+      {
+        "site_name": "Site Lakewood UG",
+        "zone": "ZONE-DT-D",
+        "circuit_ids": [
+          "MPLS-6070"
+        ],
+        "criticality": "HIGH"
+      }
+    ],
+    "notes": "IoT fleet tracking and warehouse automation."
+  },
+  {
+    "account_id": "ENT-018",
+    "company_name": "Goldleaf Insurance Partners",
+    "account_type": "ENTERPRISE",
+    "tier": "GOLD",
+    "industry": "Insurance",
+    "contract_value_annual": 497729,
+    "sla_tier": "99.99%",
+    "sla_credit_rate": "3x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Daniel Singh",
+      "role": "CTO",
+      "email": "d.singh@goldleafinsurancepar.com",
+      "phone": "+1-714-555-9641",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Valentina Okafor",
+      "role": "VP Infrastructure",
+      "email": "v.okafor@goldleafinsurancepar.com",
+      "phone": "+1-628-555-3655",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "MOBILE_BACKHAUL",
+      "CLOUD_CONNECT"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Northgate MJ",
+        "zone": "ZONE-SM-B",
+        "circuit_ids": [
+          "MPLS-9452"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Horizon HT",
+        "zone": "ZONE-BIZ-A",
+        "circuit_ids": [
+          "MPLS-8361",
+          "MPLS-9410"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Peachtree CX",
+        "zone": "ZONE-NM-A",
+        "circuit_ids": [
+          "MPLS-6727",
+          "MPLS-1436"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Claims processing and customer portal."
+  },
+  {
+    "account_id": "ENT-019",
+    "company_name": "Silveroak Insurance Partners",
+    "account_type": "ENTERPRISE",
+    "tier": "GOLD",
+    "industry": "Insurance",
+    "contract_value_annual": 392784,
+    "sla_tier": "99.99%",
+    "sla_credit_rate": "3x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "William Daniels",
+      "role": "CTO",
+      "email": "w.daniels@silveroakinsurancepa.com",
+      "phone": "+1-429-555-1461",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Aisha Morrison",
+      "role": "VP Infrastructure",
+      "email": "a.morrison@silveroakinsurancepa.com",
+      "phone": "+1-526-555-2623",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "SIP_TRUNKING",
+      "CLOUD_CONNECT",
+      "ENTERPRISE_MPLS",
+      "MOBILE_BACKHAUL"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Cypress SD",
+        "zone": "ZONE-BIZ-C",
+        "circuit_ids": [
+          "MPLS-8685",
+          "MPLS-8349",
+          "MPLS-1086"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Summit AF",
+        "zone": "ZONE-BIZ-B",
+        "circuit_ids": [
+          "MPLS-9991"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Westfield NC",
+        "zone": "ZONE-DT-C",
+        "circuit_ids": [
+          "MPLS-4893",
+          "MPLS-5934"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Claims processing and customer portal."
+  },
+  {
+    "account_id": "ENT-020",
+    "company_name": "Cascade Financial Group",
+    "account_type": "ENTERPRISE",
+    "tier": "GOLD",
+    "industry": "Financial Services",
+    "contract_value_annual": 716242,
+    "sla_tier": "99.99%",
+    "sla_credit_rate": "5x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Kwame Kowalski",
+      "role": "CTO",
+      "email": "k.kowalski@cascadefinancialgrou.com",
+      "phone": "+1-811-555-9782",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Valentina Torres",
+      "role": "VP Infrastructure",
+      "email": "v.torres@cascadefinancialgrou.com",
+      "phone": "+1-216-555-9443",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "CLOUD_CONNECT",
+      "MOBILE_BACKHAUL",
+      "COLOCATION",
+      "SIP_TRUNKING"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Goldleaf GK",
+        "zone": "ZONE-DC-B",
+        "circuit_ids": [
+          "MPLS-2402",
+          "MPLS-9576",
+          "MPLS-6908"
+        ],
+        "criticality": "HIGH"
+      }
+    ],
+    "notes": "Financial trading operations. Latency-sensitive."
+  },
+  {
+    "account_id": "ENT-021",
+    "company_name": "Silveroak Academy \u2014 School District",
+    "account_type": "ENTERPRISE",
+    "tier": "SILVER",
+    "industry": "Education",
+    "contract_value_annual": 332985,
+    "sla_tier": "99.9%",
+    "sla_credit_rate": "2x hourly rate per hour of downtime",
+    "primary_contact": {
+      "name": "Ricardo Williams",
+      "role": "CTO",
+      "email": "r.williams@silveroakacademyscho.com",
+      "phone": "+1-565-555-2106",
+      "preferred_channel": "email"
+    },
+    "escalation_contact": {
+      "name": "Derek Daniels",
+      "role": "VP Infrastructure",
+      "email": "d.daniels@silveroakacademyscho.com",
+      "phone": "+1-553-555-4950",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "ENTERPRISE_MPLS",
+      "SIP_TRUNKING",
+      "MOBILE_BACKHAUL",
+      "COLOCATION"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Redstone VE",
+        "zone": "ZONE-WM-C",
+        "circuit_ids": [
+          "MPLS-8612",
+          "MPLS-8840",
+          "MPLS-3986"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Crestview BU",
+        "zone": "ZONE-DT-E",
+        "circuit_ids": [
+          "MPLS-1605",
+          "MPLS-5807"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Pinnacle UX",
+        "zone": "ZONE-ND-A",
+        "circuit_ids": [
+          "MPLS-6080",
+          "MPLS-9444"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Online learning platform. Extended outage during school hours requires parent notification."
+  },
+  {
+    "account_id": "ENT-022",
+    "company_name": "Ironwood Media Group",
+    "account_type": "ENTERPRISE",
+    "tier": "SILVER",
+    "industry": "Media & Entertainment",
+    "contract_value_annual": 437157,
+    "sla_tier": "99.9%",
+    "sla_credit_rate": "2x hourly rate per hour of downtime",
+    "primary_contact": {
+      "name": "Michael Okafor",
+      "role": "CTO",
+      "email": "m.okafor@ironwoodmediagroup.com",
+      "phone": "+1-871-555-6438",
+      "preferred_channel": "email"
+    },
+    "escalation_contact": {
+      "name": "Darnell Rosario",
+      "role": "VP Infrastructure",
+      "email": "d.rosario@ironwoodmediagroup.com",
+      "phone": "+1-479-555-3039",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "COLOCATION",
+      "MOBILE_BACKHAUL",
+      "SIP_TRUNKING"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Silveroak IE",
+        "zone": "ZONE-BIZ-B",
+        "circuit_ids": [
+          "MPLS-9151",
+          "MPLS-7018",
+          "MPLS-9507"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Summit SC",
+        "zone": "ZONE-ND-C",
+        "circuit_ids": [
+          "MPLS-3956",
+          "MPLS-9937",
+          "MPLS-5813"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Horizon CR",
+        "zone": "ZONE-ND-E",
+        "circuit_ids": [
+          "MPLS-8305",
+          "MPLS-7981"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Highland LL",
+        "zone": "ZONE-NM-B",
+        "circuit_ids": [
+          "MPLS-6776",
+          "MPLS-8126",
+          "MPLS-5498"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Live broadcast operations. Outage during air time is catastrophic."
+  },
+  {
+    "account_id": "ENT-023",
+    "company_name": "Southridge Academy \u2014 School District",
+    "account_type": "ENTERPRISE",
+    "tier": "SILVER",
+    "industry": "Education",
+    "contract_value_annual": 283879,
+    "sla_tier": "99.9%",
+    "sla_credit_rate": "2x hourly rate per hour of downtime",
+    "primary_contact": {
+      "name": "Sophia Daniels",
+      "role": "CTO",
+      "email": "s.daniels@southridgeacademysch.com",
+      "phone": "+1-346-555-8179",
+      "preferred_channel": "email"
+    },
+    "escalation_contact": {
+      "name": "William Takahashi",
+      "role": "VP Infrastructure",
+      "email": "w.takahashi@southridgeacademysch.com",
+      "phone": "+1-235-555-3068",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "CLOUD_CONNECT",
+      "SIP_TRUNKING"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Eastpoint AD",
+        "zone": "ZONE-EM-B",
+        "circuit_ids": [
+          "MPLS-7077",
+          "MPLS-7095"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Summit ON",
+        "zone": "ZONE-EM-D",
+        "circuit_ids": [
+          "MPLS-6150",
+          "MPLS-5566"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Horizon AE",
+        "zone": "ZONE-ND-B",
+        "circuit_ids": [
+          "MPLS-7340",
+          "MPLS-2929",
+          "MPLS-5288"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Online learning platform. Extended outage during school hours requires parent notification."
+  },
+  {
+    "account_id": "ENT-024",
+    "company_name": "Buckhead Legal Associates",
+    "account_type": "ENTERPRISE",
+    "tier": "SILVER",
+    "industry": "Legal",
+    "contract_value_annual": 212148,
+    "sla_tier": "99.9%",
+    "sla_credit_rate": "2x hourly rate per hour of downtime",
+    "primary_contact": {
+      "name": "Carlos Andersson",
+      "role": "CTO",
+      "email": "c.andersson@buckheadlegalassocia.com",
+      "phone": "+1-275-555-8406",
+      "preferred_channel": "email"
+    },
+    "escalation_contact": {
+      "name": "Natasha Hammond",
+      "role": "VP Infrastructure",
+      "email": "n.hammond@buckheadlegalassocia.com",
+      "phone": "+1-376-555-8292",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "SIP_TRUNKING",
+      "MOBILE_BACKHAUL"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Clearwater HH",
+        "zone": "ZONE-WM-C",
+        "circuit_ids": [
+          "MPLS-3852"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Cloud-based case management. Court filing deadlines at risk during outage."
+  },
+  {
+    "account_id": "ENT-025",
+    "company_name": "Decatur Legal Associates",
+    "account_type": "ENTERPRISE",
+    "tier": "SILVER",
+    "industry": "Legal",
+    "contract_value_annual": 309504,
+    "sla_tier": "99.9%",
+    "sla_credit_rate": "2x hourly rate per hour of downtime",
+    "primary_contact": {
+      "name": "Darnell Takahashi",
+      "role": "CTO",
+      "email": "d.takahashi@decaturlegalassociat.com",
+      "phone": "+1-569-555-7044",
+      "preferred_channel": "email"
+    },
+    "escalation_contact": {
+      "name": "Marcus Wright",
+      "role": "VP Infrastructure",
+      "email": "m.wright@decaturlegalassociat.com",
+      "phone": "+1-678-555-3126",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "ENTERPRISE_MPLS",
+      "MOBILE_BACKHAUL",
+      "CLOUD_CONNECT",
+      "SIP_TRUNKING"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Peachtree TV",
+        "zone": "ZONE-WM-B",
+        "circuit_ids": [
+          "MPLS-3053"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Northgate BM",
+        "zone": "ZONE-ND-E",
+        "circuit_ids": [
+          "MPLS-6644",
+          "MPLS-3102",
+          "MPLS-3981"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Crestview LX",
+        "zone": "ZONE-DT-D",
+        "circuit_ids": [
+          "MPLS-3034"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Crestview HE",
+        "zone": "ZONE-WM-B",
+        "circuit_ids": [
+          "MPLS-4694",
+          "MPLS-6669",
+          "MPLS-9501"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Cloud-based case management. Court filing deadlines at risk during outage."
+  },
+  {
+    "account_id": "ENT-026",
+    "company_name": "Atlanta North Legal Associates",
+    "account_type": "ENTERPRISE",
+    "tier": "SILVER",
+    "industry": "Legal",
+    "contract_value_annual": 212812,
+    "sla_tier": "99.9%",
+    "sla_credit_rate": "2x hourly rate per hour of downtime",
+    "primary_contact": {
+      "name": "Darnell Kowalski",
+      "role": "CTO",
+      "email": "d.kowalski@atlantanorthlegalass.com",
+      "phone": "+1-829-555-9740",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Evelyn Foster",
+      "role": "VP Infrastructure",
+      "email": "e.foster@atlantanorthlegalass.com",
+      "phone": "+1-295-555-9234",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "CLOUD_CONNECT",
+      "MOBILE_BACKHAUL",
+      "ENTERPRISE_MPLS",
+      "COLOCATION"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Meridian CY",
+        "zone": "ZONE-DT-F",
+        "circuit_ids": [
+          "MPLS-5336",
+          "MPLS-4453",
+          "MPLS-7825"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Cloud-based case management. Court filing deadlines at risk during outage."
+  },
+  {
+    "account_id": "ENT-027",
+    "company_name": "Northgate Academy \u2014 School District",
+    "account_type": "ENTERPRISE",
+    "tier": "SILVER",
+    "industry": "Education",
+    "contract_value_annual": 412909,
+    "sla_tier": "99.9%",
+    "sla_credit_rate": "2x hourly rate per hour of downtime",
+    "primary_contact": {
+      "name": "Jamal Rosario",
+      "role": "CTO",
+      "email": "j.rosario@northgateacademyscho.com",
+      "phone": "+1-664-555-2195",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Aisha Takahashi",
+      "role": "VP Infrastructure",
+      "email": "a.takahashi@northgateacademyscho.com",
+      "phone": "+1-905-555-1981",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "COLOCATION",
+      "MOBILE_BACKHAUL"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Beacon ID",
+        "zone": "ZONE-EM-D",
+        "circuit_ids": [
+          "MPLS-6231",
+          "MPLS-6658",
+          "MPLS-7532"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Goldleaf NC",
+        "zone": "ZONE-NM-A",
+        "circuit_ids": [
+          "MPLS-8642"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Ironwood LD",
+        "zone": "ZONE-SM-D",
+        "circuit_ids": [
+          "MPLS-5754"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Westfield KZ",
+        "zone": "ZONE-EM-B",
+        "circuit_ids": [
+          "MPLS-6364"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Online learning platform. Extended outage during school hours requires parent notification."
+  },
+  {
+    "account_id": "ENT-028",
+    "company_name": "Decatur Legal Associates",
+    "account_type": "ENTERPRISE",
+    "tier": "SILVER",
+    "industry": "Legal",
+    "contract_value_annual": 260882,
+    "sla_tier": "99.9%",
+    "sla_credit_rate": "2x hourly rate per hour of downtime",
+    "primary_contact": {
+      "name": "Natasha Rivera",
+      "role": "CTO",
+      "email": "n.rivera@decaturlegalassociat.com",
+      "phone": "+1-223-555-2475",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Valentina Okonkwo",
+      "role": "VP Infrastructure",
+      "email": "v.okonkwo@decaturlegalassociat.com",
+      "phone": "+1-602-555-9281",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "CLOUD_CONNECT",
+      "MOBILE_BACKHAUL",
+      "SIP_TRUNKING"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Pinnacle HP",
+        "zone": "ZONE-SM-B",
+        "circuit_ids": [
+          "MPLS-8710",
+          "MPLS-5681",
+          "MPLS-9793"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Horizon LW",
+        "zone": "ZONE-SM-A",
+        "circuit_ids": [
+          "MPLS-6992",
+          "MPLS-7606",
+          "MPLS-6995"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Silveroak BO",
+        "zone": "ZONE-SM-B",
+        "circuit_ids": [
+          "MPLS-5728",
+          "MPLS-2204"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Cloud-based case management. Court filing deadlines at risk during outage."
+  },
+  {
+    "account_id": "ENT-029",
+    "company_name": "Clearwater Media Group",
+    "account_type": "ENTERPRISE",
+    "tier": "SILVER",
+    "industry": "Media & Entertainment",
+    "contract_value_annual": 300688,
+    "sla_tier": "99.9%",
+    "sla_credit_rate": "2x hourly rate per hour of downtime",
+    "primary_contact": {
+      "name": "Priya Petrov",
+      "role": "CTO",
+      "email": "p.petrov@clearwatermediagroup.com",
+      "phone": "+1-582-555-6555",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Linda Brooks",
+      "role": "VP Infrastructure",
+      "email": "l.brooks@clearwatermediagroup.com",
+      "phone": "+1-771-555-6990",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "CLOUD_CONNECT",
+      "COLOCATION"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Pinnacle DI",
+        "zone": "ZONE-SM-B",
+        "circuit_ids": [
+          "MPLS-9508",
+          "MPLS-8487"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Live broadcast operations. Outage during air time is catastrophic."
+  },
+  {
+    "account_id": "ENT-030",
+    "company_name": "Redstone Hotel & Conference Center",
+    "account_type": "ENTERPRISE",
+    "tier": "SILVER",
+    "industry": "Hospitality",
+    "contract_value_annual": 343808,
+    "sla_tier": "99.9%",
+    "sla_credit_rate": "2x hourly rate per hour of downtime",
+    "primary_contact": {
+      "name": "Ahmed Patel",
+      "role": "CTO",
+      "email": "a.patel@redstonehotelconfere.com",
+      "phone": "+1-807-555-6511",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Sophia Martinez",
+      "role": "VP Infrastructure",
+      "email": "s.martinez@redstonehotelconfere.com",
+      "phone": "+1-719-555-9351",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "COLOCATION",
+      "SIP_TRUNKING",
+      "CLOUD_CONNECT",
+      "ENTERPRISE_MPLS"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Southridge CK",
+        "zone": "ZONE-ND-E",
+        "circuit_ids": [
+          "MPLS-1436",
+          "MPLS-8775"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Northgate UU",
+        "zone": "ZONE-ND-C",
+        "circuit_ids": [
+          "MPLS-4728",
+          "MPLS-1841",
+          "MPLS-8871"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Broadstone QQ",
+        "zone": "ZONE-NM-B",
+        "circuit_ids": [
+          "MPLS-3421",
+          "MPLS-4968"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Guest WiFi and POS systems."
+  },
+  {
+    "account_id": "ENT-031",
+    "company_name": "Beacon Academy \u2014 School District",
+    "account_type": "ENTERPRISE",
+    "tier": "SILVER",
+    "industry": "Education",
+    "contract_value_annual": 279393,
+    "sla_tier": "99.9%",
+    "sla_credit_rate": "2x hourly rate per hour of downtime",
+    "primary_contact": {
+      "name": "Sarah Singh",
+      "role": "CTO",
+      "email": "s.singh@beaconacademyschoold.com",
+      "phone": "+1-907-555-4340",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Ahmed Nakamura",
+      "role": "VP Infrastructure",
+      "email": "a.nakamura@beaconacademyschoold.com",
+      "phone": "+1-620-555-9221",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "COLOCATION",
+      "ENTERPRISE_MPLS",
+      "SIP_TRUNKING",
+      "MOBILE_BACKHAUL"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Redstone ZM",
+        "zone": "ZONE-WM-C",
+        "circuit_ids": [
+          "MPLS-6140",
+          "MPLS-3837"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Clearwater IJ",
+        "zone": "ZONE-EM-D",
+        "circuit_ids": [
+          "MPLS-5331",
+          "MPLS-8932",
+          "MPLS-4150"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Online learning platform. Extended outage during school hours requires parent notification."
+  },
+  {
+    "account_id": "ENT-032",
+    "company_name": "Clearwater Hotel & Conference Center",
+    "account_type": "ENTERPRISE",
+    "tier": "SILVER",
+    "industry": "Hospitality",
+    "contract_value_annual": 225760,
+    "sla_tier": "99.9%",
+    "sla_credit_rate": "2x hourly rate per hour of downtime",
+    "primary_contact": {
+      "name": "Yuki Wright",
+      "role": "CTO",
+      "email": "y.wright@clearwaterhotelconfe.com",
+      "phone": "+1-906-555-9011",
+      "preferred_channel": "email"
+    },
+    "escalation_contact": {
+      "name": "Yuki Okafor",
+      "role": "VP Infrastructure",
+      "email": "y.okafor@clearwaterhotelconfe.com",
+      "phone": "+1-524-555-8861",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "MOBILE_BACKHAUL",
+      "SIP_TRUNKING",
+      "CLOUD_CONNECT"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Southridge OX",
+        "zone": "ZONE-DC-A",
+        "circuit_ids": [
+          "MPLS-6654",
+          "MPLS-3399"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Guest WiFi and POS systems."
+  },
+  {
+    "account_id": "GOV-001",
+    "company_name": "Atlanta South Fire & Rescue",
+    "account_type": "GOVERNMENT",
+    "tier": "PLATINUM",
+    "industry": "Government \u2014 Fire Services",
+    "contract_value_annual": 768900,
+    "sla_tier": "99.999%",
+    "sla_credit_rate": "12x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Angela Daniels",
+      "role": "Director",
+      "email": "a.daniels@atlantasouthfir.gov",
+      "phone": "+1-965-555-8849",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Andre Kowalski",
+      "role": "City IT Director",
+      "email": "a.kowalski@atlantasouthfir.gov",
+      "phone": "+1-419-555-4310",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "ENTERPRISE_MPLS",
+      "SIP_TRUNKING",
+      "MOBILE_BACKHAUL",
+      "MOBILE_VOICE"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Clearwater SD",
+        "zone": "ZONE-BIZ-C",
+        "circuit_ids": [
+          "MPLS-GOV-4920",
+          "MPLS-GOV-4972",
+          "MPLS-GOV-1831"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Broadstone FG",
+        "zone": "ZONE-DT-A",
+        "circuit_ids": [
+          "MPLS-GOV-7771"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Highland MR",
+        "zone": "ZONE-ND-E",
+        "circuit_ids": [
+          "MPLS-GOV-1084"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Sterling KY",
+        "zone": "ZONE-WM-C",
+        "circuit_ids": [
+          "MPLS-GOV-8822",
+          "MPLS-GOV-4267"
+        ],
+        "criticality": "LIFE_SAFETY"
+      }
+    ],
+    "notes": "CAD dispatch and station alerting systems."
+  },
+  {
+    "account_id": "GOV-002",
+    "company_name": "Suwanee Fire & Rescue",
+    "account_type": "GOVERNMENT",
+    "tier": "PLATINUM",
+    "industry": "Government \u2014 Fire Services",
+    "contract_value_annual": 593806,
+    "sla_tier": "99.999%",
+    "sla_credit_rate": "12x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Carlos Kowalski",
+      "role": "Director",
+      "email": "c.kowalski@suwaneefire&res.gov",
+      "phone": "+1-867-555-4804",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Patricia Okafor",
+      "role": "City IT Director",
+      "email": "p.okafor@suwaneefire&res.gov",
+      "phone": "+1-747-555-1611",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "ENTERPRISE_MPLS",
+      "SIP_TRUNKING",
+      "MOBILE_BACKHAUL",
+      "MOBILE_VOICE"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Sterling YA",
+        "zone": "ZONE-EM-C",
+        "circuit_ids": [
+          "MPLS-GOV-9116",
+          "MPLS-GOV-4052"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Lakewood ZY",
+        "zone": "ZONE-BIZ-C",
+        "circuit_ids": [
+          "MPLS-GOV-1151"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Eastpoint PY",
+        "zone": "ZONE-ND-D",
+        "circuit_ids": [
+          "MPLS-GOV-5662",
+          "MPLS-GOV-8444"
+        ],
+        "criticality": "LIFE_SAFETY"
+      }
+    ],
+    "notes": "CAD dispatch and station alerting systems."
+  },
+  {
+    "account_id": "GOV-003",
+    "company_name": "Marietta Water Authority",
+    "account_type": "GOVERNMENT",
+    "tier": "PLATINUM",
+    "industry": "Government \u2014 Utilities",
+    "contract_value_annual": 824051,
+    "sla_tier": "99.99%",
+    "sla_credit_rate": "8x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "William Singh",
+      "role": "Director",
+      "email": "w.singh@mariettawaterau.gov",
+      "phone": "+1-315-555-6417",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Priya Hammond",
+      "role": "City IT Director",
+      "email": "p.hammond@mariettawaterau.gov",
+      "phone": "+1-366-555-8518",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "ENTERPRISE_MPLS",
+      "SIP_TRUNKING",
+      "MOBILE_BACKHAUL",
+      "MOBILE_VOICE"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Sterling AI",
+        "zone": "ZONE-DT-B",
+        "circuit_ids": [
+          "MPLS-GOV-4164",
+          "MPLS-GOV-3875"
+        ],
+        "criticality": "HIGH"
+      },
+      {
+        "site_name": "Site Northgate XV",
+        "zone": "ZONE-DC-B",
+        "circuit_ids": [
+          "MPLS-GOV-6372",
+          "MPLS-GOV-2421",
+          "MPLS-GOV-7567"
+        ],
+        "criticality": "HIGH"
+      },
+      {
+        "site_name": "Site Horizon ED",
+        "zone": "ZONE-DT-A",
+        "circuit_ids": [
+          "MPLS-GOV-5064",
+          "MPLS-GOV-1111"
+        ],
+        "criticality": "HIGH"
+      },
+      {
+        "site_name": "Site Silveroak GT",
+        "zone": "ZONE-ND-C",
+        "circuit_ids": [
+          "MPLS-GOV-5947",
+          "MPLS-GOV-1187"
+        ],
+        "criticality": "HIGH"
+      }
+    ],
+    "notes": "SCADA monitoring for water treatment and distribution."
+  },
+  {
+    "account_id": "GOV-004",
+    "company_name": "Suwanee Fire & Rescue",
+    "account_type": "GOVERNMENT",
+    "tier": "PLATINUM",
+    "industry": "Government \u2014 Fire Services",
+    "contract_value_annual": 821709,
+    "sla_tier": "99.999%",
+    "sla_credit_rate": "12x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Aisha Williams",
+      "role": "Director",
+      "email": "a.williams@suwaneefire&res.gov",
+      "phone": "+1-363-555-7642",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Linda Singh",
+      "role": "City IT Director",
+      "email": "l.singh@suwaneefire&res.gov",
+      "phone": "+1-902-555-9233",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "ENTERPRISE_MPLS",
+      "SIP_TRUNKING",
+      "MOBILE_BACKHAUL",
+      "MOBILE_VOICE"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Horizon QY",
+        "zone": "ZONE-DT-B",
+        "circuit_ids": [
+          "MPLS-GOV-4618",
+          "MPLS-GOV-4590"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Cypress DT",
+        "zone": "ZONE-NM-A",
+        "circuit_ids": [
+          "MPLS-GOV-7121",
+          "MPLS-GOV-7813",
+          "MPLS-GOV-9998"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Cypress TU",
+        "zone": "ZONE-BIZ-C",
+        "circuit_ids": [
+          "MPLS-GOV-5054"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Westfield WC",
+        "zone": "ZONE-DT-A",
+        "circuit_ids": [
+          "MPLS-GOV-9653",
+          "MPLS-GOV-6927"
+        ],
+        "criticality": "LIFE_SAFETY"
+      }
+    ],
+    "notes": "CAD dispatch and station alerting systems."
+  },
+  {
+    "account_id": "GOV-005",
+    "company_name": "Atlanta North County \u2014 Emergency Management",
+    "account_type": "GOVERNMENT",
+    "tier": "PLATINUM",
+    "industry": "Government \u2014 Emergency Services",
+    "contract_value_annual": 1223953,
+    "sla_tier": "99.999%",
+    "sla_credit_rate": "15x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Patricia Petrov",
+      "role": "Director",
+      "email": "p.petrov@atlantanorthcou.gov",
+      "phone": "+1-786-555-9792",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Evelyn Rivera",
+      "role": "City IT Director",
+      "email": "e.rivera@atlantanorthcou.gov",
+      "phone": "+1-353-555-3695",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "ENTERPRISE_MPLS",
+      "SIP_TRUNKING",
+      "MOBILE_BACKHAUL",
+      "MOBILE_VOICE"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Broadstone LR",
+        "zone": "ZONE-BIZ-A",
+        "circuit_ids": [
+          "MPLS-GOV-9008",
+          "MPLS-GOV-2489",
+          "MPLS-GOV-9361"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Pinnacle LN",
+        "zone": "ZONE-EM-D",
+        "circuit_ids": [
+          "MPLS-GOV-1945",
+          "MPLS-GOV-8575"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Sapphire SK",
+        "zone": "ZONE-DT-A",
+        "circuit_ids": [
+          "MPLS-GOV-4570"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Summit BI",
+        "zone": "ZONE-DC-A",
+        "circuit_ids": [
+          "MPLS-GOV-9866"
+        ],
+        "criticality": "LIFE_SAFETY"
+      }
+    ],
+    "notes": "Emergency management coordination. FEMA compliance."
+  },
+  {
+    "account_id": "GOV-006",
+    "company_name": "Atlanta North County \u2014 Emergency Management",
+    "account_type": "GOVERNMENT",
+    "tier": "PLATINUM",
+    "industry": "Government \u2014 Emergency Services",
+    "contract_value_annual": 1084014,
+    "sla_tier": "99.999%",
+    "sla_credit_rate": "15x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Carlos Nakamura",
+      "role": "Director",
+      "email": "c.nakamura@atlantanorthcou.gov",
+      "phone": "+1-984-555-7887",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Maria Okafor",
+      "role": "City IT Director",
+      "email": "m.okafor@atlantanorthcou.gov",
+      "phone": "+1-583-555-7266",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "ENTERPRISE_MPLS",
+      "SIP_TRUNKING",
+      "MOBILE_BACKHAUL",
+      "MOBILE_VOICE"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Silveroak JR",
+        "zone": "ZONE-BIZ-A",
+        "circuit_ids": [
+          "MPLS-GOV-9835",
+          "MPLS-GOV-3178",
+          "MPLS-GOV-6697"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Sterling ZK",
+        "zone": "ZONE-SM-D",
+        "circuit_ids": [
+          "MPLS-GOV-4648"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Meridian TZ",
+        "zone": "ZONE-DT-F",
+        "circuit_ids": [
+          "MPLS-GOV-9920",
+          "MPLS-GOV-7948"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Silveroak VG",
+        "zone": "ZONE-WM-C",
+        "circuit_ids": [
+          "MPLS-GOV-3541",
+          "MPLS-GOV-5516"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Lakewood TA",
+        "zone": "ZONE-ND-A",
+        "circuit_ids": [
+          "MPLS-GOV-7868",
+          "MPLS-GOV-1256",
+          "MPLS-GOV-4943"
+        ],
+        "criticality": "LIFE_SAFETY"
+      }
+    ],
+    "notes": "Emergency management coordination. FEMA compliance."
+  },
+  {
+    "account_id": "GOV-007",
+    "company_name": "Atlanta North Police Department",
+    "account_type": "GOVERNMENT",
+    "tier": "PLATINUM",
+    "industry": "Government \u2014 Law Enforcement",
+    "contract_value_annual": 1226822,
+    "sla_tier": "99.999%",
+    "sla_credit_rate": "12x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "David Martinez",
+      "role": "Director",
+      "email": "d.martinez@atlantanorthpol.gov",
+      "phone": "+1-888-555-1797",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Michael Singh",
+      "role": "City IT Director",
+      "email": "m.singh@atlantanorthpol.gov",
+      "phone": "+1-450-555-1724",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "ENTERPRISE_MPLS",
+      "SIP_TRUNKING",
+      "MOBILE_BACKHAUL",
+      "MOBILE_VOICE"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Cascade OT",
+        "zone": "ZONE-EM-D",
+        "circuit_ids": [
+          "MPLS-GOV-3295"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Sapphire GX",
+        "zone": "ZONE-WM-B",
+        "circuit_ids": [
+          "MPLS-GOV-6224",
+          "MPLS-GOV-6253",
+          "MPLS-GOV-4881"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Crestview ZN",
+        "zone": "ZONE-ND-D",
+        "circuit_ids": [
+          "MPLS-GOV-5923",
+          "MPLS-GOV-5508"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Clearwater YW",
+        "zone": "ZONE-SM-B",
+        "circuit_ids": [
+          "MPLS-GOV-7999"
+        ],
+        "criticality": "LIFE_SAFETY"
+      },
+      {
+        "site_name": "Site Cypress BI",
+        "zone": "ZONE-WM-C",
+        "circuit_ids": [
+          "MPLS-GOV-7244",
+          "MPLS-GOV-9592",
+          "MPLS-GOV-6222"
+        ],
+        "criticality": "LIFE_SAFETY"
+      }
+    ],
+    "notes": "Body cam uploads and dispatch systems."
+  },
+  {
+    "account_id": "GOV-008",
+    "company_name": "Atlanta CBD Water Authority",
+    "account_type": "GOVERNMENT",
+    "tier": "PLATINUM",
+    "industry": "Government \u2014 Utilities",
+    "contract_value_annual": 795531,
+    "sla_tier": "99.99%",
+    "sla_credit_rate": "8x hourly rate per minute of downtime",
+    "primary_contact": {
+      "name": "Elena Rosario",
+      "role": "Director",
+      "email": "e.rosario@atlantacbdwater.gov",
+      "phone": "+1-750-555-8758",
+      "preferred_channel": "phone"
+    },
+    "escalation_contact": {
+      "name": "Derek Patel",
+      "role": "City IT Director",
+      "email": "d.patel@atlantacbdwater.gov",
+      "phone": "+1-446-555-4692",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "ENTERPRISE_MPLS",
+      "SIP_TRUNKING",
+      "MOBILE_BACKHAUL",
+      "MOBILE_VOICE"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Highland DM",
+        "zone": "ZONE-BIZ-A",
+        "circuit_ids": [
+          "MPLS-GOV-7761"
+        ],
+        "criticality": "HIGH"
+      },
+      {
+        "site_name": "Site Clearwater NK",
+        "zone": "ZONE-EM-C",
+        "circuit_ids": [
+          "MPLS-GOV-4331",
+          "MPLS-GOV-6411"
+        ],
+        "criticality": "HIGH"
+      },
+      {
+        "site_name": "Site Summit XW",
+        "zone": "ZONE-DC-C",
+        "circuit_ids": [
+          "MPLS-GOV-9775"
+        ],
+        "criticality": "HIGH"
+      },
+      {
+        "site_name": "Site Beacon BJ",
+        "zone": "ZONE-DT-C",
+        "circuit_ids": [
+          "MPLS-GOV-1647",
+          "MPLS-GOV-2192",
+          "MPLS-GOV-4082"
+        ],
+        "criticality": "HIGH"
+      }
+    ],
+    "notes": "SCADA monitoring for water treatment and distribution."
+  },
+  {
+    "account_id": "VIP-001",
+    "company_name": null,
+    "account_type": "VIP_RESIDENTIAL",
+    "tier": "VIP",
+    "customer_name": "Ricardo Hammond",
+    "industry": null,
+    "contract_value_annual": 7200,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Ricardo Hammond",
+      "email": "r.hammond@personal.com",
+      "phone": "+1-510-555-1251",
+      "preferred_channel": "sms"
+    },
+    "services": [
+      "IPTV",
+      "BROADBAND",
+      "MOBILE_VOICE"
+    ],
+    "locations": [
+      {
+        "site_name": "Private Residence",
+        "zone": "ZONE-BIZ-C",
+        "circuit_ids": [
+          "RES-VIP-4974"
+        ],
+        "criticality": "HIGH"
+      }
+    ],
+    "notes": "High-profile philanthropist. Board member of local chamber of commerce."
+  },
+  {
+    "account_id": "VIP-002",
+    "company_name": null,
+    "account_type": "VIP_RESIDENTIAL",
+    "tier": "VIP",
+    "customer_name": "Aisha Johansson",
+    "industry": null,
+    "contract_value_annual": 7200,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Aisha Johansson",
+      "email": "a.johansson@personal.com",
+      "phone": "+1-994-555-5637",
+      "preferred_channel": "sms"
+    },
+    "services": [
+      "MOBILE_VOICE",
+      "MOBILE_DATA",
+      "VOIP",
+      "IPTV"
+    ],
+    "locations": [
+      {
+        "site_name": "Private Residence",
+        "zone": "ZONE-ND-C",
+        "circuit_ids": [
+          "RES-VIP-6892"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Fortune 500 CEO residence. Expects executive-level treatment."
+  },
+  {
+    "account_id": "VIP-003",
+    "company_name": null,
+    "account_type": "VIP_RESIDENTIAL",
+    "tier": "VIP",
+    "customer_name": "David Takahashi",
+    "industry": null,
+    "contract_value_annual": 9600,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "David Takahashi",
+      "email": "d.takahashi@personal.com",
+      "phone": "+1-979-555-6246",
+      "preferred_channel": "sms"
+    },
+    "services": [
+      "VOIP",
+      "MOBILE_5G",
+      "MOBILE_VOICE"
+    ],
+    "locations": [
+      {
+        "site_name": "Private Residence",
+        "zone": "ZONE-SM-B",
+        "circuit_ids": [
+          "RES-VIP-4625"
+        ],
+        "criticality": "HIGH"
+      }
+    ],
+    "notes": "Celebrity chef with large social following. Complaints go viral."
+  },
+  {
+    "account_id": "VIP-004",
+    "company_name": null,
+    "account_type": "VIP_RESIDENTIAL",
+    "tier": "VIP",
+    "customer_name": "Governor Thomas Johansson",
+    "industry": null,
+    "contract_value_annual": 9600,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Governor Thomas Johansson",
+      "email": "t.johansson@personal.com",
+      "phone": "+1-502-555-3497",
+      "preferred_channel": "sms"
+    },
+    "services": [
+      "VOIP",
+      "IPTV",
+      "MOBILE_VOICE"
+    ],
+    "locations": [
+      {
+        "site_name": "Private Residence",
+        "zone": "ZONE-DC-A",
+        "circuit_ids": [
+          "RES-VIP-5026"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "State Governor \u2014 residence. Reputational risk. White-glove support."
+  },
+  {
+    "account_id": "VIP-005",
+    "company_name": null,
+    "account_type": "VIP_RESIDENTIAL",
+    "tier": "VIP",
+    "customer_name": "Judge Thomas Okafor",
+    "industry": null,
+    "contract_value_annual": 9600,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Judge Thomas Okafor",
+      "email": "t.okafor@personal.com",
+      "phone": "+1-940-555-9037",
+      "preferred_channel": "sms"
+    },
+    "services": [
+      "IPTV",
+      "VOIP",
+      "MOBILE_5G",
+      "BROADBAND"
+    ],
+    "locations": [
+      {
+        "site_name": "Private Residence",
+        "zone": "ZONE-DT-C",
+        "circuit_ids": [
+          "RES-VIP-9954"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Federal judge. Security-sensitive residence."
+  },
+  {
+    "account_id": "VIP-006",
+    "company_name": null,
+    "account_type": "VIP_RESIDENTIAL",
+    "tier": "VIP",
+    "customer_name": "Coach Jamal Kowalski",
+    "industry": null,
+    "contract_value_annual": 3600,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Coach Jamal Kowalski",
+      "email": "j.kowalski@personal.com",
+      "phone": "+1-736-555-1554",
+      "preferred_channel": "sms"
+    },
+    "services": [
+      "MOBILE_5G",
+      "BROADBAND",
+      "MOBILE_DATA"
+    ],
+    "locations": [
+      {
+        "site_name": "Private Residence",
+        "zone": "ZONE-EM-C",
+        "circuit_ids": [
+          "RES-VIP-3252"
+        ],
+        "criticality": "HIGH"
+      }
+    ],
+    "notes": "Head coach of professional sports team. Social media amplification risk."
+  },
+  {
+    "account_id": "VIP-007",
+    "company_name": null,
+    "account_type": "VIP_RESIDENTIAL",
+    "tier": "VIP",
+    "customer_name": "Mayor Elena Chen",
+    "industry": null,
+    "contract_value_annual": 4800,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Mayor Elena Chen",
+      "email": "e.chen@personal.com",
+      "phone": "+1-717-555-8471",
+      "preferred_channel": "sms"
+    },
+    "services": [
+      "BROADBAND",
+      "MOBILE_DATA",
+      "MOBILE_VOICE",
+      "VOIP"
+    ],
+    "locations": [
+      {
+        "site_name": "Private Residence",
+        "zone": "ZONE-WM-A",
+        "circuit_ids": [
+          "RES-VIP-1257"
+        ],
+        "criticality": "HIGH"
+      }
+    ],
+    "notes": "City Mayor. Any disruption gets media attention."
+  },
+  {
+    "account_id": "VIP-008",
+    "company_name": null,
+    "account_type": "VIP_RESIDENTIAL",
+    "tier": "VIP",
+    "customer_name": "James Chen",
+    "industry": null,
+    "contract_value_annual": 7200,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "James Chen",
+      "email": "j.chen@personal.com",
+      "phone": "+1-748-555-5697",
+      "preferred_channel": "sms"
+    },
+    "services": [
+      "MOBILE_DATA",
+      "MOBILE_VOICE",
+      "IPTV"
+    ],
+    "locations": [
+      {
+        "site_name": "Private Residence",
+        "zone": "ZONE-SM-D",
+        "circuit_ids": [
+          "RES-VIP-2578"
+        ],
+        "criticality": "HIGH"
+      }
+    ],
+    "notes": "Fortune 500 CEO residence. Expects executive-level treatment."
+  },
+  {
+    "account_id": "SMB-001",
+    "company_name": "Darnell & Associates Law Firm",
+    "account_type": "SMB",
+    "tier": "STANDARD",
+    "industry": "Legal",
+    "contract_value_annual": 14759,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Darnell Martinez",
+      "role": "Owner",
+      "email": "d.martinez@darnell&associa.com",
+      "phone": "+1-280-555-7112",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "MOBILE_DATA",
+      "CLOUD_CONNECT",
+      "BROADBAND"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Sapphire RW",
+        "zone": "ZONE-ND-B",
+        "circuit_ids": [
+          "BB-SMB-1519",
+          "BB-SMB-2531",
+          "BB-SMB-7640"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Silveroak OB",
+        "zone": "ZONE-EM-B",
+        "circuit_ids": [
+          "BB-SMB-3807"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Cypress VQ",
+        "zone": "ZONE-SM-C",
+        "circuit_ids": [
+          "BB-SMB-2562",
+          "BB-SMB-9653"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Cloud-based case management and VoIP phones."
+  },
+  {
+    "account_id": "SMB-002",
+    "company_name": "Raj's Restaurant Group",
+    "account_type": "SMB",
+    "tier": "STANDARD",
+    "industry": "Food & Beverage",
+    "contract_value_annual": 7525,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Raj Hammond",
+      "role": "Owner",
+      "email": "r.hammond@rajsrestaurantg.com",
+      "phone": "+1-900-555-5593",
+      "preferred_channel": "sms"
+    },
+    "services": [
+      "VOIP",
+      "MOBILE_DATA"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Eastpoint DV",
+        "zone": "ZONE-ND-A",
+        "circuit_ids": [
+          "BB-SMB-2260",
+          "BB-SMB-5903"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "POS systems require internet. Outage during service causes direct revenue loss."
+  },
+  {
+    "account_id": "SMB-003",
+    "company_name": "Southridge Auto Dealership",
+    "account_type": "SMB",
+    "tier": "STANDARD",
+    "industry": "Automotive",
+    "contract_value_annual": 35377,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Daniel Wright",
+      "role": "Owner",
+      "email": "d.wright@southridgeautod.com",
+      "phone": "+1-593-555-3292",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "CLOUD_CONNECT",
+      "BROADBAND"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Cascade VI",
+        "zone": "ZONE-EM-C",
+        "circuit_ids": [
+          "BB-SMB-7499",
+          "BB-SMB-6347",
+          "BB-SMB-1485"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Online inventory and financing systems."
+  },
+  {
+    "account_id": "SMB-004",
+    "company_name": "Goldleaf Veterinary Hospital",
+    "account_type": "SMB",
+    "tier": "STANDARD",
+    "industry": "Healthcare \u2014 Veterinary",
+    "contract_value_annual": 24121,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Andre Okonkwo",
+      "role": "Owner",
+      "email": "a.okonkwo@goldleafveterin.com",
+      "phone": "+1-642-555-4043",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "BROADBAND",
+      "CLOUD_CONNECT",
+      "VOIP"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Summit CE",
+        "zone": "ZONE-DT-B",
+        "circuit_ids": [
+          "BB-SMB-3527",
+          "BB-SMB-7383",
+          "BB-SMB-6188"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Digital imaging and patient management."
+  },
+  {
+    "account_id": "SMB-005",
+    "company_name": "Atlanta South Fitness Center",
+    "account_type": "SMB",
+    "tier": "STANDARD",
+    "industry": "Health & Fitness",
+    "contract_value_annual": 20573,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "David Torres",
+      "role": "Owner",
+      "email": "d.torres@atlantasouthfit.com",
+      "phone": "+1-979-555-5419",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "VOIP",
+      "BROADBAND"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Magnolia ON",
+        "zone": "ZONE-EM-C",
+        "circuit_ids": [
+          "BB-SMB-1430"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Member check-in and payment processing."
+  },
+  {
+    "account_id": "SMB-006",
+    "company_name": "Westfield Dental Clinics",
+    "account_type": "SMB",
+    "tier": "STANDARD",
+    "industry": "Healthcare \u2014 Dental",
+    "contract_value_annual": 25596,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Brian Johansson",
+      "role": "Owner",
+      "email": "b.johansson@westfielddental.com",
+      "phone": "+1-594-555-1202",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "MOBILE_DATA",
+      "VOIP",
+      "BROADBAND"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Clearwater XZ",
+        "zone": "ZONE-BIZ-B",
+        "circuit_ids": [
+          "BB-SMB-9537",
+          "BB-SMB-3778",
+          "BB-SMB-7237"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Crestview GG",
+        "zone": "ZONE-NM-B",
+        "circuit_ids": [
+          "BB-SMB-2036"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Peachtree HH",
+        "zone": "ZONE-NM-B",
+        "circuit_ids": [
+          "BB-SMB-6916"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Cloud-based patient records. Outage prevents access to charts."
+  },
+  {
+    "account_id": "SMB-007",
+    "company_name": "Westfield Veterinary Hospital",
+    "account_type": "SMB",
+    "tier": "STANDARD",
+    "industry": "Healthcare \u2014 Veterinary",
+    "contract_value_annual": 26207,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Aisha Fernandez",
+      "role": "Owner",
+      "email": "a.fernandez@westfieldveteri.com",
+      "phone": "+1-668-555-2752",
+      "preferred_channel": "sms"
+    },
+    "services": [
+      "CLOUD_CONNECT",
+      "BROADBAND"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Westfield JW",
+        "zone": "ZONE-ND-E",
+        "circuit_ids": [
+          "BB-SMB-6484",
+          "BB-SMB-8055"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Northgate ZD",
+        "zone": "ZONE-DT-F",
+        "circuit_ids": [
+          "BB-SMB-4290",
+          "BB-SMB-8848"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Digital imaging and patient management."
+  },
+  {
+    "account_id": "SMB-008",
+    "company_name": "Suwanee Fitness Center",
+    "account_type": "SMB",
+    "tier": "STANDARD",
+    "industry": "Health & Fitness",
+    "contract_value_annual": 30080,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Maria Morrison",
+      "role": "Owner",
+      "email": "m.morrison@suwaneefitnessc.com",
+      "phone": "+1-789-555-4971",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "MOBILE_DATA",
+      "VOIP",
+      "CLOUD_CONNECT"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Eastpoint FZ",
+        "zone": "ZONE-SM-D",
+        "circuit_ids": [
+          "BB-SMB-1440"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Magnolia YF",
+        "zone": "ZONE-DT-C",
+        "circuit_ids": [
+          "BB-SMB-2133",
+          "BB-SMB-7703"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Member check-in and payment processing."
+  },
+  {
+    "account_id": "SMB-009",
+    "company_name": "Marcus's Pharmacy",
+    "account_type": "SMB",
+    "tier": "STANDARD",
+    "industry": "Pharmacy",
+    "contract_value_annual": 14279,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Marcus Kowalski",
+      "role": "Owner",
+      "email": "m.kowalski@marcusspharmacy.com",
+      "phone": "+1-932-555-7932",
+      "preferred_channel": "sms"
+    },
+    "services": [
+      "BROADBAND",
+      "VOIP",
+      "CLOUD_CONNECT"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Clearwater NX",
+        "zone": "ZONE-EM-B",
+        "circuit_ids": [
+          "BB-SMB-7853",
+          "BB-SMB-9907",
+          "BB-SMB-1602"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Goldleaf SV",
+        "zone": "ZONE-DT-E",
+        "circuit_ids": [
+          "BB-SMB-2392",
+          "BB-SMB-2791",
+          "BB-SMB-5067"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Southridge JQ",
+        "zone": "ZONE-DT-A",
+        "circuit_ids": [
+          "BB-SMB-7547"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Prescription processing requires live connection to insurance systems."
+  },
+  {
+    "account_id": "SMB-010",
+    "company_name": "Douglasville Fitness Center",
+    "account_type": "SMB",
+    "tier": "STANDARD",
+    "industry": "Health & Fitness",
+    "contract_value_annual": 22733,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "James Kim",
+      "role": "Owner",
+      "email": "j.kim@douglasvillefit.com",
+      "phone": "+1-656-555-7129",
+      "preferred_channel": "sms"
+    },
+    "services": [
+      "MOBILE_DATA",
+      "CLOUD_CONNECT",
+      "BROADBAND"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Cypress CK",
+        "zone": "ZONE-SM-A",
+        "circuit_ids": [
+          "BB-SMB-2901"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Lakewood DI",
+        "zone": "ZONE-DT-F",
+        "circuit_ids": [
+          "BB-SMB-4389",
+          "BB-SMB-9537"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Member check-in and payment processing."
+  },
+  {
+    "account_id": "SMB-011",
+    "company_name": "Brian's Pharmacy",
+    "account_type": "SMB",
+    "tier": "STANDARD",
+    "industry": "Pharmacy",
+    "contract_value_annual": 29658,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Brian Okonkwo",
+      "role": "Owner",
+      "email": "b.okonkwo@brianspharmacy.com",
+      "phone": "+1-526-555-2100",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "BROADBAND",
+      "CLOUD_CONNECT",
+      "MOBILE_DATA"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Redstone QR",
+        "zone": "ZONE-BIZ-A",
+        "circuit_ids": [
+          "BB-SMB-4996"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Prescription processing requires live connection to insurance systems."
+  },
+  {
+    "account_id": "SMB-012",
+    "company_name": "Redstone Real Estate Group",
+    "account_type": "SMB",
+    "tier": "STANDARD",
+    "industry": "Real Estate",
+    "contract_value_annual": 24345,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Maria Johansson",
+      "role": "Owner",
+      "email": "m.johansson@redstonerealest.com",
+      "phone": "+1-673-555-4798",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "VOIP",
+      "BROADBAND",
+      "MOBILE_DATA"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Lakewood PF",
+        "zone": "ZONE-SM-A",
+        "circuit_ids": [
+          "BB-SMB-8037",
+          "BB-SMB-7370",
+          "BB-SMB-1072"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Beacon FT",
+        "zone": "ZONE-DT-B",
+        "circuit_ids": [
+          "BB-SMB-2667"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "MLS access and virtual tour hosting."
+  },
+  {
+    "account_id": "SMB-013",
+    "company_name": "Beacon Real Estate Group",
+    "account_type": "SMB",
+    "tier": "STANDARD",
+    "industry": "Real Estate",
+    "contract_value_annual": 20993,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Maria Daniels",
+      "role": "Owner",
+      "email": "m.daniels@beaconrealestat.com",
+      "phone": "+1-468-555-9019",
+      "preferred_channel": "sms"
+    },
+    "services": [
+      "MOBILE_DATA",
+      "CLOUD_CONNECT",
+      "VOIP"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Goldleaf JL",
+        "zone": "ZONE-SM-D",
+        "circuit_ids": [
+          "BB-SMB-5873"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Westfield PR",
+        "zone": "ZONE-BIZ-C",
+        "circuit_ids": [
+          "BB-SMB-2931",
+          "BB-SMB-4908"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Horizon ES",
+        "zone": "ZONE-ND-D",
+        "circuit_ids": [
+          "BB-SMB-7364",
+          "BB-SMB-7852",
+          "BB-SMB-3258"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "MLS access and virtual tour hosting."
+  },
+  {
+    "account_id": "SMB-014",
+    "company_name": "Marietta Print & Ship",
+    "account_type": "SMB",
+    "tier": "STANDARD",
+    "industry": "Retail Services",
+    "contract_value_annual": 26824,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Derek Nakamura",
+      "role": "Owner",
+      "email": "d.nakamura@mariettaprint&s.com",
+      "phone": "+1-768-555-3733",
+      "preferred_channel": "sms"
+    },
+    "services": [
+      "CLOUD_CONNECT",
+      "BROADBAND",
+      "MOBILE_DATA"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Magnolia QW",
+        "zone": "ZONE-DT-F",
+        "circuit_ids": [
+          "BB-SMB-8939"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Beacon VZ",
+        "zone": "ZONE-NM-A",
+        "circuit_ids": [
+          "BB-SMB-9109",
+          "BB-SMB-7703",
+          "BB-SMB-9056"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "POS and shipping label generation."
+  },
+  {
+    "account_id": "SMB-015",
+    "company_name": "Cascade Boutique Hotel",
+    "account_type": "SMB",
+    "tier": "STANDARD",
+    "industry": "Hospitality",
+    "contract_value_annual": 15571,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Kevin Torres",
+      "role": "Owner",
+      "email": "k.torres@cascadeboutique.com",
+      "phone": "+1-481-555-4683",
+      "preferred_channel": "sms"
+    },
+    "services": [
+      "VOIP",
+      "MOBILE_DATA",
+      "CLOUD_CONNECT"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Horizon OG",
+        "zone": "ZONE-WM-B",
+        "circuit_ids": [
+          "BB-SMB-7010",
+          "BB-SMB-9880",
+          "BB-SMB-1681"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Lakewood LF",
+        "zone": "ZONE-DT-D",
+        "circuit_ids": [
+          "BB-SMB-2677",
+          "BB-SMB-5055"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Pinnacle LJ",
+        "zone": "ZONE-ND-D",
+        "circuit_ids": [
+          "BB-SMB-8193"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Booking system and guest WiFi."
+  },
+  {
+    "account_id": "SMB-016",
+    "company_name": "Highland Dental Clinics",
+    "account_type": "SMB",
+    "tier": "STANDARD",
+    "industry": "Healthcare \u2014 Dental",
+    "contract_value_annual": 25997,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Aisha Hammond",
+      "role": "Owner",
+      "email": "a.hammond@highlanddentalc.com",
+      "phone": "+1-369-555-3281",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "VOIP",
+      "BROADBAND"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Clearwater HO",
+        "zone": "ZONE-EM-A",
+        "circuit_ids": [
+          "BB-SMB-5794",
+          "BB-SMB-5740"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Ironwood YN",
+        "zone": "ZONE-DC-A",
+        "circuit_ids": [
+          "BB-SMB-2560",
+          "BB-SMB-3221",
+          "BB-SMB-7743"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Pinnacle ZW",
+        "zone": "ZONE-BIZ-C",
+        "circuit_ids": [
+          "BB-SMB-3174"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Cloud-based patient records. Outage prevents access to charts."
+  },
+  {
+    "account_id": "SMB-017",
+    "company_name": "Elena & Associates Law Firm",
+    "account_type": "SMB",
+    "tier": "STANDARD",
+    "industry": "Legal",
+    "contract_value_annual": 30951,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Elena Andersson",
+      "role": "Owner",
+      "email": "e.andersson@elena&associate.com",
+      "phone": "+1-701-555-3329",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "MOBILE_DATA",
+      "VOIP",
+      "CLOUD_CONNECT"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Summit KT",
+        "zone": "ZONE-DC-C",
+        "circuit_ids": [
+          "BB-SMB-7046",
+          "BB-SMB-8449",
+          "BB-SMB-8996"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Cloud-based case management and VoIP phones."
+  },
+  {
+    "account_id": "SMB-018",
+    "company_name": "Atlanta North Fitness Center",
+    "account_type": "SMB",
+    "tier": "STANDARD",
+    "industry": "Health & Fitness",
+    "contract_value_annual": 21022,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Nadia Chen",
+      "role": "Owner",
+      "email": "n.chen@atlantanorthfit.com",
+      "phone": "+1-264-555-9756",
+      "preferred_channel": "email"
+    },
+    "services": [
+      "VOIP",
+      "MOBILE_DATA",
+      "BROADBAND"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Redstone VI",
+        "zone": "ZONE-ND-C",
+        "circuit_ids": [
+          "BB-SMB-3139",
+          "BB-SMB-8951",
+          "BB-SMB-6631"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Southridge TB",
+        "zone": "ZONE-BIZ-B",
+        "circuit_ids": [
+          "BB-SMB-8529",
+          "BB-SMB-1266",
+          "BB-SMB-3035"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Member check-in and payment processing."
+  },
+  {
+    "account_id": "SMB-019",
+    "company_name": "Peachtree Auto Dealership",
+    "account_type": "SMB",
+    "tier": "STANDARD",
+    "industry": "Automotive",
+    "contract_value_annual": 12629,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Andre Singh",
+      "role": "Owner",
+      "email": "a.singh@peachtreeautode.com",
+      "phone": "+1-865-555-5945",
+      "preferred_channel": "sms"
+    },
+    "services": [
+      "CLOUD_CONNECT",
+      "BROADBAND"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Ironwood CR",
+        "zone": "ZONE-EM-A",
+        "circuit_ids": [
+          "BB-SMB-3711",
+          "BB-SMB-1848",
+          "BB-SMB-7493"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Sapphire ST",
+        "zone": "ZONE-DC-C",
+        "circuit_ids": [
+          "BB-SMB-2494",
+          "BB-SMB-2559"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Beacon MD",
+        "zone": "ZONE-SM-A",
+        "circuit_ids": [
+          "BB-SMB-9510"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Online inventory and financing systems."
+  },
+  {
+    "account_id": "SMB-020",
+    "company_name": "Fatima's Pharmacy",
+    "account_type": "SMB",
+    "tier": "STANDARD",
+    "industry": "Pharmacy",
+    "contract_value_annual": 28742,
+    "sla_tier": null,
+    "primary_contact": {
+      "name": "Fatima Petrov",
+      "role": "Owner",
+      "email": "f.petrov@fatimaspharmacy.com",
+      "phone": "+1-689-555-2160",
+      "preferred_channel": "sms"
+    },
+    "services": [
+      "MOBILE_DATA",
+      "BROADBAND"
+    ],
+    "locations": [
+      {
+        "site_name": "Site Horizon CJ",
+        "zone": "ZONE-DT-E",
+        "circuit_ids": [
+          "BB-SMB-3246",
+          "BB-SMB-7270"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Crestview QR",
+        "zone": "ZONE-DT-D",
+        "circuit_ids": [
+          "BB-SMB-9691"
+        ],
+        "criticality": "MEDIUM"
+      },
+      {
+        "site_name": "Site Meridian PE",
+        "zone": "ZONE-DC-A",
+        "circuit_ids": [
+          "BB-SMB-4490",
+          "BB-SMB-3480"
+        ],
+        "criticality": "MEDIUM"
+      }
+    ],
+    "notes": "Prescription processing requires live connection to insurance systems."
+  },
+  {
+    "account_id": "RES-BULK",
+    "company_name": null,
+    "account_type": "RESIDENTIAL_BULK",
+    "tier": "STANDARD",
+    "customer_segment": "General Residential Subscribers",
+    "total_subscribers_by_zone": {
+      "ZONE-SM-A": 16490,
+      "ZONE-SM-B": 17496,
+      "ZONE-SM-C": 10118,
+      "ZONE-SM-D": 5840,
+      "ZONE-NM-A": 6292,
+      "ZONE-NM-B": 7587,
+      "ZONE-ND-A": 7035,
+      "ZONE-ND-B": 15583,
+      "ZONE-ND-C": 14519,
+      "ZONE-ND-D": 17070,
+      "ZONE-ND-E": 13305,
+      "ZONE-EM-A": 7581,
+      "ZONE-EM-B": 11119,
+      "ZONE-EM-C": 12075,
+      "ZONE-EM-D": 5760,
+      "ZONE-WM-A": 11131,
+      "ZONE-WM-B": 12336,
+      "ZONE-WM-C": 3878,
+      "ZONE-DC-A": 12884,
+      "ZONE-DC-B": 9732,
+      "ZONE-DC-C": 19965,
+      "ZONE-DT-A": 19696,
+      "ZONE-DT-B": 9181,
+      "ZONE-DT-C": 15836,
+      "ZONE-DT-D": 12684,
+      "ZONE-DT-E": 4788,
+      "ZONE-DT-F": 10842,
+      "ZONE-BIZ-A": 19216,
+      "ZONE-BIZ-B": 15644,
+      "ZONE-BIZ-C": 6694
+    },
+    "services": [
+      "BROADBAND",
+      "IPTV",
+      "VOIP",
+      "MOBILE_VOICE",
+      "MOBILE_DATA",
+      "MOBILE_5G"
+    ],
+    "notification_channels": [
+      "sms_blast",
+      "email_blast",
+      "app_push_notification",
+      "status_page_update"
+    ],
+    "notes": "Mass notification via automated systems. Status page URL: status.ourtelco.com"
+  }
+]

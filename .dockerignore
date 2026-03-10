@@ -1,0 +1,12 @@
+.venv
+__pycache__
+*.pyc
+.git
+.claude
+docs
+*.md
+!CLAUDE.md
+adk-fluent/.git
+adk-fluent/tests
+adk-fluent/docs
+adk-fluent/examples
