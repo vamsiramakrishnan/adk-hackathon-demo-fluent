@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How It Works — Proactive Network Outage Communication Agent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;400;500;600;700&family=Share+Tech+Mono&family=Exo+2:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #03060d;
+  --abyss: #060c1a;
+  --deep: #0c1628;
+  --surface: #101d38;
+  --raised: #152445;
+
+  --border: rgba(0, 160, 255, 0.1);
+  --border-active: rgba(0, 160, 255, 0.22);
+
+  /* Higher contrast text scale */
+  --text-bright: #f0f4ff;
+  --text-high: #d0daf0;
+  --text-mid: #8da0c4;
+  --text-low: #4e6590;
+  --text-ghost: #2f4060;
+
+  --cyan: #00c8ff;
+  --cyan-dim: rgba(0, 200, 255, 0.1);
+  --cyan-glow: rgba(0, 200, 255, 0.2);
+  --red: #ff3860;
+  --red-dim: rgba(255, 56, 96, 0.08);
+  --amber: #ffb800;
+  --amber-dim: rgba(255, 184, 0, 0.08);
+  --green: #00e878;
+  --green-dim: rgba(0, 232, 120, 0.08);
+  --green-glow: rgba(0, 232, 120, 0.15);
+  --purple: #a78bfa;
+
+  --font-display: 'Exo 2', sans-serif;
+  --font-body: 'Chakra Petch', sans-serif;
+  --font-mono: 'Share Tech Mono', monospace;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { background: var(--void); color: var(--text-high); scroll-behavior: smooth; }
+body { font-family: var(--font-body); font-size: 15px; line-height: 1.7; min-height: 100vh; }
+
+/* Subtle scanlines */
+body::after {
+  content: ''; position: fixed; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 4px, rgba(0,0,0,0.008) 4px, rgba(0,0,0,0.008) 5px);
+  pointer-events: none; z-index: 10000;
+}
+
+/* Ambient light */
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse 90% 40% at 50% 0%, rgba(0, 80, 180, 0.07), transparent 60%),
+    radial-gradient(ellipse 50% 50% at 90% 60%, rgba(100, 60, 200, 0.03), transparent);
+  pointer-events: none; z-index: 0;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-active); border-radius: 3px; }
+
+/* ═══ HEADER ═══ */
+.top-bar {
+  position: sticky; top: 0; z-index: 100;
+  height: 56px;
+  background: rgba(6, 12, 26, 0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  padding: 0 40px; gap: 16px;
+}
+.top-bar::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent 10%, var(--cyan) 50%, transparent 90%);
+  opacity: 0.15;
+}
+
+.logo { display: flex; align-items: center; gap: 12px; }
+.logo-mark {
+  width: 34px; height: 34px;
+  border: 1.5px solid var(--cyan); border-radius: 8px;
+  display: grid; place-items: center;
+  font-family: var(--font-display); font-weight: 900; font-size: 16px;
+  color: var(--cyan); background: var(--cyan-dim);
+  box-shadow: 0 0 16px var(--cyan-glow);
+}
+.logo-text { font-family: var(--font-display); font-weight: 800; font-size: 18px; letter-spacing: 5px; color: var(--text-bright); }
+.logo-sub { font-family: var(--font-body); font-weight: 300; font-size: 10px; letter-spacing: 3px; color: var(--text-low); text-transform: uppercase; }
+
+.back-link {
+  margin-left: auto;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px;
+  color: var(--text-low); text-decoration: none;
+  padding: 5px 16px; border: 1px solid var(--border); border-radius: 4px;
+  transition: all 0.2s; text-transform: uppercase;
+}
+.back-link:hover { border-color: var(--cyan); color: var(--cyan); }
+
+/* ═══ PAGE ═══ */
+.page {
+  position: relative; z-index: 1;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 64px 40px 120px;
+}
+
+/* ═══ HERO ═══ */
+.hero { text-align: center; margin-bottom: 80px; }
+
+.hero-badge {
+  display: inline-block;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 4px;
+  color: var(--cyan); text-transform: uppercase;
+  padding: 4px 16px; border: 1px solid rgba(0,200,255,0.15);
+  border-radius: 20px; background: var(--cyan-dim);
+  margin-bottom: 24px;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 900; font-size: 42px;
+  letter-spacing: 1px; line-height: 1.15;
+  color: var(--text-bright);
+  margin-bottom: 20px;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--cyan);
+  text-shadow: 0 0 40px var(--cyan-glow);
+}
+
+.hero-lead {
+  font-size: 17px; font-weight: 400;
+  color: var(--text-mid);
+  max-width: 680px; margin: 0 auto;
+  line-height: 1.8;
+}
+
+/* ═══ TWO-COL CARDS ═══ */
+.duo {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 24px; margin-bottom: 80px;
+}
+
+.card {
+  border-radius: 12px; padding: 32px;
+  position: relative; overflow: hidden;
+}
+
+.card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+
+.card.problem {
+  background: var(--deep); border: 1px solid rgba(255,56,96,0.12);
+}
+.card.problem::before { background: linear-gradient(90deg, var(--red), rgba(255,56,96,0.1)); }
+
+.card.goals {
+  background: var(--deep); border: 1px solid rgba(0,232,120,0.1);
+}
+.card.goals::before { background: linear-gradient(90deg, var(--green), rgba(0,232,120,0.1)); }
+
+.card-label {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.card-label.red { color: var(--red); }
+.card-label.green { color: var(--green); }
+
+.bullet {
+  display: flex; gap: 14px;
+  margin-bottom: 16px; align-items: flex-start;
+}
+.bullet-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  flex-shrink: 0; margin-top: 7px;
+}
+.bullet-dot.red { background: var(--red); box-shadow: 0 0 6px rgba(255,56,96,0.3); }
+
+.bullet p {
+  font-size: 14px; color: var(--text-high);
+  line-height: 1.7;
+}
+.bullet strong { color: var(--text-bright); font-weight: 600; }
+
+.metric {
+  display: flex; align-items: baseline; gap: 16px;
+  padding: 16px 20px; margin-bottom: 14px;
+  background: var(--green-dim); border-radius: 10px;
+  border: 1px solid rgba(0,232,120,0.06);
+}
+.metric-num {
+  font-family: var(--font-display); font-weight: 900;
+  font-size: 36px; color: var(--green); line-height: 1;
+  text-shadow: 0 0 20px var(--green-glow);
+}
+.metric-text {
+  font-size: 14px; color: var(--text-high); line-height: 1.6;
+}
+
+.mandate {
+  padding: 16px 20px; margin-top: 8px;
+  background: rgba(0,232,120,0.04); border-radius: 10px;
+  border: 1px solid rgba(0,232,120,0.08);
+}
+.mandate-label {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 10px; letter-spacing: 3px;
+  color: var(--green); margin-bottom: 6px;
+}
+.mandate p {
+  font-size: 14px; color: var(--text-high); line-height: 1.7;
+}
+.mandate strong { color: var(--text-bright); }
+
+/* ═══ SECTION HEADINGS ═══ */
+.sec-head {
+  text-align: center; margin-bottom: 48px;
+}
+.sec-kicker {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 5px;
+  color: var(--text-ghost); text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.sec-head h2 {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 28px; letter-spacing: 1px;
+  color: var(--text-bright); margin-bottom: 12px;
+}
+.sec-head p {
+  font-size: 15px; color: var(--text-mid);
+  max-width: 640px; margin: 0 auto; line-height: 1.8;
+}
+
+/* ═══ CODE BLOCK ═══ */
+.code-bar {
+  background: var(--abyss); border: 1px solid var(--border);
+  border-radius: 10px; padding: 24px 32px;
+  margin-bottom: 56px; position: relative; overflow: hidden;
+}
+.code-bar::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--cyan), var(--purple), var(--amber), var(--green));
+}
+
+.code-label {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+  color: var(--text-ghost); margin-bottom: 16px;
+}
+
+.code-line {
+  font-family: var(--font-mono); font-size: 16px; line-height: 2;
+  color: var(--text-high); overflow-x: auto; white-space: nowrap;
+}
+.c-op { color: var(--cyan); text-shadow: 0 0 10px var(--cyan-glow); }
+.c-fn { color: var(--green); }
+.c-name { color: var(--text-bright); font-weight: bold; }
+.c-dim { color: var(--text-ghost); }
+
+.code-legend {
+  display: flex; gap: 24px; margin-top: 16px;
+  font-family: var(--font-mono); font-size: 12px; color: var(--text-low);
+}
+
+/* ═══ PIPELINE STEPS ═══ */
+.pipeline { margin-bottom: 56px; }
+
+/* Connector between steps */
+.conn {
+  display: flex; flex-direction: column; align-items: center;
+  padding: 8px 0;
+}
+.conn-line {
+  width: 2px; height: 32px;
+  background: linear-gradient(180deg, var(--cyan), var(--border));
+  box-shadow: 0 0 8px var(--cyan-glow);
+}
+.conn-arrow {
+  width: 0; height: 0;
+  border-left: 7px solid transparent; border-right: 7px solid transparent;
+  border-top: 8px solid var(--cyan);
+  filter: drop-shadow(0 0 4px var(--cyan-glow));
+  margin-bottom: 4px;
+}
+.conn-label {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px;
+  color: var(--cyan); text-transform: uppercase;
+  padding: 3px 14px; background: var(--cyan-dim);
+  border: 1px solid rgba(0,200,255,0.1); border-radius: 12px;
+  margin: 6px 0;
+}
+
+/* Trigger card */
+.trigger {
+  text-align: center; padding: 20px 32px;
+  background: var(--red-dim); border: 1px solid rgba(255,56,96,0.15);
+  border-radius: 10px; max-width: 560px; margin: 0 auto;
+}
+.trigger-label {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--red); margin-bottom: 8px;
+}
+.trigger p {
+  font-size: 14px; color: var(--text-high); line-height: 1.7;
+}
+.trigger strong { color: var(--text-bright); }
+
+/* Agent step card */
+.agent {
+  background: var(--deep); border: 1px solid var(--border);
+  border-radius: 12px; overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
+}
+.agent:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.35);
+}
+.agent.t-pro:hover { border-color: rgba(0,200,255,0.3); }
+.agent.t-flash:hover { border-color: rgba(255,184,0,0.25); }
+.agent.t-lite:hover { border-color: rgba(0,232,120,0.2); }
+
+.agent-top {
+  display: flex; align-items: center; gap: 16px;
+  padding: 20px 28px;
+  background: linear-gradient(180deg, var(--surface), var(--deep));
+  border-bottom: 1px solid var(--border);
+}
+
+.agent-badge {
+  width: 48px; height: 48px; border-radius: 12px;
+  display: grid; place-items: center;
+  font-family: var(--font-display); font-weight: 900; font-size: 18px;
+  flex-shrink: 0;
+}
+.agent-badge.pro {
+  background: var(--cyan-dim); border: 2px solid rgba(0,200,255,0.35);
+  color: var(--cyan); box-shadow: 0 0 16px var(--cyan-glow);
+}
+.agent-badge.flash {
+  background: var(--amber-dim); border: 2px solid rgba(255,184,0,0.3);
+  color: var(--amber); box-shadow: 0 0 14px rgba(255,184,0,0.15);
+}
+.agent-badge.lite {
+  background: var(--green-dim); border: 2px solid rgba(0,232,120,0.25);
+  color: var(--green); box-shadow: 0 0 14px var(--green-glow);
+}
+
+.agent-titles { flex: 1; }
+.agent-name {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 18px; color: var(--text-bright); letter-spacing: 0.5px;
+}
+.agent-sub {
+  font-family: var(--font-body); font-size: 13px;
+  color: var(--text-low); margin-top: 2px;
+}
+
+.agent-model {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px;
+  padding: 5px 14px; border-radius: 6px; flex-shrink: 0;
+}
+.agent-model.pro { background: var(--cyan-dim); color: var(--cyan); border: 1px solid rgba(0,200,255,0.15); }
+.agent-model.flash { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(255,184,0,0.12); }
+.agent-model.lite { background: var(--green-dim); color: var(--green); border: 1px solid rgba(0,232,120,0.1); }
+
+.agent-content {
+  padding: 24px 28px;
+  display: grid; grid-template-columns: 1fr 220px; gap: 28px;
+}
+
+.what-label {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--text-low); margin-bottom: 10px;
+}
+
+.what-text {
+  font-size: 14px; color: var(--text-high); line-height: 1.8;
+  margin-bottom: 16px;
+}
+.what-text strong { color: var(--text-bright); font-weight: 600; }
+
+.why-box {
+  padding: 14px 18px; background: var(--abyss);
+  border-radius: 8px; border-left: 3px solid var(--amber);
+}
+.why-label {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--amber); margin-bottom: 6px;
+}
+.why-text {
+  font-size: 13px; color: var(--text-mid); line-height: 1.7;
+}
+
+.side-box {
+  background: var(--abyss); border: 1px solid var(--border);
+  border-radius: 8px; padding: 14px 16px; margin-bottom: 10px;
+}
+.side-label {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--text-ghost); margin-bottom: 8px;
+}
+.side-item {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--text-mid); padding: 4px 0;
+}
+.dot-tool { width: 6px; height: 6px; border-radius: 2px; background: var(--amber); flex-shrink: 0; }
+.dot-read { width: 6px; height: 6px; border-radius: 2px; background: var(--purple); flex-shrink: 0; }
+.dot-write { width: 6px; height: 6px; border-radius: 2px; background: var(--green); flex-shrink: 0; }
+
+/* ═══ PARALLEL BLOCK ═══ */
+.fan-out {
+  border: 2px dashed rgba(0,200,255,0.15);
+  border-radius: 16px; padding: 28px 22px 22px;
+  position: relative; background: rgba(0,200,255,0.01);
+}
+.fan-tag {
+  position: absolute; top: -11px; left: 32px;
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 3px;
+  color: var(--cyan); background: var(--void); padding: 0 14px;
+}
+.fan-why {
+  position: absolute; top: -11px; right: 32px;
+  font-family: var(--font-body); font-size: 11px;
+  color: var(--text-low); background: var(--void); padding: 0 14px;
+}
+
+.fan-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+}
+.fan-grid .agent-content {
+  grid-template-columns: 1fr; gap: 16px;
+}
+
+.comm-type {
+  display: inline-block;
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 4px; margin-bottom: 10px;
+}
+.comm-type.enterprise { background: var(--cyan-dim); color: var(--cyan); }
+.comm-type.vip { background: var(--amber-dim); color: var(--amber); }
+.comm-type.mass { background: var(--green-dim); color: var(--green); }
+
+/* ═══ HUMAN BLOCK ═══ */
+.human {
+  text-align: center; margin: 56px 0 72px; padding: 0 40px;
+}
+.human-card {
+  display: inline-block; max-width: 600px;
+  background: var(--deep); border: 2px solid rgba(0,232,120,0.18);
+  border-radius: 16px; padding: 36px 48px;
+  position: relative; overflow: hidden;
+}
+.human-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--green), var(--cyan));
+}
+
+.human-icon {
+  width: 56px; height: 56px; border-radius: 14px;
+  background: linear-gradient(135deg, var(--green-dim), var(--cyan-dim));
+  border: 1px solid rgba(0,232,120,0.12);
+  display: grid; place-items: center; font-size: 26px;
+  margin: 0 auto 16px;
+}
+
+.human h3 {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 20px; letter-spacing: 3px;
+  color: var(--text-bright); margin-bottom: 12px;
+}
+
+.human p {
+  font-size: 15px; color: var(--text-mid); line-height: 1.8;
+  margin-bottom: 20px;
+}
+.human strong { color: var(--text-bright); }
+
+.mock-btns { display: flex; justify-content: center; gap: 12px; }
+.mbtn {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  padding: 10px 24px; border-radius: 6px; border: none; cursor: default;
+}
+.mbtn.ghost { background: transparent; color: var(--text-low); border: 1px solid var(--border); }
+.mbtn.go {
+  background: linear-gradient(135deg, #00cc60, #00aa50);
+  color: white; box-shadow: 0 0 20px var(--green-glow);
+}
+
+/* ═══ DECISIONS GRID ═══ */
+.decisions {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px; margin-bottom: 64px;
+}
+
+.dec-card {
+  background: var(--deep); border: 1px solid var(--border);
+  border-radius: 10px; padding: 24px;
+  transition: border-color 0.3s;
+}
+.dec-card:hover { border-color: var(--border-active); }
+
+.dec-title {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: 15px; color: var(--text-bright); margin-bottom: 8px;
+}
+.dec-text {
+  font-size: 13px; color: var(--text-mid); line-height: 1.7;
+}
+
+.dec-tags { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 5px; }
+.dec-tag {
+  font-family: var(--font-mono); font-size: 10px;
+  padding: 3px 8px; border-radius: 4px;
+  background: var(--cyan-dim); color: var(--cyan);
+  border: 1px solid rgba(0,200,255,0.08);
+}
+
+/* ═══ LEGEND ═══ */
+.legend {
+  display: flex; gap: 28px; justify-content: center; flex-wrap: wrap;
+  padding-top: 40px; border-top: 1px solid var(--border);
+}
+.leg {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-body); font-size: 13px; color: var(--text-mid);
+}
+.leg-dot {
+  width: 14px; height: 14px; border-radius: 4px;
+}
+.leg-dot.pro { background: var(--cyan-dim); border: 1px solid rgba(0,200,255,0.3); }
+.leg-dot.flash { background: var(--amber-dim); border: 1px solid rgba(255,184,0,0.25); }
+.leg-dot.lite { background: var(--green-dim); border: 1px solid rgba(0,232,120,0.2); }
+
+/* ═══ SCROLL REVEAL ═══ */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity 0.65s cubic-bezier(0.2, 0, 0.2, 1), transform 0.65s cubic-bezier(0.2, 0, 0.2, 1);
+}
+.reveal.vis { opacity: 1; transform: translateY(0); }
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 900px) {
+  .page { padding: 40px 20px 80px; }
+  .hero h1 { font-size: 28px; }
+  .duo { grid-template-columns: 1fr; }
+  .fan-grid { grid-template-columns: 1fr; }
+  .decisions { grid-template-columns: 1fr; }
+  .agent-content { grid-template-columns: 1fr; }
+  .agent-top { flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="top-bar">
+  <div class="logo">
+    <div class="logo-mark">N</div>
+    <div>
+      <div class="logo-text">NOC COMMAND</div>
+      <div class="logo-sub">How It Works</div>
+    </div>
+  </div>
+  <a href="/" class="back-link">Dashboard</a>
+</div>
+
+<div class="page">
+
+  <!-- ═══ HERO ═══ -->
+  <div class="hero reveal">
+    <div class="hero-badge">Telecommunications &mdash; Use Case 4</div>
+    <h1>The Proactive Network Outage<br><em>Communication Agent</em></h1>
+    <p class="hero-lead">
+      An intelligent, multi-agent system that transforms network outage response
+      from reactive chaos into proactive, high-touch customer communication &mdash;
+      safeguarding our most valuable accounts.
+    </p>
+  </div>
+
+  <!-- ═══ PROBLEM vs GOALS ═══ -->
+  <div class="duo reveal">
+    <div class="card problem">
+      <div class="card-label red">The Business Problem</div>
+
+      <div class="bullet">
+        <div class="bullet-dot red"></div>
+        <p>When an outage hits, a <strong>flood of angry support calls</strong> overwhelms our service centers before we even know what happened.</p>
+      </div>
+      <div class="bullet">
+        <div class="bullet-dot red"></div>
+        <p><strong>Brand reputation plummets</strong> on social media as customers discover the outage before we tell them.</p>
+      </div>
+      <div class="bullet">
+        <div class="bullet-dot red"></div>
+        <p>Enterprise clients start the clock on costly <strong>SLA violations</strong> &mdash; every minute of silence costs real money.</p>
+      </div>
+      <div class="bullet">
+        <div class="bullet-dot red"></div>
+        <p>Our current response is <strong>slow, manual, and fails to prioritize</strong> the customers who matter most.</p>
+      </div>
+    </div>
+
+    <div class="card goals">
+      <div class="card-label green">C-Suite Objectives</div>
+
+      <div class="metric">
+        <div class="metric-num">15%</div>
+        <div class="metric-text">Reduce customer churn through proactive notification before they call us</div>
+      </div>
+      <div class="metric">
+        <div class="metric-num">30%</div>
+        <div class="metric-text">Lower inbound call center volume during network incidents</div>
+      </div>
+      <div class="mandate">
+        <div class="mandate-label">The Mandate</div>
+        <p>We must be the <strong>first to notify our customers</strong>, not the other way around. Minutes, not hours.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SOLUTION INTRO ═══ -->
+  <div class="sec-head reveal">
+    <div class="sec-kicker">The AI Agent Solution</div>
+    <h2>How the Pipeline Solves This</h2>
+    <p>The instant a critical network fault is detected, the agent pipeline activates automatically.
+      It analyzes the technical problem, identifies business impact, and orchestrates
+      targeted communications &mdash; in minutes, not hours.</p>
+  </div>
+
+  <!-- ═══ PIPELINE CODE ═══ -->
+  <div class="code-bar reveal">
+    <div class="code-label">adk-fluent &mdash; The Entire Orchestration in One Expression</div>
+    <div class="code-line">
+      <span class="c-fn">S.capture</span><span class="c-dim">(</span><span class="c-name">"alert_text"</span><span class="c-dim">)</span>
+      <span class="c-op"> >> </span><span class="c-name">network_analyst</span>
+      <span class="c-op"> >> </span><span class="c-name">customer_impact_analyst</span>
+      <span class="c-op"> >> </span><span class="c-dim">(</span><span class="c-name">enterprise_drafter</span>
+      <span class="c-op"> | </span><span class="c-name">vip_drafter</span>
+      <span class="c-op"> | </span><span class="c-name">mass_drafter</span><span class="c-dim">)</span>
+      <span class="c-op"> >> </span><span class="c-name">approval_summarizer</span>
+    </div>
+    <div class="code-legend">
+      <span><span class="c-op">>></span> = runs in sequence</span>
+      <span><span class="c-op">|</span> = runs in parallel</span>
+    </div>
+  </div>
+
+  <!-- ═══ PIPELINE STEPS ═══ -->
+  <div class="pipeline">
+
+    <!-- TRIGGER -->
+    <div class="trigger reveal">
+      <div class="trigger-label">Trigger: Critical Network Alert</div>
+      <p>A fiber cut, routing failure, or power outage is detected by monitoring systems.
+        The alert includes severity, affected zones, and preliminary ETR.
+        <strong>The pipeline activates instantly.</strong></p>
+    </div>
+
+    <div class="conn"><div class="conn-line"></div><div class="conn-label">>> sequential</div><div class="conn-arrow"></div></div>
+
+    <!-- STEP 1 -->
+    <div class="agent t-pro reveal">
+      <div class="agent-top">
+        <div class="agent-badge pro">1</div>
+        <div class="agent-titles">
+          <div class="agent-name">Network Analyst</div>
+          <div class="agent-sub">First responder &mdash; parses what broke, where, and how bad</div>
+        </div>
+        <div class="agent-model pro">Gemini 3.1 Pro</div>
+      </div>
+      <div class="agent-content">
+        <div>
+          <div class="what-label">What it does</div>
+          <div class="what-text">
+            Immediately parses the raw network alert logs. Identifies the
+            <strong>root cause</strong> (fiber cut, routing failure, power loss),
+            determines the precise <strong>geographic blast radius</strong>,
+            checks redundancy/failover status, and estimates
+            <strong>time-to-resolution</strong>.
+          </div>
+          <div class="why-box">
+            <div class="why-label">Why this matters</div>
+            <div class="why-text">
+              Without knowing exactly what broke, every downstream communication is guesswork.
+              This agent converts raw telemetry into an actionable assessment in seconds &mdash;
+              work that would take a senior NOC engineer 15-30 minutes manually.
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="side-box">
+            <div class="side-label">Data Sources</div>
+            <div class="side-item"><span class="dot-tool"></span>get_all_active_alerts()</div>
+            <div class="side-item"><span class="dot-tool"></span>query_network_alerts()</div>
+          </div>
+          <div class="side-box">
+            <div class="side-label">Writes to State</div>
+            <div class="side-item"><span class="dot-write"></span>network_analysis</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="conn"><div class="conn-line"></div><div class="conn-label">>> sequential</div><div class="conn-arrow"></div></div>
+
+    <!-- STEP 2 -->
+    <div class="agent t-flash reveal">
+      <div class="agent-top">
+        <div class="agent-badge flash">2</div>
+        <div class="agent-titles">
+          <div class="agent-name">Customer Impact Analyst</div>
+          <div class="agent-sub">Translates technical outage into business impact</div>
+        </div>
+        <div class="agent-model flash">Gemini 3.1 Flash</div>
+      </div>
+      <div class="agent-content">
+        <div>
+          <div class="what-label">What it does</div>
+          <div class="what-text">
+            Queries the <strong>Customer Accounts Database</strong> and cross-references
+            the blast radius with customer locations. Stratifies the list by
+            <strong>business priority</strong>: life-safety sites (hospitals, 911),
+            enterprise SLA clients, government agencies, VIP residential, and general subscribers.
+            Calculates total SLA financial exposure.
+          </div>
+          <div class="why-box">
+            <div class="why-label">Why this matters</div>
+            <div class="why-text">
+              Not all customers are equal during an outage. A hospital losing connectivity is a
+              life-safety emergency. An enterprise client with a $2M SLA triggers massive payouts.
+              This prioritization is impossible to do manually across thousands of accounts in minutes.
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="side-box">
+            <div class="side-label">Data Sources</div>
+            <div class="side-item"><span class="dot-tool"></span>get_affected_customers()</div>
+            <div class="side-item"><span class="dot-tool"></span>get_customer_sla_details()</div>
+          </div>
+          <div class="side-box">
+            <div class="side-label">Reads from State</div>
+            <div class="side-item"><span class="dot-read"></span>network_analysis</div>
+          </div>
+          <div class="side-box">
+            <div class="side-label">Writes to State</div>
+            <div class="side-item"><span class="dot-write"></span>customer_impact_report</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="conn"><div class="conn-line"></div><div class="conn-label">>> into parallel fanout</div><div class="conn-arrow"></div></div>
+
+    <!-- STEP 3: PARALLEL DRAFTERS -->
+    <div class="fan-out reveal">
+      <div class="fan-tag">Parallel Execution ( A | B | C )</div>
+      <div class="fan-why">3 audiences, 3 tones, simultaneously</div>
+
+      <div class="fan-grid">
+
+        <!-- 3a -->
+        <div class="agent t-pro">
+          <div class="agent-top">
+            <div class="agent-badge pro" style="width:38px;height:38px;font-size:14px;">3a</div>
+            <div class="agent-titles">
+              <div class="agent-name" style="font-size:15px;">Enterprise Drafter</div>
+            </div>
+          </div>
+          <div class="agent-content">
+            <div>
+              <div class="comm-type enterprise">Enterprise + Government</div>
+              <div class="what-text" style="font-size:13px;">
+                <strong>Formal, technical notifications</strong> for each enterprise and government account.
+                References their specific SLA tier, acknowledges the credit clock, and provides
+                dedicated incident bridge numbers. Life-safety accounts get emergency escalation paths.
+              </div>
+              <div class="why-box">
+                <div class="why-label">Use Case Requirement</div>
+                <div class="why-text" style="font-size:12px;">"A formal, technical notification detailing the issue and referencing their SLA."</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3b -->
+        <div class="agent t-flash">
+          <div class="agent-top">
+            <div class="agent-badge flash" style="width:38px;height:38px;font-size:14px;">3b</div>
+            <div class="agent-titles">
+              <div class="agent-name" style="font-size:15px;">VIP Residential Drafter</div>
+            </div>
+          </div>
+          <div class="agent-content">
+            <div>
+              <div class="comm-type vip">VIP Residential</div>
+              <div class="what-text" style="font-size:13px;">
+                <strong>Warm, empathetic SMS and email</strong> for high-profile residential customers.
+                Simple explanation (no jargon), personal apology, dedicated support rep contact,
+                and a proactive service credit offered without being asked.
+              </div>
+              <div class="why-box">
+                <div class="why-label">Use Case Requirement</div>
+                <div class="why-text" style="font-size:12px;">"A simplified, empathetic message via SMS or email with the ETR."</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3c -->
+        <div class="agent t-lite">
+          <div class="agent-top">
+            <div class="agent-badge lite" style="width:38px;height:38px;font-size:14px;">3c</div>
+            <div class="agent-titles">
+              <div class="agent-name" style="font-size:15px;">Mass Notification Drafter</div>
+            </div>
+          </div>
+          <div class="agent-content">
+            <div>
+              <div class="comm-type mass">General Subscribers</div>
+              <div class="what-text" style="font-size:13px;">
+                <strong>SMS blast, push notification, status page, and email template</strong>
+                for thousands of subscribers. Under 160 chars for SMS, no jargon,
+                honest ETR, and a link to the status page.
+              </div>
+              <div class="why-box">
+                <div class="why-label">Business Impact</div>
+                <div class="why-text" style="font-size:12px;">This is the 30% call volume reduction lever &mdash; proactively notify before they call in.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="conn"><div class="conn-line"></div><div class="conn-label">>> sequential</div><div class="conn-arrow"></div></div>
+
+    <!-- STEP 4 -->
+    <div class="agent t-flash reveal">
+      <div class="agent-top">
+        <div class="agent-badge flash">4</div>
+        <div class="agent-titles">
+          <div class="agent-name">Approval Summarizer</div>
+          <div class="agent-sub">Executive dashboard for one-click send</div>
+        </div>
+        <div class="agent-model flash">Gemini 3.1 Flash</div>
+      </div>
+      <div class="agent-content">
+        <div>
+          <div class="what-label">What it does</div>
+          <div class="what-text">
+            Consolidates everything &mdash; technical analysis, impact assessment, and all drafted
+            communications &mdash; into a single, scannable <strong>executive approval dashboard</strong>.
+            Shows a numbered queue of every message, total SLA credit liability,
+            and a priority timeline (critical within 15 min, high within 30 min, mass within 2 hours).
+          </div>
+          <div class="why-box">
+            <div class="why-label">Why this matters</div>
+            <div class="why-text">
+              The communications manager can review and approve all notifications in under 60 seconds.
+              AI drafts, humans approve &mdash; no message goes out without human sign-off.
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="side-box">
+            <div class="side-label">Reads All Prior State</div>
+            <div class="side-item"><span class="dot-read"></span>network_analysis</div>
+            <div class="side-item"><span class="dot-read"></span>customer_impact_report</div>
+            <div class="side-item"><span class="dot-read"></span>enterprise_communications</div>
+            <div class="side-item"><span class="dot-read"></span>vip_communications</div>
+            <div class="side-item"><span class="dot-read"></span>mass_communications</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══ HUMAN-IN-THE-LOOP ═══ -->
+  <div class="human reveal">
+    <div class="human-card">
+      <div class="human-icon">&#x1F464;</div>
+      <h3>Human-in-the-Loop Approval</h3>
+      <p>All drafted notifications are routed to the communications manager for
+        <strong>final one-click approval</strong> before dissemination.
+        They can approve all, modify individual messages, or dismiss.
+        The AI handles speed and scale &mdash; the human retains full control.</p>
+      <div class="mock-btns">
+        <div class="mbtn ghost">DISMISS</div>
+        <div class="mbtn ghost">MODIFY</div>
+        <div class="mbtn go">APPROVE &amp; SEND ALL</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ ARCHITECTURE DECISIONS ═══ -->
+  <div class="sec-head reveal">
+    <div class="sec-kicker">Architecture Decisions</div>
+    <h2>Why We Built It This Way</h2>
+  </div>
+
+  <div class="decisions reveal">
+    <div class="dec-card">
+      <div class="dec-title">Tiered Model Strategy</div>
+      <div class="dec-text">
+        Pro for complex reasoning (root cause, formal comms),
+        Flash for fast analysis (impact, approval),
+        Lite for high-volume templates (mass notifications).
+        Cost-optimized without sacrificing quality.
+      </div>
+      <div class="dec-tags"><span class="dec-tag">Pro</span><span class="dec-tag">Flash</span><span class="dec-tag">Lite</span></div>
+    </div>
+    <div class="dec-card">
+      <div class="dec-title">Parallel Drafting</div>
+      <div class="dec-text">
+        Enterprise, VIP, and mass comms draft simultaneously using the | operator.
+        This cuts pipeline time by ~60% &mdash; critical when SLA clocks are ticking.
+      </div>
+      <div class="dec-tags"><span class="dec-tag">FanOut</span><span class="dec-tag">adk-fluent |</span></div>
+    </div>
+    <div class="dec-card">
+      <div class="dec-title">Outage Resilience</div>
+      <div class="dec-text">
+        The system must survive the outage it's responding to. Cloud Run + external AI APIs
+        means no dependency on failing infrastructure.
+      </div>
+      <div class="dec-tags"><span class="dec-tag">Cloud Run</span><span class="dec-tag">External APIs</span></div>
+    </div>
+    <div class="dec-card">
+      <div class="dec-title">State-Driven Context</div>
+      <div class="dec-text">
+        Each agent writes to shared state. Downstream agents read exactly what they need &mdash;
+        no wasted tokens, precise context engineering.
+      </div>
+      <div class="dec-tags"><span class="dec-tag">.writes()</span><span class="dec-tag">C.from_state()</span></div>
+    </div>
+    <div class="dec-card">
+      <div class="dec-title">Real-Time Visibility</div>
+      <div class="dec-text">
+        Every pipeline event streams live via SSE to the NOC dashboard.
+        Operators watch the AI work in real time &mdash; full transparency.
+      </div>
+      <div class="dec-tags"><span class="dec-tag">SSE</span><span class="dec-tag">EventSource</span></div>
+    </div>
+    <div class="dec-card">
+      <div class="dec-title">Structured Prompts</div>
+      <div class="dec-text">
+        Every agent uses P.role() + P.task() + P.constraint() for precise persona engineering.
+        Repeatable, auditable prompt architecture.
+      </div>
+      <div class="dec-tags"><span class="dec-tag">P.role()</span><span class="dec-tag">P.task()</span><span class="dec-tag">P.constraint()</span></div>
+    </div>
+  </div>
+
+  <!-- ═══ LEGEND ═══ -->
+  <div class="legend reveal">
+    <div class="leg"><div class="leg-dot pro"></div>Gemini 3.1 Pro &mdash; Complex Reasoning</div>
+    <div class="leg"><div class="leg-dot flash"></div>Gemini 3.1 Flash &mdash; Fast Analysis</div>
+    <div class="leg"><div class="leg-dot lite"></div>Gemini 3.1 Flash Lite &mdash; High Volume</div>
+  </div>
+
+</div>
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>

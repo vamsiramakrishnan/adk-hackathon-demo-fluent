@@ -16,6 +16,9 @@ from adk_fluent import Agent, FanOut, S, C, P
 from dotenv import load_dotenv
 
 from .tools import (
+    calculate_sla_exposure,
+    check_communication_infrastructure,
+    estimate_call_volume,
     get_affected_customers,
     get_all_active_alerts,
     get_customer_sla_details,
@@ -29,8 +32,8 @@ load_dotenv()
 # Model tiers
 # ---------------------------------------------------------------------------
 PRO = "gemini-3.1-pro-preview"
-FLASH = "gemini-3.1-flash-preview"
-LITE = "gemini-3.1-flash-lite"
+FLASH = "gemini-2.0-flash"
+LITE = "gemini-2.0-flash"
 
 # ---------------------------------------------------------------------------
 # Agent 1: Network Analyst
@@ -71,6 +74,49 @@ network_analyst = (
 )
 
 # ---------------------------------------------------------------------------
+# Agent 1.5: Resilience Check
+# ---------------------------------------------------------------------------
+# Verifies that the outage doesn't affect our own communication infrastructure.
+# This is a critical meta-check — we can't notify customers through channels
+# that are themselves down.
+resilience_checker = (
+    Agent("resilience_checker", FLASH)
+    .instruct(
+        P.role(
+            "You are a communications infrastructure reliability engineer. Your job is to verify "
+            "that our own notification systems (SMS gateways, email relays, push notification "
+            "services, IVR systems, status page) are not impacted by the same outage we're "
+            "trying to communicate about."
+        )
+        + P.task(
+            "Before we send any customer notifications, verify our communication channels are intact.\n\n"
+            "Network Analysis:\n{network_analysis}\n\n"
+            "1. Extract ALL affected zones from the network analysis.\n"
+            "2. Call `check_communication_infrastructure` with those zones.\n"
+            "3. Produce a RESILIENCE REPORT with:\n\n"
+            "**COMMUNICATION CHANNEL STATUS**:\n"
+            "For each channel (SMS, Email, Push, IVR, Status Page):\n"
+            "- Status: OPERATIONAL / AT RISK / DEGRADED\n"
+            "- If at risk: which zones overlap and what's the fallback\n\n"
+            "**RECOMMENDATION**:\n"
+            "- If all clear: 'All channels operational — proceed with standard notification plan.'\n"
+            "- If impacted: Specify which channels to avoid and which fallbacks to use.\n"
+            "- Flag any channels where we MUST use a third-party fallback.\n\n"
+            "**NOTIFICATION PLAN ADJUSTMENTS**:\n"
+            "- Any modifications to the standard notification flow based on channel availability."
+        )
+        + P.constraint(
+            "This check is NON-NEGOTIABLE — never skip it.",
+            "If our SMS gateway is down, we cannot send SMS notifications — recommend alternatives.",
+            "Always call the check_communication_infrastructure tool — never assume channels are up.",
+        )
+    )
+    .tool(check_communication_infrastructure)
+    .context(C.from_state("network_analysis"))
+    .writes("resilience_report")
+)
+
+# ---------------------------------------------------------------------------
 # Agent 2: Customer Impact Analyst
 # ---------------------------------------------------------------------------
 # Cross-references blast radius with customer database to identify and
@@ -103,8 +149,13 @@ customer_impact_analyst = (
             "- Total residential subscriber count affected\n"
             "- Recommended notification channels\n\n"
             "**FINANCIAL EXPOSURE SUMMARY**:\n"
-            "- Total SLA credit risk in dollars (calculate based on hourly rates and ETR)\n"
-            "- Number of contracts at risk of breach"
+            "- Use `calculate_sla_exposure` for each PLATINUM and GOLD account to get exact dollar figures\n"
+            "- Total SLA credit risk in dollars\n"
+            "- Number of contracts at risk of breach\n"
+            "- Time until next SLA breach threshold\n\n"
+            "**CALL CENTER IMPACT**:\n"
+            "- Use `estimate_call_volume` with the total affected customer count and severity\n"
+            "- Include projected call volume, staffing needs, and cost savings from proactive communication"
         )
         + P.constraint(
             "Always query the database — never guess which customers are affected.",
@@ -114,6 +165,8 @@ customer_impact_analyst = (
     )
     .tool(get_affected_customers)
     .tool(get_customer_sla_details)
+    .tool(calculate_sla_exposure)
+    .tool(estimate_call_volume)
     .context(C.from_state("network_analysis"))
     .writes("customer_impact_report")
 )
@@ -158,7 +211,7 @@ enterprise_drafter = (
         )
     )
     .tool(log_communication_action)
-    .context(C.from_state("network_analysis", "customer_impact_report"))
+    .context(C.from_state("network_analysis", "customer_impact_report", "resilience_report"))
     .writes("enterprise_communications")
 )
 
@@ -200,7 +253,7 @@ vip_drafter = (
         )
     )
     .tool(log_communication_action)
-    .context(C.from_state("network_analysis", "customer_impact_report"))
+    .context(C.from_state("network_analysis", "customer_impact_report", "resilience_report"))
     .writes("vip_communications")
 )
 
@@ -247,7 +300,7 @@ mass_drafter = (
             "Be honest about the timeline — don't overpromise.",
         )
     )
-    .context(C.from_state("network_analysis", "customer_impact_report"))
+    .context(C.from_state("network_analysis", "customer_impact_report", "resilience_report"))
     .writes("mass_communications")
 )
 
@@ -266,6 +319,7 @@ approval_summarizer = (
         + P.task(
             "Compile a comprehensive APPROVAL DASHBOARD for the communications manager.\n\n"
             "Network Analysis:\n{network_analysis}\n\n"
+            "Resilience Report:\n{resilience_report}\n\n"
             "Customer Impact:\n{customer_impact_report}\n\n"
             "Enterprise Communications:\n{enterprise_communications}\n\n"
             "VIP Communications:\n{vip_communications}\n\n"
@@ -305,6 +359,7 @@ approval_summarizer = (
     .context(
         C.from_state(
             "network_analysis",
+            "resilience_report",
             "customer_impact_report",
             "enterprise_communications",
             "vip_communications",
@@ -320,7 +375,7 @@ approval_summarizer = (
 outage_response_pipeline = (
     S.capture("alert_text")
     >> network_analyst
-    >> customer_impact_analyst
+    >> (resilience_checker | customer_impact_analyst)
     >> (enterprise_drafter | vip_drafter | mass_drafter)
     >> approval_summarizer
 )

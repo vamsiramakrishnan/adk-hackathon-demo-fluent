@@ -48,6 +48,11 @@ async def index():
     return FileResponse(STATIC_DIR / "index.html")
 
 
+@app.get("/architecture")
+async def architecture():
+    return FileResponse(STATIC_DIR / "architecture.html")
+
+
 # ── Alert Data API ───────────────────────────────────────────────────────────
 @app.get("/api/alerts")
 async def list_alerts():
@@ -111,7 +116,8 @@ async def run_agent_sse(alert_id: str, request: Request):
     async def event_generator():
         stage_map = {
             "network_analyst": {"stage": "network_analysis", "label": "Network Analyst", "icon": "1", "order": 1},
-            "customer_impact_analyst": {"stage": "customer_impact", "label": "Customer Impact Analyst", "icon": "2", "order": 2},
+            "resilience_checker": {"stage": "resilience_check", "label": "Resilience Check", "icon": "2a", "order": 2},
+            "customer_impact_analyst": {"stage": "customer_impact", "label": "Customer Impact Analyst", "icon": "2b", "order": 2},
             "enterprise_comm_drafter": {"stage": "enterprise_comms", "label": "Enterprise Comms", "icon": "3a", "order": 3},
             "vip_residential_drafter": {"stage": "vip_comms", "label": "VIP Comms", "icon": "3b", "order": 3},
             "mass_notification_drafter": {"stage": "mass_comms", "label": "Mass Notifications", "icon": "3c", "order": 3},
