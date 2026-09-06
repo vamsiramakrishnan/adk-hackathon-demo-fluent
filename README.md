@@ -1,10 +1,25 @@
 # NOC Command
 
+**Turn a simulated network alert into customer-impact analysis and three audience-specific communication drafts.**
+
 A Google ADK demo that turns a simulated network outage into customer-impact analysis and drafted communications.
 
 The pipeline is authored with `adk-fluent`. Two analysis agents run first, three audience-specific drafting agents fan out in parallel, and a final agent assembles the drafts for approval.
 
 This repository uses simulated network and customer data. It does not connect to a production NOC, CRM, notification system, or SLA database by default.
+
+## Run one outage all the way through
+
+1. Follow [setup](#setup) and choose the configured model backend.
+2. Start the [dashboard](#run-the-dashboard) and select an alert.
+3. Inspect the affected infrastructure, customer impact, and three drafts.
+4. Review the final approval view before connecting any real delivery system.
+
+The data is simulated, but running the agents uses the configured model
+service. Draft production and message delivery are separate: this demo does
+not send customer notifications by default. The [demo-data section](#demo-data)
+explains how to vary the scenario.
+
 
 ## Pipeline
 
